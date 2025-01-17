@@ -40,7 +40,10 @@ const server = net.createServer((connection) => {
         return connection.write("+OK\r\n")
       }
       
-      if (get) return connection.write(`$${storage[inputArray[4]].length}\r\n${storage[inputArray[4]]}\r\n` || '$-1\r\n')
+      if (get) {
+        console.log(storage[inputArray[4]]==undefined,'$-1\r\n')
+        return connection.write(`$${storage[inputArray[4]].length}\r\n${storage[inputArray[4]]}\r\n`)
+    }
 
     })
 
