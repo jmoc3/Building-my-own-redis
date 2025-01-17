@@ -22,15 +22,14 @@ const server = net.createServer((connection) => {
             return connection.write(res)
         }
 
-        const setTrue = inputArray[3] == "set"
-        const getTrue = inputArray[3] == "get"
-        
+        const setTrue = inputArray[2] == "set"
+        const getTrue = inputArray[2] == "get"
+
         if (setTrue) {
-            data[inputArray[5]] = inputArray[7]
-            console.log(data)
+            data[inputArray[4]] = inputArray[5]
             return connection.write("+OK\r\n")
         }
-        if (getTrue) return connection.write(`$${data[inputArray[5]].length}\r\n${data[inputArray[5]]}\r\n`)
+        if (getTrue) return connection.write(`$${data[inputArray[4]].length}\r\n${data[inputArray[4]]}\r\n`)
 
 
 
