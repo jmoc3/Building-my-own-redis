@@ -8,21 +8,14 @@ const server = net.createServer((connection) => {
 
     connection.on("data", (data)=>{
         
-        const request = data.toString()
-        const requestFormatted = JSON.stringify(request)
-        const command = request.split("\r\n")
-        console.log({command})
-        switch (command[2]) {
-            case "PING":
-                return connection.write(`+PONG\r\n`);
-            case "ECHO":
-                const value = command[4]
-                return connection.write(`$${value.length}\r\n${value}\r\n`);
-            
-            default:
-                throw new Error(`Not implement ${requestFormatted}`)
-        }
-    
+        const commands = Buffer.from(data).toString().split("\r\n");
+    // *2\r\n $5 \r\n ECHO \r\n $3 \r\n hey \r\n
+    if (commands[2] == "ECHO") {
+      const str = commands[4];
+      const l = str.length;
+      return connection.write("$" + l + "\r\n" + str + "\r\n");
+    }
+        
     })
 
     connection.on("end", ()=>{
