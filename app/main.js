@@ -15,7 +15,7 @@ const server = net.createServer((connection) => {
         const input = Buffer.from(clientInput).toString().toLowerCase()
         const inputArray =  input.split("\r\n")
         console.log(inputArray)
-        const echoTrue = inputArray[3] == "echo"
+        const echoTrue = inputArray[2] == "echo"
 
         if(echoTrue){
             const res = inputArray.filter((_,i)=>i>inputArray.indexOf("echo")).join("\r\n")
