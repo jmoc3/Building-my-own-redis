@@ -9,9 +9,9 @@ const server = net.createServer((connection) => {
     connection.on("data", (data)=>{
         const input = Buffer.from(data).toString().toLowerCase() 
         const echoTrue = input.split("\r\n").includes("echo")
-        
+        console.log()
         if(echoTrue){
-            const res = input.split(" ").filter((_,i)=>i>input.split(" ").indexOf("echo")).join(" ")
+            const res = input.split(" ").filter((_,i)=>i>input.split("\r\n").indexOf("echo")).join(" ")
             connection.write("$"+res.length+"\r\n"+res+"\r\n")
         }
     })
