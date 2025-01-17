@@ -7,8 +7,9 @@ console.log("Logs from your program will appear here!");
 const server = net.createServer((connection) => {
 
     connection.on("data", (data)=>{
-        if(data.toString().toLowerCase().startsWith("echo")){
-            connection.write(`${data.toString().slice(5,-1)}\r\n`)
+        const input = data.toString().trim() 
+        if(input.toLowerCase().startsWith("echo")){
+            connection.write(`$${input.slice(5).length}\r\n${input.slice(5)}\r\n`)
         }
     })
 
