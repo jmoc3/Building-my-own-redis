@@ -2,11 +2,11 @@ const net = require("net");
 
 // You can use print statements as follows for debugging, they'll be visible when running tests.
 console.log("Logs from your program will appear here!");
+const storage = {}
 
 // Uncomment this block to pass the first stage
 const server = net.createServer((connection) => {
 
-    const data = {}
 
     connection.on("data", (clientInput)=>{
 
@@ -26,10 +26,10 @@ const server = net.createServer((connection) => {
         const getTrue = inputArray[2] == "get"
 
         if (setTrue) {
-            data[inputArray[4]] = inputArray[6]
+            storage[inputArray[4]] = inputArray[6]
             return connection.write("+OK\r\n")
         }
-        if (getTrue) return connection.write(`$${data[inputArray[4]].length}\r\n${data[inputArray[4]]}\r\n`)
+        if (getTrue) return connection.write(`$${storage[inputArray[4]].length}\r\n${storage[inputArray[4]]}\r\n`)
 
 
 
