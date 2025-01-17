@@ -30,7 +30,7 @@ const server = net.createServer((connection) => {
             return connection.write("+OK\r\n")
         }
         if (getTrue) {
-            console.log(storage[inputArray[4]])
+            console.log(storage)
             return connection.write(`$${storage[inputArray[4]].length}\r\n${storage[inputArray[4]]}\r\n`)}
 
 
