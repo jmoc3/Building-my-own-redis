@@ -8,7 +8,7 @@ const server = net.createServer((connection) => {
 
     connection.on("data", (data)=>{
         const input = Buffer.from(data).toString().toLowerCase()
-        const inputArray =  input.split("\r\n").slice(0,-1) 
+        const inputArray =  input.split("\r\n")
         const echoTrue = inputArray.includes("echo")
         console.log(inputArray)
         if(echoTrue){
