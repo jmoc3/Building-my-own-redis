@@ -6,18 +6,25 @@ console.log("Logs from your program will appear here!");
 // Uncomment this block to pass the first stage
 const server = net.createServer((connection) => {
 
-    connection.on("data", (data)=>{
-        console.log(data.toString())
-        if (data.toString()=="*1\r\n$4\r\nPING\r\n") return connection.write("$4\r\nPONG\r\n")
+    const data = {}
 
-        const input = Buffer.from(data).toString().toLowerCase()
+    connection.on("data", (clientInput)=>{
+
+        if (clientInput.toString()=="*1\r\n$4\r\nPING\r\n") return connection.write("$4\r\nPONG\r\n")
+
+        const input = Buffer.from(clientInput).toString().toLowerCase()
         const inputArray =  input.split("\r\n")
+        console.log(inputArray)
         const echoTrue = inputArray.includes("echo")
 
         if(echoTrue){
             const res = inputArray.filter((_,i)=>i>inputArray.indexOf("echo")).join("\r\n")
             connection.write(res)
         }
+
+        
+        
+
     })
 
     connection.on("end", ()=>{
