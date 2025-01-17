@@ -12,6 +12,7 @@ const server = net.createServer((connection) => {
         console.log(input.split("\r\n"))
         if(echoTrue){
             const res = input.split("\r\n").filter((_,i)=>i>input.split("\r\n").indexOf("echo")).join("\r\n")
+            console.log(res)
             connection.write("$"+res.length+"\r\n"+res+"\r\n")
         }
     })
