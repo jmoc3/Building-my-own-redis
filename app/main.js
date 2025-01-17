@@ -35,7 +35,14 @@ const server = net.createServer((connection) => {
 
       const pxConf = inputArray[8] == "px"
 
-      if (pxConf) setTimeout( ()=>{ delete storage[inputArray[4]] }, inputArray[10])
+    
+      if (pxConf) {
+        console.log(storage[inputArray[4]])
+        setTimeout( ()=>{ 
+            delete storage[inputArray[4]] 
+            console.log(storage[inputArray[4]])
+        }, inputArray[10])
+    }
 
     })
 
