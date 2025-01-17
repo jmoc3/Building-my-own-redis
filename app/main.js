@@ -7,15 +7,13 @@ console.log("Logs from your program will appear here!");
 const server = net.createServer((connection) => {
 
     connection.on("data", (data)=>{
-        
-        const commands = Buffer.from(data).toString().split("\r\n");
-    // *2\r\n $5 \r\n ECHO \r\n $3 \r\n hey \r\n
-    if (commands[2] == "ECHO") {
-      const str = commands[4];
-      const l = str.length;
-      return connection.write("$" + l + "\r\n" + str + "\r\n");
-    }
-        
+        const input = Buffer.from(data).toString().toLowerCase() 
+        const echoTrue = input.split("\r\n").includes("echo")
+
+        if(echoTrue){
+            const res = input.split(" ").filter((_,i)=>i>input.split(" ").indexOf("echo")).join(" ")
+            connection.write("$"+res.length+"\r\n"+res+"\r\n")
+        }
     })
 
     connection.on("end", ()=>{
