@@ -27,6 +27,7 @@ const server = net.createServer((connection) => {
         
         if (setTrue) {
             data[inputArray[5]] = inputArray[7]
+            console.log(data)
             return connection.write("+OK\r\n")
         }
         if (getTrue) return connection.write(`$${data[inputArray[5]].length}\r\n${data[inputArray[5]]}\r\n`)
