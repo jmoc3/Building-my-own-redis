@@ -7,7 +7,7 @@ console.log("Logs from your program will appear here!");
 const server = net.createServer((connection) => {
 
     connection.on("data", (data)=>{
-
+        console.log(data.toString())
         if (data.toString()=="PING") return connection.write("$2\r\nPONG\r\n")
 
         const input = Buffer.from(data).toString().toLowerCase()
