@@ -40,7 +40,7 @@ const server = net.createServer((connection) => {
         setTimeout( ()=>{ 
             delete storage[inputArray[4]] 
             console.log(storage[inputArray[4]])
-        }, inputArray[10])
+        }, +inputArray[10])
     }
 
     })
