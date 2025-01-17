@@ -12,7 +12,7 @@ const server = net.createServer((connection) => {
 
         if(echoTrue){
             const res = input.split(" ").filter((_,i)=>i>input.split(" ").indexOf("echo")).join(" ")
-            connection.write(`$${res.length}\r\n${res}\r\n`)
+            connection.write("$"+res.length+"\r\n"+res+"\r\n")
         }
     })
 
