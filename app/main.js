@@ -15,15 +15,20 @@ const server = net.createServer((connection) => {
         const input = Buffer.from(clientInput).toString().toLowerCase()
         const inputArray =  input.split("\r\n")
         console.log(inputArray)
-        const echoTrue = inputArray.includes("echo")
+        const echoTrue = inputArray[3] == "echo"
 
         if(echoTrue){
             const res = inputArray.filter((_,i)=>i>inputArray.indexOf("echo")).join("\r\n")
-            connection.write(res)
+            return connection.write(res)
         }
 
+        const setTrue = inputArray[3] == "set"
+        const getTrue = inputArray[3] == "get"
         
-        
+        if (setTrue) data[inputArray[5]] = inputArray[7]
+        if (getTrue) connection.write(data[inputArray[5]])
+
+
 
     })
 
