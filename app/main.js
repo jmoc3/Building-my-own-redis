@@ -8,7 +8,7 @@ const server = net.createServer((connection) => {
 
     connection.on("data", (data)=>{
         console.log(data.toString())
-        if (data.toString()=="PING") return connection.write("$2\r\nPONG\r\n")
+        if (data.toString()=="*1\r\n$4\r\nPING\r\n") return connection.write("$2\r\nPONG\r\n")
 
         const input = Buffer.from(data).toString().toLowerCase()
         const inputArray =  input.split("\r\n")
