@@ -8,32 +8,34 @@ const storage = {}
 const server = net.createServer((connection) => {
 
 
-    connection.on("data", (clientInput)=>{
+  connection.on("data", (clientInput)=>{
 
-        if (clientInput.toString()=="*1\r\n$4\r\nPING\r\n") return connection.write("$4\r\nPONG\r\n")
+    if (clientInput.toString()=="*1\r\n$4\r\nPING\r\n") return connection.write("$4\r\nPONG\r\n")
 
-        const input = Buffer.from(clientInput).toString().toLowerCase()
-        const inputArray =  input.split("\r\n")
-        console.log(inputArray)
-        const echoTrue = inputArray[2] == "echo"
+      const input = Buffer.from(clientInput).toString().toLowerCase()
+      const inputArray =  input.split("\r\n")
+      console.log(inputArray)
+      const echo = inputArray[2] == "echo"
 
-        if(echoTrue){
-            const res = inputArray.filter((_,i)=>i>inputArray.indexOf("echo")).join("\r\n")
-            return connection.write(res)
-        }
+      if(echo){
+        const res = inputArray.filter((_,i)=>i>inputArray.indexOf("echo")).join("\r\n")
+        return connection.write(res)
+      }
 
-        const setTrue = inputArray[2] == "set"
-        const getTrue = inputArray[2] == "get"
+      const set = inputArray[2] == "set"
+      const get = inputArray[2] == "get"
+      if (set) {
 
-        if (setTrue) {
-            storage[inputArray[4]] = inputArray[6]
-            return connection.write("+OK\r\n")
-        }
-        if (getTrue) {
-            console.log(storage)
-            return connection.write(`$${storage[inputArray[4]].length}\r\n${storage[inputArray[4]]}\r\n`)}
+        storage[inputArray[4]] = inputArray[6]
+        return connection.write("+OK\r\n")
 
+      }
 
+      if (get) return connection.write(`$${storage[inputArray[4]].length}\r\n${storage[inputArray[4]]}\r\n` || '$-1\r\n')
+
+      const pxConf = inputArray[8] == "px"
+
+      if (pxConf) setTimeout( delete storage[inputArray[4]] , inputArray[10])
 
     })
 
