@@ -23,24 +23,24 @@ const server = net.createServer((connection) => {
 
       const set = inputArray[2] == "set"
       const get = inputArray[2] == "get"
+      const pxConf = inputArray[8] == "px"
+
       if (set) {
 
         storage[inputArray[4]] = inputArray[6]
-        return connection.write("+OK\r\n")
 
-      }
-
-      if (get) return connection.write(`$${storage[inputArray[4]].length}\r\n${storage[inputArray[4]]}\r\n` || '$-1\r\n')
-
-      const pxConf = inputArray[8] == "px"
-
-    
-      console.log(storage[inputArray[4]],+inputArray[10])
-      if (pxConf) {
+        if (!pxConf) {    
+            return connection.write("+OK\r\n")
+        }
+        
         setTimeout( ()=>{ 
             delete storage[inputArray[4]] 
         }, +inputArray[10])
-    }
+     
+        return connection.write("+OK\r\n")
+      }
+      
+      if (get) return connection.write(`$${storage[inputArray[4]].length}\r\n${storage[inputArray[4]]}\r\n` || '$-1\r\n')
 
     })
 
