@@ -20,25 +20,29 @@ const server = net.createServer((connection) => {
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
       let flag = false
       const dbFileConf = {}
-      for(let i = 0; i<file.length; i++){
+      
+      file.map(hex =>{
+        console.log(hex)
+      })
+      // for(let i = 0; i<file.length; i++){
         
-        if(file[i].toString(16).padStart(2,"0")=="fb") flag=true
-        if (!flag) continue
+      //   if(file[i].toString(16).padStart(2,"0")=="fb") flag=true
+      //   if (!flag) continue
         
-        dbFileConf["rows"] = file[i+1]
-        dbFileConf["expirity"] = file[i+2]
+      //   dbFileConf["rows"] = file[i+1]
+      //   dbFileConf["expirity"] = file[i+2]
 
-        const keyLength = file[i+4]
+      //   const keyLength = file[i+4]
         
-        const key = `${file}` 
-        const value = `${file}` 
+      //   const key = `${file}` 
+      //   const value = `${file}` 
 
-        dbFileConf["hash"] = {key:""} 
+      //   dbFileConf["hash"] = {key:""} 
 
-        console.log(String.fromCharCode(file[i+7].toString(16)))
-        break
+      //   console.log(String.fromCharCode(file[i+5].toString(16)))
+      //   break
 
-      }
+      // }
     }
     
     
