@@ -28,7 +28,7 @@ const server = net.createServer((connection) => {
         }
       }
       
-      console.log( dbInfoIndex, file[dbInfoIndex])
+      console.log( dbInfoIndex, file.slice(dbInfoIndex,-1))
       // file.map(hex =>{
       //   console.log(hex)
       // })
