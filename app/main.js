@@ -33,7 +33,12 @@ const server = net.createServer((connection) => {
         }
       }
       
-      console.log( dbInfoIndex, file.slice(dbInfoIndex,dbEndInfoIndex))
+      let string = ""
+      const dataStringify = file.slice(dbInfoIndex,dbEndInfoIndex).map(ascii =>{
+        string += `${String.fromCharCode(ascii)}`
+      })
+
+      console.log(string)
       // file.map(hex =>{
       //   console.log(hex)
       // })
