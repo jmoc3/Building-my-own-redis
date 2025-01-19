@@ -22,9 +22,10 @@ const server = net.createServer((connection) => {
       const dbFileConf = {}
 
       const dbInfoIndex = file.filter((ascii,i)=>{
-        if(String.fromCharCode(ascii)=="fb"){
-          return i
-        }
+        console.log(ascii)
+        // if(String.fromCharCode(ascii)=="fb"){
+        //   return i
+        // }
       })
       console.log( dbInfoIndex, file[dbInfoIndex])
       // file.map(hex =>{
