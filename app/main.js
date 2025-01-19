@@ -37,8 +37,12 @@ const server = net.createServer((connection) => {
       
       const fileDataFiltered = file.slice(dbInfoIndex,dbEndInfoIndex)
 
-      fileDataFiltered.forEach(e=>{
-        data.push(String.fromCharCode(`${e}`))
+      fileDataFiltered.forEach((e,i)=>{
+        if((i==4 )||(i==(fileDataFiltered[4]+4))){
+          data.push(String.fromCharCode(e))
+        }else{
+          data.push(String.fromCharCode(`${e}`))
+        }
       })
       console.log(data)
       // file.map(hex =>{
