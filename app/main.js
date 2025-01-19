@@ -36,9 +36,7 @@ const server = net.createServer((connection) => {
       const fileDataFiltered = file.slice(dbInfoIndex,dbEndInfoIndex)
 
       
-      const fileString = fileDataFiltered.map(ascii =>{
-        return `${String.fromCharCode(`${ascii}`)}`
-      })
+      const fileString = fileDataFiltered.map(ascii => String.fromCharCode(`${ascii}`) )
 
       console.log(fileString)
       // file.map(hex =>{
