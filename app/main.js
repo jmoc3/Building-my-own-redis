@@ -9,7 +9,7 @@ const server = net.createServer((connection) => {
 
   // Setting of the default paths of execution passing in the terminal for tests
   const arguments = process.argv;
-  console.log(arguments)
+
   config["dir"] = arguments[3] ?? null
   config["dbfilename"] = arguments[5] ?? null
 
@@ -19,11 +19,24 @@ const server = net.createServer((connection) => {
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
       let flag = false
+      const dbFileConf = {}
       for(let i = 0; i<file.length; i++){
         
-        if(file[i]==0) flag=true
+        if(file[i].toString(16).padStart(2,"0")=="fb") flag=true
         if (!flag) continue
-        console.log(file[i], file[i].toString(16), String.fromCharCode(file[i]))
+        
+        dbFileConf["rows"] = file[i+1]
+        dbFileConf["expirity"] = file[i+2]
+
+        const keyLength = String.fromCharCode(file[i+4])
+        const key = `${file}` 
+        const value = `${file}` 
+
+        dbFileConf["hash"] = {key:""} 
+
+        console.log(String.fromCharCode(file))
+
+        break
 
       }
     }
