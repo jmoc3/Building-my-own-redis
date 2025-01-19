@@ -37,7 +37,7 @@ const server = net.createServer((connection) => {
 
       let string = ""
       fileDataFiltered.forEach(ascii =>{
-        console.log(ascii)
+        console.log(String.fromCharCode(ascii))
         // string += `${String.fromCharCode(ascii)}`
       })
 
