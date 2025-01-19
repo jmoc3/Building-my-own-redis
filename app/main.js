@@ -7,7 +7,9 @@ const config = {}
 
 // Uncomment this block to pass the first stage
 const server = net.createServer((connection) => {
-
+  
+  config["dir"] = process.argv[0] ?? ""
+  config["dbfilename"] = process.argv[1] ?? ""
 
   connection.on("data", (clientInput)=>{
 
@@ -25,12 +27,7 @@ const server = net.createServer((connection) => {
       if(echo){
         const res = inputArray.filter((_,i)=>i>inputArray.indexOf("echo")).join("\r\n")
         return connection.write(res)
-      }
-
-      if(inputArray[2]=="--dir" && inputArray[6]=="--dbfilename"){
-        config["dir"] = inputArray[4]
-        config["dbfilename"] = inputArray[8]
-      }
+      }      
 
       const confGet = (inputArray[2]=="config") && (inputArray[4] == "get")
       
@@ -39,7 +36,6 @@ const server = net.createServer((connection) => {
           return connection.write('$-1\r\n') 
         }
 
-        console.log(`*2\r\n$${inputArray[6].length}\r\n${inputArray[6]}\r\n$${config[inputArray[6]].length}\r\n${config[inputArray[6]]}\r\n`)
         return connection.write(`*2\r\n$${inputArray[6].length}\r\n${inputArray[6]}\r\n$${config[inputArray[6]].length}\r\n${config[inputArray[6]]}\r\n`)
       }
 
