@@ -21,8 +21,9 @@ const server = net.createServer((connection) => {
       let flag = false
       const dbFileConf = {}
 
-      const dbInfoIndex = file.filter((ascii,i)=>{
+      const dbInfoIndex = file.map((ascii,i)=>{
         if(ascii.toString(16)=="fb"){
+          console.log(ascii, i)
           return i
         }
       })
