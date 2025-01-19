@@ -34,7 +34,7 @@ const server = net.createServer((connection) => {
       }
       
       let string = ""
-      const dataStringify = file.slice(dbInfoIndex,dbEndInfoIndex).map(ascii =>{
+      file.slice(dbInfoIndex,dbEndInfoIndex).forEach(ascii =>{
         string += `${String.fromCharCode(ascii)}`
       })
 
