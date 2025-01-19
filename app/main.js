@@ -34,7 +34,8 @@ const server = net.createServer((connection) => {
 
         dbFileConf["hash"] = {key:""} 
 
-        console.log(String.fromCharCode(file[i]))
+        console.log(file[i=4], String.fromCharCode(file[i+4]), keyLength )
+        break
 
       }
     }
