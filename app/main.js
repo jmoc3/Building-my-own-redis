@@ -44,7 +44,7 @@ const server = net.createServer((connection) => {
         data.push(String.fromCharCode(e))
       })
 
-      data
+       console.log(data)
       // file.map(hex =>{
       //   console.log(hex)
       // })
