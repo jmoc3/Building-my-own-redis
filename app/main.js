@@ -20,13 +20,14 @@ const server = net.createServer((connection) => {
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
       let flag = false
       const dbFileConf = {}
-
-      const dbInfoIndex = file.map((ascii,i)=>{
-        if(ascii.toString(16)=="fb"){
-          console.log(ascii, i)
-          return i
+      let dbInfoIndex = 0
+      for (let i = 0; i < file.length; i++) {
+        if (file[i].toString(16) == "fb") {
+          dbInfoIndex = i
+          break
         }
-      })
+      }
+      
       console.log( dbInfoIndex, file[dbInfoIndex])
       // file.map(hex =>{
       //   console.log(hex)
