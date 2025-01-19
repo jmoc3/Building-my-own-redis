@@ -20,10 +20,10 @@ const server = net.createServer((connection) => {
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
       let flag = false
       const dbFileConf = {}
-      
-      file.map(hex =>{
-        console.log(hex)
-      })
+      console.log(file.indexOf("fb"))
+      // file.map(hex =>{
+      //   console.log(hex)
+      // })
       // for(let i = 0; i<file.length; i++){
         
       //   if(file[i].toString(16).padStart(2,"0")=="fb") flag=true
