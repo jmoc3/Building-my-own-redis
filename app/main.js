@@ -19,7 +19,7 @@ const server = net.createServer((connection) => {
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
       for(let i = 0; i<file.length; i++){(
-        console.log(file[i], file[i].toString(16).padStart(2,'0'))
+        console.log(file[i], file[i].toString(16).padStart(2,'0'),String.fromCharCode(file[i]))
       )}
     }
     
