@@ -14,7 +14,7 @@ const server = net.createServer((connection) => {
 
   connection.on("data", (clientInput)=>{
 
-    const file = fs.readFileSync(config["dir","utf-8"])
+    const file = fs.readFileSync(config["dir"],"utf-8")
     console.log(file)
     
     
