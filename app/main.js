@@ -1,5 +1,5 @@
 const net = require("net");
-
+const fs = require("fs")
 // You can use print statements as follows for debugging, they'll be visible when running tests.
 
 const storage = {}
@@ -14,6 +14,10 @@ const server = net.createServer((connection) => {
 
   connection.on("data", (clientInput)=>{
 
+    const file = fs.readFileSync(config["dir","utf-8"])
+    console.log(file)
+    
+    
     // PING configuration
     if (clientInput.toString()=="*1\r\n$4\r\nPING\r\n") return connection.write("$4\r\nPONG\r\n")
 
