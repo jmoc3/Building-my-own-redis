@@ -40,7 +40,7 @@ const server = net.createServer((connection) => {
       fileDataFiltered.forEach(e=>{
         data.push(String.fromCharCode(`${e}`))
       })
-      console.log(data.join(""))
+      console.log(data)
       // file.map(hex =>{
       //   console.log(hex)
       // })
