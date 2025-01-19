@@ -34,7 +34,7 @@ const server = net.createServer((connection) => {
       }
       
       const fileFiltered = file.slice(dbInfoIndex,dbEndInfoIndex)
-      console.log(fileFiltered[4])
+      console.log(String.fromCharCode(fileFiltered[4]))
       // let string = ""
       // file.slice(dbInfoIndex,dbEndInfoIndex).forEach(ascii =>{
       //   string += `${String.fromCharCode(ascii)}`
