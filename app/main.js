@@ -44,7 +44,7 @@ const server = net.createServer((connection) => {
           data.push(String.fromCharCode(`${e}`))
         }
       })
-      console.log(fileDataFiltered[3]+1)
+      console.log(fileDataFiltered[fileDataFiltered[3]+4])
       console.log(data)
       // file.map(hex =>{
       //   console.log(hex)
