@@ -21,14 +21,19 @@ const server = net.createServer((connection) => {
       let flag = false
       const dbFileConf = {}
       let dbInfoIndex = 0
+      let dbEndInfoIndex = 0
       for (let i = 0; i < file.length; i++) {
         if (file[i].toString(16) == "fb") {
           dbInfoIndex = i
+        }
+
+        if (file[i].toString(16) == "ff") {
+          dbEndInfoIndex = i
           break
         }
       }
       
-      console.log( dbInfoIndex, file.slice(dbInfoIndex,-1))
+      console.log( dbInfoIndex, file.slice(dbInfoIndex,dbEndInfoIndex))
       // file.map(hex =>{
       //   console.log(hex)
       // })
