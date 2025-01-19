@@ -8,15 +8,20 @@ const config = {}
 const server = net.createServer((connection) => {
 
   // Setting of the default paths of execution passing in the terminal for tests
-  const arguments = process.argv.slice(2);
+  const arguments = process.argv;
+  console.log(arguments)
   config["dir"] = arguments[1] ?? null
   config["dbfilename"] = arguments[3] ?? null
 
   connection.on("data", (clientInput)=>{
 
-    console.log(config["dir"])
-    const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`,"utf-8")
-    console.log(file)
+    if(config["dir"]!=null){
+      const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
+      // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
+      for(let i = 0; i<file.length; i++){(
+        console.log(file[i], file[i].toString(16).padStart(2,'0'))
+      )}
+    }
     
     
     // PING configuration
