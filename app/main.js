@@ -38,13 +38,13 @@ const server = net.createServer((connection) => {
       const fileDataFiltered = file.slice(dbInfoIndex,dbEndInfoIndex)
 
       fileDataFiltered.forEach((e,i)=>{
-        if((i==3 )){
-          data.push(String.fromCharCode(e))
-        }else{
-          data.push(String.fromCharCode(`${e}`))
-        }
+        data.push(String.fromCharCode(e))
+        // if((i==3 )){
+        // }else{
+        //   data.push(String.fromCharCode(`${e}`))
+        // }
       })
-      console.log(fileDataFiltered[fileDataFiltered[3]+4])
+      // console.log(fileDataFiltered[fileDataFiltered[3]+4])
       console.log(data)
       // file.map(hex =>{
       //   console.log(hex)
