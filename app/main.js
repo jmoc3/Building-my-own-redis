@@ -33,13 +33,15 @@ const server = net.createServer((connection) => {
         }
       }
       
-      const fileFiltered = file.slice(dbInfoIndex,dbEndInfoIndex)
-      console.log(String.fromCharCode(fileFiltered[4]))
-      // let string = ""
-      // file.slice(dbInfoIndex,dbEndInfoIndex).forEach(ascii =>{
-      //   string += `${String.fromCharCode(ascii)}`
-      // })
+      const fileDataFiltered = file.slice(dbInfoIndex,dbEndInfoIndex)
 
+      let string = ""
+      fileDataFiltered.forEach(ascii =>{
+        console.log(ascii)
+        // string += `${String.fromCharCode(ascii)}`
+      })
+
+      console.log(string)
       // file.map(hex =>{
       //   console.log(hex)
       // })
