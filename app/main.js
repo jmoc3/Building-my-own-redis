@@ -21,12 +21,9 @@ const server = net.createServer((connection) => {
       let flag = false
       for(let i = 0; i<file.length; i++){
         
-        if(file[i]==0){
-          flag=true
-        }
-        if (flag){
-          console.log(file[i], file[i].toString(16), String.fromCharCode(file[i]))
-        }
+        if(file[i]==0) flag=true
+        if (!flag) continue
+        console.log(file[i], file[i].toString(16), String.fromCharCode(file[i]))
 
       }
     }
