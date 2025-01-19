@@ -28,13 +28,13 @@ const server = net.createServer((connection) => {
         dbFileConf["rows"] = file[i+1]
         dbFileConf["expirity"] = file[i+2]
 
-        const keyLength = String.fromCharCode(file[i+4])
+        const keyLength = file[i+4]
         const key = `${file}` 
         const value = `${file}` 
 
         dbFileConf["hash"] = {key:""} 
 
-        console.log(file[i+4])
+        console.log(file[i])
         break
 
       }
