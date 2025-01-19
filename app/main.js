@@ -31,6 +31,7 @@ const server = net.createServer((connection) => {
 
       const arguments = process.argv.slice(2);
       const [fileDir, fileName] = [arguments[1] ?? null, arguments[3] ?? null];
+      console.log(process.argv)
       console.log(fileDir, fileName)
 
       const confGet = (inputArray[2]=="config") && (inputArray[4] == "get")
