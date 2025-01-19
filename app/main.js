@@ -24,7 +24,7 @@ const server = net.createServer((connection) => {
       let dbEndInfoIndex = 0
       for (let i = 0; i < file.length; i++) {
         if (file[i].toString(16) == "fb") {
-          dbInfoIndex = i
+          dbInfoIndex = i+1
         }
 
         if (file[i].toString(16) == "ff") {
@@ -40,7 +40,7 @@ const server = net.createServer((connection) => {
       fileDataFiltered.forEach(e=>{
         data.push(String.fromCharCode(`${e}`))
       })
-      console.log(data)
+      console.log(data.join(""))
       // file.map(hex =>{
       //   console.log(hex)
       // })
