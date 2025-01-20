@@ -52,7 +52,7 @@ const server = net.createServer((connection) => {
 
         keyString += String.fromCharCode(file[i]) || " "
 
-        console.log(hexValue, String.fromCharCode(file[i]))
+        console.log(hexValue, String.fromCharCode(file[i]),i)
       }
 
       console.log(config, sizeString, keyString)
