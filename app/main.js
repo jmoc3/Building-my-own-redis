@@ -82,8 +82,7 @@ const server = net.createServer((connection) => {
       storage[pair[0]] = {"value":pair[1], "expirity":0}
       console.log(config)
 
-    } else return connection.write("+THE PATH JUST DOESN'T EXISTS\r\n")
-    
+    } 
     
     // PING configuration
     if (clientInput.toString()=="*1\r\n$4\r\nPING\r\n") return connection.write("$4\r\nPONG\r\n")
