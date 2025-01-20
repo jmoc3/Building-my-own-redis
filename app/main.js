@@ -27,6 +27,7 @@ const server = net.createServer((connection) => {
       
       for(i=0;i<file.length;i++){
         const hexValue =  file[i].toString(16).padStart(2,"0")
+        console.log(hexValue, String.fromCharCode(file[i]),i)
         if(hexValue == "ff") { break }
         if(hexValue == "fb") { fbFound = true; continue }
         if(!fbFound) continue
@@ -52,7 +53,6 @@ const server = net.createServer((connection) => {
         }
         
         if (i==sizeString[1]){
-          console.log(pair[0])
           if (pair[0]==undefined) {pair[0] = keyString; console.log("Fist key done")}
           if ((pair[1]==undefined) && pair[0]) {pair[1] = keyString ; console.log("Second key done")}
           
@@ -63,7 +63,6 @@ const server = net.createServer((connection) => {
         }
         
         keyString += String.fromCharCode(file[i])
-        console.log(hexValue, String.fromCharCode(file[i]),i)
         
       }
 
