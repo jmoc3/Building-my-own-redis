@@ -39,7 +39,7 @@ const server = net.createServer((connection) => {
           continue
         }
         
-        break
+        console.log(hexValue)
       }
 
       console.log(config)
