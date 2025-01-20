@@ -2,7 +2,7 @@ const net = require("net");
 const fs = require("fs")
 // You can use print statements as follows for debugging, they'll be visible when running tests.
 
-const storage = {}
+const storage = []
 const config = {}
 
 const server = net.createServer((connection) => {
@@ -15,6 +15,8 @@ const server = net.createServer((connection) => {
 
   connection.on("data", (clientInput)=>{
 
+    const db = storage.map(e => e.pair)
+    console.log(db)
     if(config["dir"]!=null){
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
@@ -74,6 +76,7 @@ const server = net.createServer((connection) => {
       }
       
       config["data"] = {"expirity":0, "pair" : pair}
+      storage.push({"expirity":0, "pair" : pair})
       console.log(config)
     }
     
@@ -109,7 +112,7 @@ const server = net.createServer((connection) => {
     const pxConf = inputArray[8] == "px"
 
     if (set) {
-      storage[inputArray[4]] = inputArray[6]
+      storage.push({"expirity":0, "pair" : [inputArray[4], inputArray[6]]})
       if (!pxConf) {    
         return connection.write("+OK\r\n")
       }
@@ -125,6 +128,12 @@ const server = net.createServer((connection) => {
       if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].length}\r\n${storage[inputArray[4]]}\r\n`)
       }
       
+    // const keys = inputArray[2] == "keys"
+    // if(keys){
+    //   return connection.write(`*\r\n$${storage[inputArray[4]].length}\r\n${storage[inputArray[4]]}\r\n`)
+    // }
+    
+
     // Default response to something wrong
     return connection.write('$-1\r\n') 
 
