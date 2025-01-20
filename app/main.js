@@ -15,8 +15,6 @@ const server = net.createServer((connection) => {
 
   connection.on("data", (clientInput)=>{
 
-    const db = storage.map(e => e.pair)
-    console.log(db)
     if(config["dir"]!=null){
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
@@ -24,7 +22,7 @@ const server = net.createServer((connection) => {
       let hashTableSizeDefined = false
       let keysWithExpirityDefined = false
       let spaceBewtweenWords = false
-
+      
       let sizeString = [0,0]
       let keyString = ""
       let pair = []
@@ -80,6 +78,8 @@ const server = net.createServer((connection) => {
       console.log(config)
     }
     
+    const db = storage.map(e => e.pair)
+    console.log(db)
     
     // PING configuration
     if (clientInput.toString()=="*1\r\n$4\r\nPING\r\n") return connection.write("$4\r\nPONG\r\n")
