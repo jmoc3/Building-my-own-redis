@@ -12,10 +12,15 @@ const server = net.createServer((connection) => {
 
   config["dir"] = arguments[3] ?? null
   config["dbfilename"] = arguments[5] ?? null
+  const path = `${config["dir"]}/${config["dbfilename"]}`
+  
   console.log(config)
   connection.on("data", (clientInput)=>{
 
     if(config["dir"]!=null){
+      const existFile = fs.existsSync(path)
+      if(!existFile) return connection.write("+THE PATH JUST DOESN'T EXISTS\r\n")
+        
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
       let fbFound = false
