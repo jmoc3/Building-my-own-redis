@@ -20,7 +20,7 @@ const server = net.createServer((connection) => {
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
       
       for(i=0;i<file.length;i++){
-        console.log(String.fromCharCode(file[i].toString().padStart(2,"0")))
+        console.log(file[i].toString().padStart(2,"0"))
       }
 
     }
