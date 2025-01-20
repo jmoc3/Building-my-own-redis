@@ -19,8 +19,6 @@ const server = net.createServer((connection) => {
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
       let fbFound = false
-      let hashTableSizeDefined = false
-      let keysWithExpirityDefined = false
       let spaceBewtweenWords = false
       let sizeString = [0,0]
       let keyString = ""
@@ -34,13 +32,11 @@ const server = net.createServer((connection) => {
         
         if(!config["hashTableSize"]){
           config["hashTableSize"] = String.fromCharCode(hexValue).charCodeAt(0)
-          hashTableSizeDefined = true
           continue
         }
         
-        if(!keysWithExpirityDefined){
+        if(!config["keysWithExpirityDefined"]){
           config["keysWithExpirityDefined"] = String.fromCharCode(hexValue).charCodeAt(0)
-          keysWithExpirityDefined = true
           continue
         }
 
