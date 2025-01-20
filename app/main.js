@@ -69,8 +69,8 @@ const server = net.createServer((connection) => {
         keyString += String.fromCharCode(file[i])
         
         if (i==(sizeString[1])){
-          if (pair[0]==undefined) {pair[0] = keyString; console.log(hexValue, i, sizeString[0], "Fist key done")}
-          else {pair[1] = keyString ; console.log(hexValue, i, sizeString[0], "Second key done")}
+          if (pair[0]==undefined) { pair[0] = keyString }
+          else { pair[1] = keyString }
           
           keyString = ""
           spaceBewtweenWords = true
@@ -137,10 +137,9 @@ const server = net.createServer((connection) => {
       const lenKeyWords = keyWords.map(e => e.length) 
       let res = ""
       for(i=0;i<keyWords.length;i++){
-        console.log(lenKeyWords[i],keyWords[i])
         res += `$${lenKeyWords[i]}\r\n${keyWords[i]}\r\n`
       }
-      console.log(res)
+
       return connection.write(`*${keyWords.length}\r\n${res}`)
     }
     
