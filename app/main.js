@@ -63,7 +63,7 @@ const server = net.createServer((connection) => {
         if(hexValue == "ff") { break }
         
         keyString += String.fromCharCode(file[i])
-        
+        console.log(hexValue, String.fromCharCode(hexValue), i )
       }
 
       console.log(config, sizeString, pair)
