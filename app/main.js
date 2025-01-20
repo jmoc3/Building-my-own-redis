@@ -20,7 +20,9 @@ const server = net.createServer((connection) => {
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
       
       for(i=0;i<file.length;i++){
-        console.log(file[i].toString(16).padStart(2,"0"))
+        const hexValue =  file[i].toString(16).padStart(2,"0")
+        if(hexValue!="fb") continue
+        console.log(hexValue)
       }
 
     }
