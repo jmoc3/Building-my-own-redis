@@ -17,10 +17,10 @@ const server = net.createServer((connection) => {
   console.log(config)
   connection.on("data", (clientInput)=>{
 
-    if(config["dir"]!=null){
-      
-      const existFile = fs.existsSync(path)
-      console.log(existFile)        
+    const existFile = fs.existsSync(path)
+    
+    if(config["dir"]!=null && existFile){
+        
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
       let fbFound = false
@@ -81,7 +81,8 @@ const server = net.createServer((connection) => {
       config["data"] = [{"expirity":0, "pair" : pair}]
       storage[pair[0]] = {"value":pair[1], "expirity":0}
       console.log(config)
-    }
+      
+    } else return connection.write("+THE PATH JUST DOESN'T EXISTS\r\n")
     
     
     // PING configuration
