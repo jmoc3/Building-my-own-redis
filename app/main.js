@@ -32,7 +32,7 @@ const server = net.createServer((connection) => {
         if(hexValue == "fb") { fbFound = true; continue }
         if(!fbFound) continue
         
-        if(config["hashTableSize"]!=undefined){
+        if(config["hashTableSize"]==undefined){
           config["hashTableSize"] = String.fromCharCode(hexValue).charCodeAt(0)
           continue
         }
