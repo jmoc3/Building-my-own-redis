@@ -37,7 +37,7 @@ const server = net.createServer((connection) => {
         if(hexValue == "fb") { fbFound = true; continue }
         if(!fbFound) continue
         
-        console.log(hexValue, String.fromCharCode(file[i]), i)
+        console.log(hexValue, String.fromCharCode(file[i]), file[i], i)
 
         if(!hashTableSizeDefined){
           config["hashTableSize"] = String.fromCharCode(hexValue).charCodeAt(0)
