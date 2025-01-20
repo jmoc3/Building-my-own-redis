@@ -21,12 +21,15 @@ const server = net.createServer((connection) => {
       let fbFound = false
       for(i=0;i<file.length;i++){
         const hexValue =  file[i].toString(16).padStart(2,"0")
-        if(hexValue == "fb") fbFound = true
+        if(hexValue == "fb") { fbFound = true; continue }
         if(!fbFound) continue
-        
+
+        config["hashTableSize"] = String.fromCharCode(hexValue)
+        break
         console.log(hexValue)
       }
 
+      console.log(config)
     }
     
     
