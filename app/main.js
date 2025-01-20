@@ -22,6 +22,7 @@ const server = net.createServer((connection) => {
       let hashTableSizeDefined = false
       let keysWithExpirityDefined = false
       let sizeString = 0
+      let keyString = ""
 
       for(i=0;i<file.length;i++){
         const hexValue =  file[i].toString(16).padStart(2,"0")
@@ -47,10 +48,12 @@ const server = net.createServer((connection) => {
           continue
         }
 
+        keyString += String.fromCharCode(hexValue)
+
         console.log(hexValue)
       }
 
-      console.log(config, sizeString)
+      console.log(config, sizeString, keyString)
     }
     
     
