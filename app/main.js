@@ -51,8 +51,7 @@ const server = net.createServer((connection) => {
         }
         
         if(hexValue=="00") continue
-        console.log(hexValue, String.fromCharCode(file[i]), file[i], i)
-        // console.log(file[i-4].toString(16).padStart(2,"0"))
+
         if (file[i-4].toString(16).padStart(2,"0")== "fb") {
           sizeString[0] = String.fromCharCode(file[i]).charCodeAt(0)
           sizeString[1] = i  + sizeString[0]
@@ -146,7 +145,7 @@ const server = net.createServer((connection) => {
         res += `$${lenKeyWords[i]}\r\n${keyWords[i]}\r\n`
       }
 
-      // return connection.write(`*${keyWords.length}\r\n${res}`)
+      return connection.write(`*${keyWords.length}\r\n${res}`)
     }
     
 
