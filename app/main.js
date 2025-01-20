@@ -41,7 +41,7 @@ const server = net.createServer((connection) => {
           keysWithExpirityDefined = true
           continue
         }
-        
+        console.log(hexValue)
         if(hexValue=="00") continue
 
         if (sizeString == 0) {
