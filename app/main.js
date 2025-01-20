@@ -16,6 +16,7 @@ const server = net.createServer((connection) => {
   connection.on("data", (clientInput)=>{
 
     if(config["dir"]!=null){
+      console.log(`${config["dir"]}/${config["dbfilename"]}`)
       try{
         const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
 
