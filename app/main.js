@@ -21,7 +21,7 @@ const server = net.createServer((connection) => {
       let fbFound = false
       let hashTableSizeDefined = false
       let keysWithExpirityDefined = false
-      let sizeString = 0
+      let sizeString = [0,0]
       let keyString = ""
 
       for(i=0;i<file.length;i++){
@@ -41,17 +41,18 @@ const server = net.createServer((connection) => {
           keysWithExpirityDefined = true
           continue
         }
-        console.log(hexValue)
+
         if(hexValue=="00") continue
 
-        if (sizeString == 0) {
-          sizeString = String.fromCharCode(hexValue).charCodeAt(0)
+        if (sizeString[0] == 0) {
+          sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
+          sizeString[1] = i + sizeString[0]
           continue
         }
 
         keyString += String.fromCharCode(file[i]) || " "
 
-        console.log(hexValue, String.fromCharCode(file[i]),i)
+        console.log(hexValue, String.fromCharCode(file[i]))
       }
 
       console.log(config, sizeString, keyString)
