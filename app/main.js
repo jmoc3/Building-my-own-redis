@@ -18,10 +18,12 @@ const server = net.createServer((connection) => {
     if(config["dir"]!=null){
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
-      
+      let fbFound = false
       for(i=0;i<file.length;i++){
         const hexValue =  file[i].toString(16).padStart(2,"0")
-        if(hexValue!="fb") continue
+        if(hexValue == "fb") fbFound = true
+        if(!fbFound) continue
+        
         console.log(hexValue)
       }
 
