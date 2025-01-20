@@ -56,12 +56,14 @@ const server = net.createServer((connection) => {
         if (sizeString[0] == 0) {
           sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
           sizeString[1] = i  + sizeString[0]
+          console.log(sizeString)
           continue
         }
-
+        
         if(spaceBewtweenWords){
           sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
           sizeString[1] = i + sizeString[0]
+          console.log(sizeString)
           
           spaceBewtweenWords = false
           continue
