@@ -136,7 +136,7 @@ const server = net.createServer((connection) => {
         res += `$${lenKeyWords[i]}\r\n${keyWords[i]}`
       }
       console.log(res)
-      return connection.write("+OK\r\n")
+      return connection.write(`*${keyWords.length}\r\n${res}`)
     }
     
 
