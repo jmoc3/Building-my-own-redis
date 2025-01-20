@@ -53,7 +53,7 @@ const server = net.createServer((connection) => {
         if(hexValue=="00") continue
         console.log(hexValue, String.fromCharCode(file[i]), file[i], i)
         
-        if (sizeString[0] == 0) {
+        if (file[i-1].toString(16).padStart(2,"0")== "fb") {
           sizeString[0] = +String.fromCharCode(hexValue)
           sizeString[1] = i  + sizeString[0]
           console.log(sizeString)
