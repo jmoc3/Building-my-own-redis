@@ -56,7 +56,7 @@ const server = net.createServer((connection) => {
         if (file[i-4].toString(16).padStart(2,"0")== "fb") {
           sizeString[0] = +String.fromCharCode(file[i]).slice(2,-1)
           sizeString[1] = i  + sizeString[0]
-          console.log(sizeString)
+          console.log(sizeString, String.fromCharCode(file[i]).slice(2,-1))
           continue
         }
         
