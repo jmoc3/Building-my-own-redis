@@ -19,6 +19,8 @@ const server = net.createServer((connection) => {
 
     if(config["dir"]!=null){
       
+      const existFile = fs.existsSync(path)
+      console.log(existFile)        
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
       let fbFound = false
