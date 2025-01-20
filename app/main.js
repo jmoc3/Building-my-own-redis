@@ -21,6 +21,7 @@ const server = net.createServer((connection) => {
       let fbFound = false
       let hashTableSizeDefined = false
       let keysWithExpirityDefined = false
+      let spaceBewtweenWords = false
       let sizeString = [0,0]
       let keyString = ""
       let pair = []
@@ -57,9 +58,17 @@ const server = net.createServer((connection) => {
           if (pair[0]==undefined) {pair[0] = keyString; console.log(hexValue, i, sizeString[0], "Fist key done")}
           else {pair[1] = keyString ; console.log(hexValue, i, sizeString[0], "Second key done")}
           
+          keyString = ""
+          spaceBewtweenWords = true
+          continue
+        }
+        
+        if(spaceBewtweenWords){
           sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
           sizeString[1] = i + sizeString[0]
-          keyString = ""
+          
+          spaceBewtweenWords = false
+          continue
         }
 
         console.log(hexValue, String.fromCharCode(file[i]), i )
