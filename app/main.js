@@ -12,7 +12,7 @@ const server = net.createServer((connection) => {
 
   config["dir"] = arguments[3] ?? null
   config["dbfilename"] = arguments[5] ?? null
-
+  console.log(config)
   connection.on("data", (clientInput)=>{
 
     if(config["dir"]!=null){
