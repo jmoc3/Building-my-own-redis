@@ -21,6 +21,7 @@ const server = net.createServer((connection) => {
       let fbFound = false
       let hashTableSizeDefined = false
       let keysWithExpirityDefined = false
+      let sizeString = 0
 
       for(i=0;i<file.length;i++){
         const hexValue =  file[i].toString(16).padStart(2,"0")
@@ -39,10 +40,17 @@ const server = net.createServer((connection) => {
           continue
         }
         
+        if(hexValue=="00") continue
+
+        if (sizeString == 0) {
+          sizeString = String.fromCharCode(hexValue).charCodeAt(0)
+          continue
+        }
+
         console.log(hexValue)
       }
 
-      console.log(config)
+      console.log(config, sizeString)
     }
     
     
