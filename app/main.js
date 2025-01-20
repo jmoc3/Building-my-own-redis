@@ -33,7 +33,7 @@ const server = net.createServer((connection) => {
         }
       }
 
-      console.log(String.fromCharCode(file[dbEndInfoIndex]))
+      console.log(file[dbEndInfoIndex+4].toString(16))
     }
     
     
