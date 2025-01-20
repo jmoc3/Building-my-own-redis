@@ -51,7 +51,7 @@ const server = net.createServer((connection) => {
           continue
         }
         
-        if (i==sizeString[1]){
+        if (i==(sizeString[1]+1)){
           if (pair[0]==undefined) {pair[0] = keyString; console.log(hexValue, i, sizeString[0], "Fist key done")}
           else {pair[1] = keyString ; console.log(hexValue, i, sizeString[0], "Second key done")}
           
