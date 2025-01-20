@@ -54,14 +54,14 @@ const server = net.createServer((connection) => {
         console.log(hexValue, String.fromCharCode(file[i]), file[i], i)
         // console.log(file[i-4].toString(16).padStart(2,"0"))
         if (file[i-4].toString(16).padStart(2,"0")== "fb") {
-          sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0) 
+          sizeString[0] = +String.fromCharCode(file[i])
           sizeString[1] = i  + sizeString[0]
           console.log(sizeString)
           continue
         }
         
         if(spaceBewtweenWords){
-          sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
+          sizeString[0] = +String.fromCharCode(file[i])
           sizeString[1] = i + sizeString[0]
           console.log(sizeString)
           
