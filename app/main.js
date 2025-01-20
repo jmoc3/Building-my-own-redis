@@ -67,8 +67,6 @@ const server = net.createServer((connection) => {
           continue
         }
         
-        keyString += String.fromCharCode(file[i])
-        
         if (i==(sizeString[1])){
           if (pair[0]==undefined) { pair[0] = keyString }
           else { pair[1] = keyString }
@@ -76,7 +74,10 @@ const server = net.createServer((connection) => {
           keyString = ""
           spaceBewtweenWords = true
           continue
-        }        
+        }  
+              
+        keyString += String.fromCharCode(file[i])
+        
       }
       
       config["data"] = [{"expirity":0, "pair" : pair}]
