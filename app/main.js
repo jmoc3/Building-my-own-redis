@@ -18,7 +18,7 @@ const server = net.createServer((connection) => {
   connection.on("data", (clientInput)=>{
 
     const existFile = fs.existsSync(path)
-    
+    console.log(existFile)
     if(config["dir"]!=null && existFile){
         
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
@@ -81,7 +81,7 @@ const server = net.createServer((connection) => {
       config["data"] = [{"expirity":0, "pair" : pair}]
       storage[pair[0]] = {"value":pair[1], "expirity":0}
       console.log(config)
-      
+
     } else return connection.write("+THE PATH JUST DOESN'T EXISTS\r\n")
     
     
