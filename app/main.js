@@ -61,7 +61,7 @@ const server = net.createServer((connection) => {
         }
         
         if(spaceBewtweenWords){
-          sizeString[0] = +String.fromCharCode(file[i]).charCodeAt(0)
+          sizeString[0] = String.fromCharCode(file[i]).charCodeAt(0)
           sizeString[1] = i + sizeString[0]
           console.log(sizeString)
           
