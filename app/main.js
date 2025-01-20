@@ -132,7 +132,7 @@ const server = net.createServer((connection) => {
       const lenKeyWords = keyWords.map(e => e.length) 
       let res = ""
       for(i=0;i>keyWords.length;i++){
-        res += `$${lenKeyWords[i].length}\r\n${keyWords[i]}`
+        res += `$${lenKeyWords[i]}\r\n${keyWords[i]}`
       }
       console.log(res)
       return connection.write("+OK\r\n")
