@@ -32,8 +32,9 @@ const server = net.createServer((connection) => {
         if(hexValue == "fb") { fbFound = true; continue }
         if(!fbFound) continue
         
-        if(config["hashTableSize"] ?? true){
+        if(!config["hashTableSize"]){
           config["hashTableSize"] = String.fromCharCode(hexValue).charCodeAt(0)
+          hashTableSizeDefined = true
           continue
         }
         
@@ -69,9 +70,7 @@ const server = net.createServer((connection) => {
           spaceBewtweenWords = true
           continue
         }
-        
-
-        cof
+      
         console.log(hexValue, String.fromCharCode(file[i]), i )
         
       }
