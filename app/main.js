@@ -128,7 +128,8 @@ const server = net.createServer((connection) => {
       
     const keys = inputArray[2] == "keys"
     if(keys){
-      console.log(Object.keys(storage))
+      const keyWords = Object.keys(storage) 
+      console.log(`*${keyWords.length}\r\n${keyWords.join("\r\n")}`)
       return connection.write("+OK\r\n")
     }
     
