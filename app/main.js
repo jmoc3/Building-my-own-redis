@@ -48,7 +48,7 @@ const server = net.createServer((connection) => {
           continue
         }
 
-        keyString += String.fromCharCode(hexValue)
+        keyString += String.fromCharCode(hexValue).charCodeAt(0)
 
         console.log(hexValue)
       }
