@@ -18,22 +18,11 @@ const server = net.createServer((connection) => {
     if(config["dir"]!=null){
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
-      let flag = false
-      const dbFileConf = {}
-      let dbInfoIndex = 0
-      let dbEndInfoIndex = 0
-      for (let i = 0; i < file.length; i++) {
-        if (file[i].toString(16) == "fb") {
-          dbInfoIndex = i+1
-        }
-
-        if (file[i].toString(16) == "ff") {
-          dbEndInfoIndex = i
-          break
-        }
+      
+      for(i=0;i<file.length;i++){
+        console.log(String.fromCharCode(file[i]))
       }
 
-      console.log(file[dbEndInfoIndex+4].toString(16))
     }
     
     
