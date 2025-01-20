@@ -32,9 +32,8 @@ const server = net.createServer((connection) => {
         if(hexValue == "fb") { fbFound = true; continue }
         if(!fbFound) continue
         
-        if(!hashTableSizeDefined){
+        if(config["hashTableSize"]!=undefined){
           config["hashTableSize"] = String.fromCharCode(hexValue).charCodeAt(0)
-          hashTableSizeDefined = true
           continue
         }
         
@@ -51,7 +50,7 @@ const server = net.createServer((connection) => {
           sizeString[1] = i  + sizeString[0]
           continue
         }
-        
+
         if(spaceBewtweenWords){
           sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
           sizeString[1] = i + sizeString[0]
@@ -72,6 +71,7 @@ const server = net.createServer((connection) => {
         }
         
 
+        cof
         console.log(hexValue, String.fromCharCode(file[i]), i )
         
       }
