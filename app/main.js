@@ -30,12 +30,12 @@ const server = net.createServer((connection) => {
         if(hexValue == "fb") { fbFound = true; continue }
         if(!fbFound) continue
         
-        if(!config["hashTableSize"]){
+        if(config["hashTableSize"] ?? true){
           config["hashTableSize"] = String.fromCharCode(hexValue).charCodeAt(0)
           continue
         }
         
-        if(!config["keysWithExpirityDefined"]){
+        if(config["keysWithExpirityDefined"] ?? true){
           config["keysWithExpirityDefined"] = String.fromCharCode(hexValue).charCodeAt(0)
           continue
         }
