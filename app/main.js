@@ -8,80 +8,74 @@ const config = {}
 const server = net.createServer((connection) => {
 
   // Setting of the default paths of execution passing in the terminal for tests
-  const arguments = process.argv.slice(2);
-  console.log(arguments)
-  config["dir"] = arguments[1] ?? null
-  config["dbfilename"] = arguments[3] ?? null
+  const arguments = process.argv;
+
+  config["dir"] = arguments[3] ?? null
+  config["dbfilename"] = arguments[5] ?? null
 
   connection.on("data", (clientInput)=>{
 
     if(config["dir"]!=null){
-      console.log(`${config["dir"]}/${config["dbfilename"]}`)
-      try{
-        const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
+      const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
+      // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
+      let fbFound = false
+      let hashTableSizeDefined = false
+      let keysWithExpirityDefined = false
+      let spaceBewtweenWords = false
 
-        // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
-        let fbFound = false
-        let hashTableSizeDefined = false
-        let keysWithExpirityDefined = false
-        let spaceBewtweenWords = false
-        
-        let sizeString = [0,0]
-        let keyString = ""
-        let pair = []
-        
-        for(i=0;i<file.length;i++){
-          const hexValue =  file[i].toString(16).padStart(2,"0")
-          if(hexValue == "ff") { break }
-          if(hexValue == "fb") { fbFound = true; continue }
-          if(!fbFound) continue
-          
-          if(!hashTableSizeDefined){
-            config["hashTableSize"] = String.fromCharCode(hexValue).charCodeAt(0)
-            hashTableSizeDefined = true
-            continue
-          }
-          
-          if(!keysWithExpirityDefined){
-            config["keysWithExpirityDefined"] = String.fromCharCode(hexValue).charCodeAt(0)
-            keysWithExpirityDefined = true
-            continue
-          }
-
-          if(hexValue=="00") continue
-          
-          if (sizeString[0] == 0) {
-            sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
-            sizeString[1] = i  + sizeString[0]
-            continue
-          }
-
-          if(spaceBewtweenWords){
-            sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
-            sizeString[1] = i + sizeString[0]
-            
-            spaceBewtweenWords = false
-            continue
-          }
-          console.log(hexValue, String.fromCharCode(file[i]), i)
-          keyString += String.fromCharCode(file[i])
-          
-          if (i==(sizeString[1])){
-            if (pair[0]==undefined) {pair[0] = keyString; console.log(hexValue, i, sizeString[0], "Fist key done")}
-            else {pair[1] = keyString ; console.log(hexValue, i, sizeString[0], "Second key done")}
-            
-            keyString = ""
-            spaceBewtweenWords = true
-            continue
-          }        
-        }
-        config["data"] = [{"expirity":0, "pair" : pair}]
-        storage[pair[0]] = {"value":pair[1], "expirity":0}
-        console.log(config)
+      let sizeString = [0,0]
+      let keyString = ""
+      let pair = []
       
-      }catch{
-        return connection.write('$-1\r\n') 
+      for(i=0;i<file.length;i++){
+        const hexValue =  file[i].toString(16).padStart(2,"0")
+        if(hexValue == "ff") { break }
+        if(hexValue == "fb") { fbFound = true; continue }
+        if(!fbFound) continue
+        
+        if(!hashTableSizeDefined){
+          config["hashTableSize"] = String.fromCharCode(hexValue).charCodeAt(0)
+          hashTableSizeDefined = true
+          continue
+        }
+        
+        if(!keysWithExpirityDefined){
+          config["keysWithExpirityDefined"] = String.fromCharCode(hexValue).charCodeAt(0)
+          keysWithExpirityDefined = true
+          continue
+        }
+
+        if(hexValue=="00") continue
+        
+        if (sizeString[0] == 0) {
+          sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
+          sizeString[1] = i  + sizeString[0]
+          continue
+        }
+
+        if(spaceBewtweenWords){
+          sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
+          sizeString[1] = i + sizeString[0]
+          
+          spaceBewtweenWords = false
+          continue
+        }
+        
+        keyString += String.fromCharCode(file[i])
+        
+        if (i==(sizeString[1])){
+          if (pair[0]==undefined) {pair[0] = keyString; console.log(hexValue, i, sizeString[0], "Fist key done")}
+          else {pair[1] = keyString ; console.log(hexValue, i, sizeString[0], "Second key done")}
+          
+          keyString = ""
+          spaceBewtweenWords = true
+          continue
+        }        
       }
+      
+      config["data"] = [{"expirity":0, "pair" : pair}]
+      storage[pair[0]] = {"value":pair[1], "expirity":0}
+      console.log(config)
     }
     
     
