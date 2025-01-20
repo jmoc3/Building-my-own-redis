@@ -14,75 +14,18 @@ const server = net.createServer((connection) => {
   config["dbfilename"] = arguments[5] ?? null
   const path = `${config["dir"]}/${config["dbfilename"]}`
   
-  console.log(config)
   connection.on("data", (clientInput)=>{
-
-    if(config["dir"]!=null){
-      const existFile = fs.existsSync(path)
-      if(!existFile) return connection.write("+THE PATH JUST DOESN'T EXISTS\r\n")
-        
-      const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
-      // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
-      let fbFound = false
-      let hashTableSizeDefined = false
-      let keysWithExpirityDefined = false
-      let spaceBewtweenWords = false
-
-      let sizeString = [0,0]
-      let keyString = ""
-      let pair = []
-      
-      for(i=0;i<file.length;i++){
-        const hexValue =  file[i].toString(16).padStart(2,"0")
-        if(hexValue == "ff") { break }
-        if(hexValue == "fb") { fbFound = true; continue }
-        if(!fbFound) continue
-        
-        if(!hashTableSizeDefined){
-          config["hashTableSize"] = String.fromCharCode(hexValue).charCodeAt(0)
-          hashTableSizeDefined = true
-          continue
-        }
-        
-        if(!keysWithExpirityDefined){
-          config["keysWithExpirityDefined"] = String.fromCharCode(hexValue).charCodeAt(0)
-          keysWithExpirityDefined = true
-          continue
-        }
-
-        if(hexValue=="00") continue
-        
-        if (sizeString[0] == 0) {
-          sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
-          sizeString[1] = i  + sizeString[0]
-          continue
-        }
-
-        if(spaceBewtweenWords){
-          sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
-          sizeString[1] = i + sizeString[0]
-          
-          spaceBewtweenWords = false
-          continue
-        }
-        
-        keyString += String.fromCharCode(file[i])
-        
-        if (i==(sizeString[1])){
-          if (pair[0]==undefined) { pair[0] = keyString }
-          else { pair[1] = keyString }
-          
-          keyString = ""
-          spaceBewtweenWords = true
-          continue
-        }        
-      }
-      
-      config["data"] = [{"expirity":0, "pair" : pair}]
-      storage[pair[0]] = {"value":pair[1], "expirity":0}
-      console.log(config)
-    }
     
+    // Default CONFIG GET configuration
+    const confGet = (inputArray[2]=="config") && (inputArray[4] == "get")
+     
+    if(confGet) {
+      console.log(config[inputArray[6]])
+      if((config[inputArray[6]]== null) || (config[inputArray[6]]== undefined) ){
+        return connection.write('$-1\r\n') 
+      }
+      return connection.write(`*2\r\n$${inputArray[6].length}\r\n${inputArray[6]}\r\n$${config[inputArray[6]].length}\r\n${config[inputArray[6]]}\r\n`)
+    }
     
     // PING configuration
     if (clientInput.toString()=="*1\r\n$4\r\nPING\r\n") return connection.write("$4\r\nPONG\r\n")
@@ -98,16 +41,6 @@ const server = net.createServer((connection) => {
       return connection.write(res)
     }      
 
-    // Default CONFIG GET configuration
-    const confGet = (inputArray[2]=="config") && (inputArray[4] == "get")
-     
-    if(confGet) {
-      console.log(config[inputArray[6]])
-      if((config[inputArray[6]]== null) || (config[inputArray[6]]== undefined) ){
-        return connection.write('$-1\r\n') 
-      }
-      return connection.write(`*2\r\n$${inputArray[6].length}\r\n${inputArray[6]}\r\n$${config[inputArray[6]].length}\r\n${config[inputArray[6]]}\r\n`)
-    }
 
     // SET and GET configuration with expirity
     const set = inputArray[2] == "set"
@@ -130,6 +63,74 @@ const server = net.createServer((connection) => {
     if (get) {
       if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
       }
+
+      if(config["dir"]!=null){
+        const existFile = fs.existsSync(path)
+        if(!existFile) return connection.write("+THE PATH JUST DOESN'T EXISTS\r\n")
+          
+        const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
+        // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
+        let fbFound = false
+        let hashTableSizeDefined = false
+        let keysWithExpirityDefined = false
+        let spaceBewtweenWords = false
+  
+        let sizeString = [0,0]
+        let keyString = ""
+        let pair = []
+        
+        for(i=0;i<file.length;i++){
+          const hexValue =  file[i].toString(16).padStart(2,"0")
+          if(hexValue == "ff") { break }
+          if(hexValue == "fb") { fbFound = true; continue }
+          if(!fbFound) continue
+          
+          if(!hashTableSizeDefined){
+            config["hashTableSize"] = String.fromCharCode(hexValue).charCodeAt(0)
+            hashTableSizeDefined = true
+            continue
+          }
+          
+          if(!keysWithExpirityDefined){
+            config["keysWithExpirityDefined"] = String.fromCharCode(hexValue).charCodeAt(0)
+            keysWithExpirityDefined = true
+            continue
+          }
+  
+          if(hexValue=="00") continue
+          
+          if (sizeString[0] == 0) {
+            sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
+            sizeString[1] = i  + sizeString[0]
+            continue
+          }
+  
+          if(spaceBewtweenWords){
+            sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
+            sizeString[1] = i + sizeString[0]
+            
+            spaceBewtweenWords = false
+            continue
+          }
+          
+          keyString += String.fromCharCode(file[i])
+          
+          if (i==(sizeString[1])){
+            if (pair[0]==undefined) { pair[0] = keyString }
+            else { pair[1] = keyString }
+            
+            keyString = ""
+            spaceBewtweenWords = true
+            continue
+          }        
+        }
+        
+        config["data"] = [{"expirity":0, "pair" : pair}]
+        storage[pair[0]] = {"value":pair[1], "expirity":0}
+        console.log(config)
+      }
+      
+
       
     const keys = inputArray[2] == "keys"
     if(keys){
