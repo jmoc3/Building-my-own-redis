@@ -8,7 +8,7 @@ const config = {}
 const server = net.createServer((connection) => {
 
   // Setting of the default paths of execution passing in the terminal for tests
-  const arguments = process.argv;
+  const arguments = process.argv.slice(2);
   console.log(arguments)
   config["dir"] = arguments[1] ?? null
   config["dbfilename"] = arguments[3] ?? null
