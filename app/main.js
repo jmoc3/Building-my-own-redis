@@ -18,7 +18,6 @@ const server = net.createServer((connection) => {
   connection.on("data", (clientInput)=>{
 
     const existFile = fs.existsSync(path)
-    console.log(existFile)
     if(config["dir"]!=null && existFile){
         
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
@@ -38,6 +37,8 @@ const server = net.createServer((connection) => {
         if(hexValue == "fb") { fbFound = true; continue }
         if(!fbFound) continue
         
+        console.log(hexValue, String.fromCharCode(hexValue), i)
+
         if(!hashTableSizeDefined){
           config["hashTableSize"] = String.fromCharCode(hexValue).charCodeAt(0)
           hashTableSizeDefined = true
@@ -140,7 +141,7 @@ const server = net.createServer((connection) => {
         res += `$${lenKeyWords[i]}\r\n${keyWords[i]}\r\n`
       }
 
-      return connection.write(`*${keyWords.length}\r\n${res}`)
+      // return connection.write(`*${keyWords.length}\r\n${res}`)
     }
     
 
