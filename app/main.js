@@ -67,7 +67,7 @@ const server = net.createServer((connection) => {
         console.log(hexValue, String.fromCharCode(file[i]),i)
       }
 
-      console.log(config, pair)
+      console.log(config, sizeString, pair)
     }
     
     
