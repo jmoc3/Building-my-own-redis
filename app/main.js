@@ -27,6 +27,7 @@ const server = net.createServer((connection) => {
       
       for(i=0;i<file.length;i++){
         const hexValue =  file[i].toString(16).padStart(2,"0")
+        if(hexValue == "ff") { break }
         if(hexValue == "fb") { fbFound = true; continue }
         if(!fbFound) continue
         
@@ -46,7 +47,7 @@ const server = net.createServer((connection) => {
         
         if (sizeString[0] == 0) {
           sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
-          sizeString[1] = (i + 1) + sizeString[0]
+          sizeString[1] = i  + sizeString[0]
           continue
         }
         
@@ -61,7 +62,6 @@ const server = net.createServer((connection) => {
         }
 
         console.log(hexValue, String.fromCharCode(file[i]), i )
-        if(hexValue == "ff") { break }
         
         keyString += String.fromCharCode(file[i])
       }
