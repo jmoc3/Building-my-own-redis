@@ -73,7 +73,8 @@ const server = net.createServer((connection) => {
         }        
       }
       
-      config["data"] = {"expirity":0, "pair" : pair}
+      config["data"] = [{"expirity":0, "pair" : pair}]
+      storage[pair[0]] = {"value":pair[1], "expirity":0}
       console.log(config)
     }
     
@@ -109,24 +110,25 @@ const server = net.createServer((connection) => {
     const pxConf = inputArray[8] == "px"
 
     if (set) {
-      storage[inputArray[4]] = inputArray[6]
+      storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       if (!pxConf) {    
         return connection.write("+OK\r\n")
       }
         
         setTimeout( ()=>{ 
             delete storage[inputArray[4]] 
-        }, +inputArray[10])
+        }, storage[inputArray[4]].expirity)
 
         return connection.write("+OK\r\n")
       }
       
     if (get) {
-      if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].length}\r\n${storage[inputArray[4]]}\r\n`)
+      if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
       }
       
     const keys = inputArray[2] == "keys"
     if(keys){
+      console.log(storage)
       return connection.write("+OK\r\n")
     }
     
