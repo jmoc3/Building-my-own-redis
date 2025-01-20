@@ -53,7 +53,7 @@ const server = net.createServer((connection) => {
 
         if (i==sizeString[1]){
 
-          if (!pair[0]) pair[0] = keyString
+          if (!pair[0]) {pair[0] = keyString; console.log("Fist key done")}
           if (!pair[1] && pair[0]) pair[1] = keyString
 
           sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
