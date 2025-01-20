@@ -29,8 +29,6 @@ const server = net.createServer((connection) => {
         const hexValue =  file[i].toString(16).padStart(2,"0")
         if(hexValue == "fb") { fbFound = true; continue }
         if(!fbFound) continue
-        console.log(hexValue, String.fromCharCode(file[i]),i)
-        if(hexValue == "ff" && (i!=sizeString[1])) { break }
         
         if(!hashTableSizeDefined){
           config["hashTableSize"] = String.fromCharCode(hexValue).charCodeAt(0)
@@ -54,13 +52,15 @@ const server = net.createServer((connection) => {
         
         if (i==sizeString[1]){
           if (pair[0]==undefined) {pair[0] = keyString; console.log("Fist key done")}
-          if ((pair[1]==undefined) && pair[0]) {pair[1] = keyString ; console.log("Second key done")}
+          if ((pair[1]==undefined) && (pair[0]!=undefined)) {pair[1] = keyString ; console.log("Second key done")}
           
           sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
           sizeString[1] = (i + 1) + sizeString[0]
           keyString = ""
           continue
         }
+
+        if(hexValue == "ff") { break }
         
         keyString += String.fromCharCode(file[i])
         
