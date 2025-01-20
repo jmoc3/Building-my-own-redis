@@ -51,19 +51,19 @@ const server = net.createServer((connection) => {
           continue
         }
         
-        if (i==(sizeString[1]+1)){
+        keyString += String.fromCharCode(file[i])
+        
+        if (i==(sizeString[1])){
           if (pair[0]==undefined) {pair[0] = keyString; console.log(hexValue, i, sizeString[0], "Fist key done")}
           else {pair[1] = keyString ; console.log(hexValue, i, sizeString[0], "Second key done")}
           
           sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
-          sizeString[1] = (i + 1) + sizeString[0]
+          sizeString[1] = i + sizeString[0]
           keyString = ""
-          continue
         }
 
         console.log(hexValue, String.fromCharCode(file[i]), i )
         
-        keyString += String.fromCharCode(file[i])
       }
 
       console.log(config, sizeString, pair)
