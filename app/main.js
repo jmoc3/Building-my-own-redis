@@ -23,6 +23,7 @@ const server = net.createServer((connection) => {
       let keysWithExpirityDefined = false
       let sizeString = [0,0]
       let keyString = ""
+      let pair = []
 
       for(i=0;i<file.length;i++){
         const hexValue =  file[i].toString(16).padStart(2,"0")
@@ -46,16 +47,27 @@ const server = net.createServer((connection) => {
 
         if (sizeString[0] == 0) {
           sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
-          sizeString[1] = i + sizeString[0]
+          sizeString[1] = (i + 1) + sizeString[0]
           continue
         }
 
-        keyString += String.fromCharCode(file[i]) || " "
+        if (i==sizeString[1]){
+          pair[0] = keyString
+
+          sizeString[0] = String.fromCharCode(hexValue).charCodeAt(0)
+          sizeString[1] = (i + 1) + sizeString[0]
+          keyString = ""
+          continue
+        }
+
+        keyString += String.fromCharCode(file[i])
+
+        
 
         console.log(hexValue, String.fromCharCode(file[i]),i)
       }
 
-      console.log(config, sizeString, keyString)
+      console.log(config, pair)
     }
     
     
