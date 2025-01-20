@@ -48,9 +48,9 @@ const server = net.createServer((connection) => {
           continue
         }
 
-        keyString += String.fromCharCode(hexValue)
+        keyString += String.fromCharCode(file[i])
 
-        console.log(hexValue, String.fromCharCode(hexValue))
+        console.log(hexValue, String.fromCharCode(file[i]))
       }
 
       console.log(config, sizeString, keyString)
