@@ -67,10 +67,10 @@ const server = net.createServer((connection) => {
           continue
         }
 
-        
+        keyString += String.fromCharCode(file[i])
         
         if (i==(sizeString[1])){
-          console.log(spaceBewtweenWords)
+
           if (pair[0]==undefined) { pair[0] = keyString }
           else { pair[1] = keyString }
           
@@ -78,8 +78,7 @@ const server = net.createServer((connection) => {
           spaceBewtweenWords = true
           continue
         }  
-        keyString += String.fromCharCode(file[i])
-        console.log(hexValue, String.fromCharCode(file[i]), i, pair)
+        console.log(hexValue, String.fromCharCode(file[i]), i, spaceBewtweenWords)
         
         storage[pair[0]] = {"value":pair[1], "expirity":0}
       }
