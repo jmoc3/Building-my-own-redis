@@ -53,22 +53,21 @@ const server = net.createServer((connection) => {
           continue
         }
         
-        if(hexValue=="fc"){ expirityFound = true; indexExpirityEnd = i+9; continue} 
+        if(hexValue=="fc"){ indexExpirityEnd = i+9; continue} 
         
         
         if(i<indexExpirityEnd){
           expirity += hexValue
         }
 
-        if(i==indexExpirityEnd) {expirities.push(expirity), expirity = ""; console.log(expirities) }
-
+        if(i==indexExpirityEnd) {pair[3] = expirity; expirity = ""}
         
         if(hexValue=="00") continue
-
+        
         if (file[i-4].toString(16).padStart(2,"0")== "fb") {
           sizeString[0] = String.fromCharCode(file[i]).charCodeAt(0)
           sizeString[1] = i  + sizeString[0]
-
+          
           continue
         }
         
@@ -79,7 +78,7 @@ const server = net.createServer((connection) => {
           spaceBewtweenWords = false
           continue
         }
-        
+        console.log(hexValue, pair)
         keyString += String.fromCharCode(file[i])
         
         if (i==(sizeString[1])){
@@ -96,7 +95,7 @@ const server = net.createServer((connection) => {
           spaceBewtweenWords = true
           continue
         }  
-
+        
         
       }
       console.log(config, storage)
