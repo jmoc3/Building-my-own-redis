@@ -22,17 +22,14 @@ const server = net.createServer((connection) => {
         
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
-      let fbFound = false
+      let fbFound, stringFounded = false
       let hashTableSizeDefined = false
       let keysWithExpirityDefined = false
-      let expirityFound = false
       let spaceBewtweenWords = false
 
-      let expirities = []
       let sizeString = [0,0]
       let indexExpirityEnd = 1
-      let keyString = ""
-      let expirity = ""
+      let keyString, expirity = ""
       let pair = []
       
       for(i=0;i<file.length;i++){
@@ -55,16 +52,15 @@ const server = net.createServer((connection) => {
         
         if(hexValue=="fc"){ indexExpirityEnd = i+9; continue} 
         
-        
         if(i<indexExpirityEnd){
           expirity += hexValue
         }
 
         if(i==indexExpirityEnd) {pair[2] = expirity; expirity = ""}
         
-        if(hexValue=="00") continue
+        if(hexValue=="00") { stringFounded = true ; continue}
         
-        if (file[i-4].toString(16).padStart(2,"0")== "fb") {
+        if (stringFounded) {
           sizeString[0] = String.fromCharCode(file[i]).charCodeAt(0)
           sizeString[1] = i  + sizeString[0]
           
