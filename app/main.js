@@ -67,7 +67,7 @@ const server = net.createServer((connection) => {
           
           continue
         }
-        console.log(hexValue, String.fromCharCode(file[i]), pair, i, indexExpirityEnd, stringFounded, sizeString)
+        console.log(hexValue, String.fromCharCode(file[i]), pair, i, indexExpirityEnd, stringFounded, indexStringEnd)
         
         if(spaceBewtweenWords){
           indexStringEnd = i + String.fromCharCode(file[i]).charCodeAt(0)
