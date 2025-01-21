@@ -66,14 +66,15 @@ const server = net.createServer((connection) => {
           spaceBewtweenWords = false
           continue
         }
-
-        console.log(hexValue, String.fromCharCode(file[i]), i, pair[0],spaceBewtweenWords)
+        
+        console.log(hexValue, String.fromCharCode(file[i]), i, pair,spaceBewtweenWords)
         keyString += String.fromCharCode(file[i])
         
         if (i==(sizeString[1])){
 
           if (pair[0]==undefined) { pair[0] = keyString }
           else { pair[1] = keyString }
+          console.log(hexValue, String.fromCharCode(file[i]), i, pair,spaceBewtweenWords)
           
           keyString = ""
           spaceBewtweenWords = true
