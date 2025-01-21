@@ -59,8 +59,8 @@ const server = net.createServer((connection) => {
 
         if(i==indexExpirityEnd) {pair[2] = expirity; expirity = ""}
         
-        console.log(hexValue, String.fromCharCode(file[i]), pair, i, indexExpirityEnd)
         if(hexValue=="00") { stringFounded = true ; continue}
+        console.log(hexValue, String.fromCharCode(file[i]), pair, i, indexExpirityEnd, stringFounded)
         
         if (stringFounded) {
           sizeString[0] = String.fromCharCode(file[i]).charCodeAt(0)
