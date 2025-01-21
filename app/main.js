@@ -28,6 +28,7 @@ const server = net.createServer((connection) => {
       let expirityFound = false
       let spaceBewtweenWords = false
 
+      let expirities = []
       let sizeString = [0,0]
       let indexExpirityEnd = 1
       let keyString = ""
@@ -59,7 +60,7 @@ const server = net.createServer((connection) => {
           expirity += hexValue
         }
 
-        if(i==indexExpirityEnd) { expirity = "" }
+        if(i==indexExpirityEnd) {expirities.push(expirity), expirity = ""; console.log(expirities) }
 
         
         if(hexValue=="00") continue
