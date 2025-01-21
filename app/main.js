@@ -74,7 +74,7 @@ const server = net.createServer((connection) => {
           continue
         }
         const ayuda = String.fromCharCode(file[i]) ?? 'none' 
-        console.log(ayuda)
+        console.log(typeof ayuda)
         keyString += String.fromCharCode(file[i])
         
         if (i==indexStringEnd){
