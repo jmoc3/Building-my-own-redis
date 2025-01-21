@@ -76,7 +76,7 @@ const server = net.createServer((connection) => {
           
           keyString = ""
           spaceBewtweenWords = true
-
+          continue
         }  
         keyString += String.fromCharCode(file[i])
         console.log(hexValue, String.fromCharCode(file[i]), i, pair)
