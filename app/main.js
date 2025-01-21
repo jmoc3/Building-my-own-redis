@@ -59,6 +59,7 @@ const server = net.createServer((connection) => {
 
         if(i==indexExpirityEnd) {pair[2] = expirity; expirity = ""; continue}
         
+        console.log(hexValue, String.fromCharCode(file[i]), pair,stringFounded)
         if(hexValue=="00") { stringFounded = true ; continue}
         
         if (stringFounded) {
@@ -76,7 +77,6 @@ const server = net.createServer((connection) => {
           spaceBewtweenWords = false
           continue
         }
-        console.log(hexValue, String.fromCharCode(file[i]), pair)
         keyString += String.fromCharCode(file[i])
         
         if (i==(sizeString[1])){
