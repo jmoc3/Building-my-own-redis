@@ -73,16 +73,19 @@ const server = net.createServer((connection) => {
         if (i==(sizeString[1])){
 
           if (pair[0]==undefined) { pair[0] = keyString }
-          else { pair[1] = keyString }
+          else { 
+            pair[1] = keyString 
+            console.log("writing...", pair)
+            storage[pair[0]] = {"value":pair[1], "expirity":0}
+            pair=[] 
+          }
           
-          storage[pair[0]] = {"value":pair[1], "expirity":0}
-          console.log("writing...", pair)
           keyString = ""
           spaceBewtweenWords = true
           continue
         }  
 
-        pair=[]
+        
       }
       console.log(storage)
     } 
