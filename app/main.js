@@ -58,8 +58,8 @@ const server = net.createServer((connection) => {
         if(i<indexExpirityEnd){
           expirity += hexValue
         }
-        console.log(hexValue, i, expirity)
-        if(i==indexExpirityEnd) { expirity = "" ; continue}
+
+        if(i==indexExpirityEnd) { expirity = "" }
 
         
         if(hexValue=="00") continue
@@ -87,7 +87,7 @@ const server = net.createServer((connection) => {
           else { 
             pair[1] = keyString 
             console.log(expirity)
-            storage[pair[0]] = {"value":pair[1], "expirity":0}
+            storage[pair[0]] = {"value":pair[1], "expirity":expirity}
             pair=[] 
           }
           
@@ -98,7 +98,7 @@ const server = net.createServer((connection) => {
 
         
       }
-      console.log(config)
+      console.log(config, storage)
     } 
     
     // PING configuration
