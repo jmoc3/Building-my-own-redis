@@ -61,12 +61,12 @@ const server = net.createServer((connection) => {
         
         if(hexValue=="00") { continue }
         
+        console.log(hexValue, typeof String.fromCharCode(file[i]), i, keyString, indexStringEnd, pair)
         if (String.fromCharCode(file[i])==undefined) {
           indexStringEnd = i  + String.fromCharCode(file[i]).charCodeAt(0)
           
           continue
         }
-        console.log(hexValue, String.fromCharCode(file[i]), i, keyString, indexStringEnd, pair)
         
         if(spaceBewtweenWords){
           indexStringEnd = i + String.fromCharCode(file[i]).charCodeAt(0)
