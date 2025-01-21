@@ -64,7 +64,6 @@ const server = net.createServer((connection) => {
           sizeString[1] = i + sizeString[0]
 
           spaceBewtweenWords = false
-          continue
         }
 
         
