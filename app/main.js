@@ -63,6 +63,7 @@ const server = net.createServer((connection) => {
         if (stringFounded) {
           sizeString[0] = String.fromCharCode(file[i]).charCodeAt(0)
           sizeString[1] = i  + sizeString[0]
+          stringFounded = false
           
           continue
         }
