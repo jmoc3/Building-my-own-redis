@@ -54,6 +54,7 @@ const server = net.createServer((connection) => {
         
         if(i<indexExpirityEnd){
           expirity += hexValue
+          continue
         }
 
         if(i==indexExpirityEnd) {pair[2] = expirity; expirity = ""}
