@@ -73,7 +73,7 @@ const server = net.createServer((connection) => {
           spaceBewtweenWords = false
           continue
         }
-        const ayuda = String.fromCharCode(file[i]) == null
+        const ayuda = String.fromCharCode(file[i]) || "arroz"
         console.log(ayuda)
         keyString += String.fromCharCode(file[i])
         
