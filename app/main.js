@@ -57,7 +57,7 @@ const server = net.createServer((connection) => {
           continue
         }
 
-        if(i==indexExpirityEnd) {pair[2] = expirity; expirity = ""}
+        if(i==indexExpirityEnd) {pair[2] = expirity; expirity = "";continue}
         
         if(hexValue=="00") { stringFounded = true ; continue}
         
