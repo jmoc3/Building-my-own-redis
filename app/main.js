@@ -59,15 +59,14 @@ const server = net.createServer((connection) => {
 
         if(i==indexExpirityEnd) {pair[2] = expirity; expirity = "";continue}
         
-        if(hexValue=="00") { stringFounded = true ; continue}
+        if(hexValue=="00") { continue }
         
-        console.log(hexValue, String.fromCharCode(file[i]), i, keyString, indexStringEnd, pair)
-        if (stringFounded) {
+        if (String.fromCharCode(file[i])==undefined) {
           indexStringEnd = i  + String.fromCharCode(file[i]).charCodeAt(0)
-          stringFounded = false
           
           continue
         }
+        console.log(hexValue, String.fromCharCode(file[i]), i, keyString, indexStringEnd, pair)
         
         if(spaceBewtweenWords){
           indexStringEnd = i + String.fromCharCode(file[i]).charCodeAt(0)
