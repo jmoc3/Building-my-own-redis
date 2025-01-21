@@ -54,13 +54,14 @@ const server = net.createServer((connection) => {
         
         if(hexValue=="fc"){ console.log(expirity); expirityFound = true; indexExpirityEnd = i+9; continue} 
         
+        
         if(i<indexExpirityEnd){
           expirity += hexValue
-
-        }else{
-          console.log(hexValue,"end")
         }
 
+        if(i==indexExpirityEnd) { expirity = "" ; continue}
+
+        
         if(hexValue=="00") continue
 
         if (file[i-4].toString(16).padStart(2,"0")== "fb") {
