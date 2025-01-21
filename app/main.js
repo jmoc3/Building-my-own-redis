@@ -78,7 +78,7 @@ const server = net.createServer((connection) => {
           spaceBewtweenWords = false
           continue
         }
-        console.log(hexValue, pair)
+        console.log(hexValue, String.fromCharCode(file[i]), pair)
         keyString += String.fromCharCode(file[i])
         
         if (i==(sizeString[1])){
