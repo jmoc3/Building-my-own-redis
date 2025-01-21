@@ -77,12 +77,12 @@ const server = net.createServer((connection) => {
           
           storage[pair[0]] = {"value":pair[1], "expirity":0}
           console.log("writing...", pair)
-          pair[0] = undefined
           keyString = ""
           spaceBewtweenWords = true
           continue
         }  
 
+        pair=[]
       }
       console.log(storage)
     } 
