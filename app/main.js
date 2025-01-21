@@ -68,7 +68,6 @@ const server = net.createServer((connection) => {
           continue
         }
         
-        
         keyString += String.fromCharCode(file[i])
         
         if (i==(sizeString[1])){
@@ -79,19 +78,13 @@ const server = net.createServer((connection) => {
           spaceBewtweenWords = true
           continue
         }  
-              
-        
       }
       
-      config["data"] = [{"expirity":0, "pair" : pair}]
       storage[pair[0]] = {"value":pair[1], "expirity":0}
-      console.log(config.data[0].pair)
-
     } 
     
     // PING configuration
     if (clientInput.toString()=="*1\r\n$4\r\nPING\r\n") return connection.write("$4\r\nPONG\r\n")
-
 
     const input = Buffer.from(clientInput).toString().toLowerCase()
     const inputArray =  input.split("\r\n")
@@ -147,11 +140,9 @@ const server = net.createServer((connection) => {
 
       return connection.write(`*${keyWords.length}\r\n${res}`)
     }
-    
 
     // Default response to something wrong
     return connection.write('$-1\r\n') 
-
     })
 
     connection.on("end", ()=>{
