@@ -79,9 +79,10 @@ const server = net.createServer((connection) => {
           spaceBewtweenWords = true
           continue
         }  
+        console.log(pair)
+        storage[pair[0]] = {"value":pair[1], "expirity":0}
       }
-      console.log(pair)
-      storage[pair[0]] = {"value":pair[1], "expirity":0}
+      console.log(storage)
     } 
     
     // PING configuration
@@ -131,16 +132,16 @@ const server = net.createServer((connection) => {
       }
       
     const keys = inputArray[2] == "keys"
-    if(keys){
-      const keyWords = Object.keys(storage) 
-      const lenKeyWords = keyWords.map(e => e.length) 
-      let res = ""
-      for(i=0;i<keyWords.length;i++){
-        res += `$${lenKeyWords[i]}\r\n${keyWords[i]}\r\n`
-      }
+    // if(keys){
+    //   const keyWords = Object.keys(storage) 
+    //   const lenKeyWords = keyWords.map(e => e.length) 
+    //   let res = ""
+    //   for(i=0;i<keyWords.length;i++){
+    //     res += `$${lenKeyWords[i]}\r\n${keyWords[i]}\r\n`
+    //   }
 
-      return connection.write(`*${keyWords.length}\r\n${res}`)
-    }
+    //   return connection.write(`*${keyWords.length}\r\n${res}`)
+    // }
 
     // Default response to something wrong
     return connection.write('$-1\r\n') 
