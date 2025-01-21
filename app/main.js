@@ -61,13 +61,13 @@ const server = net.createServer((connection) => {
         
         if(hexValue=="00") { stringFounded = true ; continue}
         
+        console.log(hexValue, String.fromCharCode(file[i]), i, keyString, indexStringEnd, pair)
         if (stringFounded) {
           indexStringEnd = i  + String.fromCharCode(file[i]).charCodeAt(0)
           stringFounded = false
           
           continue
         }
-        console.log(hexValue, String.fromCharCode(file[i]), i, keyString, indexStringEnd, pair)
         
         if(spaceBewtweenWords){
           indexStringEnd = i + String.fromCharCode(file[i]).charCodeAt(0)
@@ -75,6 +75,7 @@ const server = net.createServer((connection) => {
           spaceBewtweenWords = false
           continue
         }
+
         keyString += String.fromCharCode(file[i])
         
         if (i==indexStringEnd){
