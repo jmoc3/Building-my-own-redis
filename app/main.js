@@ -62,8 +62,7 @@ const server = net.createServer((connection) => {
         if(spaceBewtweenWords){
           sizeString[0] = String.fromCharCode(file[i]).charCodeAt(0)
           sizeString[1] = i + sizeString[0]
-          console.log(hexValue, String.fromCharCode(file[i]), i, pair)
-          
+
           spaceBewtweenWords = false
           continue
         }
@@ -72,6 +71,7 @@ const server = net.createServer((connection) => {
         keyString += String.fromCharCode(file[i])
         
         if (i==(sizeString[1])){
+          console.log(spaceBewtweenWords)
           if (pair[0]==undefined) { pair[0] = keyString }
           else { pair[1] = keyString }
           
