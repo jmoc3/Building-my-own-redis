@@ -81,6 +81,7 @@ const server = net.createServer((connection) => {
         }  
         console.log(pair)
         storage[pair[0]] = {"value":pair[1], "expirity":0}
+        pair = []
       }
       console.log(storage)
     } 
