@@ -52,10 +52,10 @@ const server = net.createServer((connection) => {
           continue
         }
         
-        if(hexValue=="fc"){ console.log("Founded Expirity"); expirityFound = true; indexExpirityEnd = i+9; continue} 
+        if(hexValue=="fc"){ console.log(expirity); expirityFound = true; indexExpirityEnd = i+9; continue} 
         
         if(expirityFound && (i<indexExpirityEnd)){
-          console.log(hexValue)
+          expirity += hexValue
 
         }
 
