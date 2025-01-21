@@ -86,7 +86,7 @@ const server = net.createServer((connection) => {
 
         
       }
-      console.log(storage)
+      console.log(config)
     } 
     
     // PING configuration
