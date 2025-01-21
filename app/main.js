@@ -52,7 +52,7 @@ const server = net.createServer((connection) => {
         
         if(hexValue=="fc"){ indexExpirityEnd = i+9; continue} 
         
-        if(i<=indexExpirityEnd){
+        if(i<indexExpirityEnd){
           expirity += hexValue
           continue
         }
