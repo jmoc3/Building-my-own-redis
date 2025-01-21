@@ -79,7 +79,7 @@ const server = net.createServer((connection) => {
           spaceBewtweenWords = true
           continue
         }  
-        
+        console.log("writing...")
         storage[pair[0]] = {"value":pair[1], "expirity":0}
       }
       console.log(storage)
