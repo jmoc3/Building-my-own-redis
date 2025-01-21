@@ -76,6 +76,7 @@ const server = net.createServer((connection) => {
           else { pair[1] = keyString }
           
           storage[pair[0]] = {"value":pair[1], "expirity":0}
+          pair = []
           keyString = ""
           spaceBewtweenWords = true
           continue
