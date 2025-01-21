@@ -27,8 +27,8 @@ const server = net.createServer((connection) => {
       let keysWithExpirityDefined = false
       let spaceBewtweenWords = false
 
-      let sizeString = [0,0]
-      let indexExpirityEnd = 1
+      let indexStringEnd = 0
+      let indexExpirityEnd = 0
       let keyString, expirity = ""
       let pair = []
       
@@ -62,8 +62,7 @@ const server = net.createServer((connection) => {
         if(hexValue=="00") { stringFounded = true ; continue}
         
         if (stringFounded) {
-          sizeString[0] = String.fromCharCode(file[i]).charCodeAt(0)
-          sizeString[1] = i  + sizeString[0]
+          indexStringEnd = i  + String.fromCharCode(file[i]).charCodeAt(0)
           stringFounded = false
           
           continue
@@ -71,15 +70,14 @@ const server = net.createServer((connection) => {
         console.log(hexValue, String.fromCharCode(file[i]), pair, i, indexExpirityEnd, stringFounded, sizeString)
         
         if(spaceBewtweenWords){
-          sizeString[0] = String.fromCharCode(file[i]).charCodeAt(0)
-          sizeString[1] = i + sizeString[0]
+          indexStringEnd = i + String.fromCharCode(file[i]).charCodeAt(0)
 
           spaceBewtweenWords = false
           continue
         }
         keyString += String.fromCharCode(file[i])
         
-        if (i==(sizeString[1])){
+        if (i==indexStringEnd){
 
           if (pair[0]==undefined) { pair[0] = keyString }
           else { 
