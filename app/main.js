@@ -25,20 +25,20 @@ const server = net.createServer((connection) => {
       let fbFound = false
       let hashTableSizeDefined = false
       let keysWithExpirityDefined = false
+      let expirityFound = false
       let spaceBewtweenWords = false
 
       let sizeString = [0,0]
+      let indexExpirityEnd = 0
       let keyString = ""
+      let expirity = ""
       let pair = []
       
       for(i=0;i<file.length;i++){
         const hexValue =  file[i].toString(16).padStart(2,"0")
         if(hexValue == "ff") { break }
         if(hexValue == "fb") { fbFound = true; continue }
-        if(!fbFound) continue
-
-        console.log(hexValue)
-        
+        if(!fbFound) continue        
         
         if(!hashTableSizeDefined){
           config["hashTableSize"] = String.fromCharCode(hexValue).charCodeAt(0)
@@ -52,6 +52,13 @@ const server = net.createServer((connection) => {
           continue
         }
         
+        if(hexValue=="fc"){ expirityFound = true; indexExpirityEnd = i+8; continue} 
+        
+        if(expirityFound && (i<indexExpirityEnd)){
+          console.log(hexValue)
+
+        }
+
         if(hexValue=="00") continue
 
         if (file[i-4].toString(16).padStart(2,"0")== "fb") {
@@ -76,6 +83,7 @@ const server = net.createServer((connection) => {
           if (pair[0]==undefined) { pair[0] = keyString }
           else { 
             pair[1] = keyString 
+            console.log(expirity)
             storage[pair[0]] = {"value":pair[1], "expirity":0}
             pair=[] 
           }
