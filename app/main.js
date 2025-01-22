@@ -74,7 +74,7 @@ const server = net.createServer((connection) => {
           continue
         }
         const ayuda = String.fromCharCode(file[i]) || "arroz"
-        console.log(ayuda, i)
+        console.log(ayuda, i, pair)
         keyString += String.fromCharCode(file[i])
         
         if (i==indexStringEnd){
