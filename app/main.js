@@ -29,7 +29,8 @@ const server = net.createServer((connection) => {
 
       let indexStringEnd = 0
       let indexExpirityEnd = 0
-      let keyString, expirity = ""
+      let expirity = ""
+      let keyString = ""
       let pair = []
       
       for(i=0;i<file.length;i++){
