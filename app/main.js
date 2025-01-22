@@ -57,7 +57,7 @@ const server = net.createServer((connection) => {
           continue
         }
         const ayuda = String.fromCharCode(file[i]) || "arroz"
-        console.log(ayuda, i, indexExpirityEnd, pair)
+        console.log(ayuda, i, indexExpirityEnd, keyString)
 
         if(i==indexExpirityEnd) {pair[2] = expirity; expirity = "";continue}
         
