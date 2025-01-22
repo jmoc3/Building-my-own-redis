@@ -24,7 +24,7 @@ const server = net.createServer((connection) => {
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
       let fbFound = false
       let hashTableSizeDefined = false
-      let keysWithExpirityDefined = false
+      let keysWithExpirity = false
       let spaceBewtweenWords = false
 
       let indexStringEnd = 0
@@ -45,9 +45,9 @@ const server = net.createServer((connection) => {
           continue
         }
         
-        if(!keysWithExpirityDefined){
-          config["keysWithExpirityDefined"] = String.fromCharCode(hexValue).charCodeAt(0)
-          keysWithExpirityDefined = true
+        if(!keysWithExpirity){
+          config["keysWithExpirity"] = String.fromCharCode(hexValue).charCodeAt(0)
+          keysWithExpirity = true
           continue
         }
         
