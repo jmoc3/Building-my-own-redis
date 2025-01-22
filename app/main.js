@@ -63,7 +63,7 @@ const server = net.createServer((connection) => {
         
         if (file[i-1].toString(16).padStart(2,"0") == "00") {
           indexStringEnd = i  + String.fromCharCode(file[i]).charCodeAt(0)
-          
+          console.log(hexValue, indexStringEnd, i)
           continue
         }
         
