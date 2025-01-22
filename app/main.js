@@ -56,6 +56,8 @@ const server = net.createServer((connection) => {
           expirity += hexValue
           continue
         }
+        const ayuda = String.fromCharCode(file[i]) || "arroz"
+        console.log(ayuda, i, indexExpirityEnd, pair)
 
         if(i==indexExpirityEnd) {pair[2] = expirity; expirity = "";continue}
         
@@ -71,8 +73,6 @@ const server = net.createServer((connection) => {
           spaceBewtweenWords = false
           continue
         }
-        const ayuda = String.fromCharCode(file[i]) || "arroz"
-        console.log(ayuda, i, pair)
         keyString += String.fromCharCode(file[i])
         
         if (i==indexStringEnd){
