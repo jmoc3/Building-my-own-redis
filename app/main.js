@@ -79,9 +79,11 @@ const server = net.createServer((connection) => {
           if (pair[0]==undefined) { pair[0] = keyString }
           else { 
             pair[1] = keyString 
-            pair[2] = new Date(Number(BigInt("0x" + pair[2].match(/../g).reverse().join("")))) ?? ""
+            if(pair[2]!=undefined){
+              pair[2] = new Date(Number(BigInt("0x" + pair[2].match(/../g).reverse().join("")))) ?? ""
 
-            console.log(Date.now() < pair[2], pair[2])
+            }
+            
             if(Date.now() < pair[2]){
               storage[pair[0]] = {"value":pair[1], "expirity":pair[2]}
             }
