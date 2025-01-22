@@ -81,6 +81,7 @@ const server = net.createServer((connection) => {
             pair[1] = keyString 
             pair[2] = new Date(Number(BigInt("0x" + pair[2].match(/../g).reverse().join(""))))
 
+            console.log(Date.now() > pair[2], pair[2])
             storage[pair[0]] = {"value":pair[1], "expirity":pair[2]}
             pair=[] 
           }
