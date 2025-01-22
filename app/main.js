@@ -59,7 +59,7 @@ const server = net.createServer((connection) => {
 
         if(i==indexExpirityEnd) {pair[2] = expirity; expirity = "";continue}
         
-        if(hexValue=="00") { continue }
+        if(hexValue=="00") {   spaceBewtweenWords = true; continue }
         
         if (file[i-1].toString(16).padStart(2,"0") == "00") {
           spaceBewtweenWords = true
