@@ -79,6 +79,7 @@ const server = net.createServer((connection) => {
           if (pair[0]==undefined) { pair[0] = keyString }
           else { 
             pair[1] = keyString 
+            console.log(pair[2].split("").reverse().join("").slice(0,4))
             storage[pair[0]] = {"value":pair[1], "expirity":pair[2]}
             pair=[] 
           }
