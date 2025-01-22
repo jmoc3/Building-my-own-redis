@@ -22,15 +22,15 @@ const server = net.createServer((connection) => {
         
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
-      let fbFound, stringFounded = false
+      let fbFound = false
       let hashTableSizeDefined = false
       let keysWithExpirityDefined = false
       let spaceBewtweenWords = false
 
       let indexStringEnd = 0
       let indexExpirityEnd = 0
-      let expirity = ""
       let keyString = ""
+      let expirity = ""
       let pair = []
       
       for(i=0;i<file.length;i++){
@@ -57,9 +57,7 @@ const server = net.createServer((connection) => {
           expirity += hexValue
           continue
         }
-        const ayuda = String.fromCharCode(file[i]) || "arroz"
-        console.log(ayuda, i, indexExpirityEnd, keyString)
-
+        
         if(i==indexExpirityEnd) {pair[2] = expirity; expirity = "";continue}
         
         if(hexValue=="00") { continue }
@@ -77,11 +75,12 @@ const server = net.createServer((connection) => {
         keyString += String.fromCharCode(file[i])
         
         if (i==indexStringEnd){
-
+          
           if (pair[0]==undefined) { pair[0] = keyString }
           else { 
             pair[1] = keyString 
-            console.log(expirity)
+            const ayuda = String.fromCharCode(file[i]) || "arroz"
+            console.log(ayuda, i, indexExpirityEnd, pair)
             storage[pair[0]] = {"value":pair[1], "expirity":expirity}
             pair=[] 
           }
@@ -90,8 +89,7 @@ const server = net.createServer((connection) => {
           spaceBewtweenWords = true
           continue
         }  
-        
-        
+              
       }
       console.log(config, storage)
     } 
