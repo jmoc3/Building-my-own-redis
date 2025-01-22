@@ -54,7 +54,7 @@ const server = net.createServer((connection) => {
         if(hexValue=="fc"){ indexExpirityEnd = i+9; continue} 
         
         if(i<indexExpirityEnd){
-          expirity += file[i]
+          expirity += hexValue
           continue
         }
         
@@ -79,7 +79,7 @@ const server = net.createServer((connection) => {
           if (pair[0]==undefined) { pair[0] = keyString }
           else { 
             pair[1] = keyString 
-            console.log(new Date(pair[2].split("").reverse().join("").slice(0,8)))
+            console.log(BigInt(pair[2].split("").reverse().join("").slice(0,8)))
             storage[pair[0]] = {"value":pair[1], "expirity":pair[2]}
             pair=[] 
           }
