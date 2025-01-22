@@ -79,9 +79,7 @@ const server = net.createServer((connection) => {
           if (pair[0]==undefined) { pair[0] = keyString }
           else { 
             pair[1] = keyString 
-            const ayuda = String.fromCharCode(file[i]) || "arroz"
-            console.log(ayuda, i, indexExpirityEnd, pair)
-            storage[pair[0]] = {"value":pair[1], "expirity":expirity}
+            storage[pair[0]] = {"value":pair[1], "expirity":pair[2]}
             pair=[] 
           }
           
