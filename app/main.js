@@ -5,18 +5,17 @@ const fs = require("fs")
 const storage = {}
 const config = {"port":"6379"}
 
+const arguments = process.argv;
+config["dir"] = arguments[3] ?? null
+config["dbfilename"] = arguments[5] ?? null
+const path = `${config["dir"]}/${config["dbfilename"]}`
+
 const server = net.createServer((connection) => {
 
-  // Setting of the default paths of execution passing in the terminal for tests
-  const arguments = process.argv;
-
-  config["dir"] = arguments[3] ?? null
-  config["dbfilename"] = arguments[5] ?? null
-  const path = `${config["dir"]}/${config["dbfilename"]}`
-  
-  console.log(config)
+  // Setting of the default paths of execution passing in the terminal for tests  
+  console.log(config, arguments)
   connection.on("data", (clientInput)=>{
-
+    console.log(clientInput.toString())
     const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
         
