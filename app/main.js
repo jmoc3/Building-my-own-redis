@@ -8,7 +8,23 @@ const arguments = process.argv;
 
 const portId = arguments.indexOf("--port")
 const PORT = portId == -1 ? 6379 : process.argv[portId + 1]
-const config = {"port":PORT}
+const config = {
+  "port":PORT,
+  "info":{
+    "replication":{
+      "role":"master",
+      "connected_slaves":0,
+      "master_replid":"8371b4fb1155b71f4a04d3e1bc3e18c4a990aeeb",
+      "master_repl_offset":0,
+      "second_repl_offset":-1,
+      "repl_backlog_active":0,
+      "repl_backlog_size":1048576,
+      "repl_backlog_first_byte_offset":0,
+      "repl_backlog_histlen":null,
+      
+    }
+  }
+}
 
 config["dir"] = arguments[3] ?? null
 config["dbfilename"] = arguments[5] ?? null
@@ -106,9 +122,9 @@ const server = net.createServer((connection) => {
     // PING configuration
     if (clientInput.toString()=="*1\r\n$4\r\nPING\r\n") return connection.write("$4\r\nPONG\r\n")
       
-      const input = Buffer.from(clientInput).toString().toLowerCase()
-      const inputArray =  input.split("\r\n")
-      console.log(inputArray)
+    const input = Buffer.from(clientInput).toString().toLowerCase()
+    const inputArray =  input.split("\r\n")
+    console.log(inputArray)
       
     console.log(input)
     // ECHO configuration
@@ -160,6 +176,12 @@ const server = net.createServer((connection) => {
       }
 
       return connection.write(`*${keyWords.length}\r\n${res}`)
+    }
+
+    const infoRep = inputArray[2] == "info"
+
+    if(infoRep){
+      connection.write("\r\nIm working\r\n")
     }
 
     // Default response to something wrong
