@@ -127,7 +127,7 @@ const server = net.createServer((connection) => {
     // PING configuration
     // const input = respConverter(clientInput)
     const input = clientInput.toString().toLowerCase()
-    if (input=="*1\r\n$4\r\nPING\r\n") return connection.write("$4\r\nPONG\r\n")
+    if (input=="*1\r\n$4\r\nping\r\n") return connection.write("$4\r\nPONG\r\n")
       
     const inputArray =  input.split("\r\n")
 
