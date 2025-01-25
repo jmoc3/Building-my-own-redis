@@ -7,7 +7,7 @@ const storage = {}
 const arguments = process.argv;
 
 const portId = arguments.indexOf("--port")
-const PORT = portIdx == -1 ? 6379 : process.argv[portId + 1]
+const PORT = portId == -1 ? 6379 : process.argv[portId + 1]
 const config = {"port":PORT}
 
 config["dir"] = arguments[3] ?? null
