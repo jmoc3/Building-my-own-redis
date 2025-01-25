@@ -26,11 +26,11 @@ const config = {
       "connected_slaves":0,
       "master_replid":"8371b4fb1155b71f4a04d3e1bc3e18c4a990aeeb",
       "master_repl_offset":0,
-      "second_repl_offset":-1,
-      "repl_backlog_active":0,
-      "repl_backlog_size":1048576,
-      "repl_backlog_first_byte_offset":0,
-      "repl_backlog_histlen":null
+      // "second_repl_offset":-1,
+      // "repl_backlog_active":0,
+      // "repl_backlog_size":1048576,
+      // "repl_backlog_first_byte_offset":0,
+      // "repl_backlog_histlen":null
     }
   }
 }
@@ -194,10 +194,10 @@ const server = net.createServer((connection) => {
 
     if(infoRep){
       
-      // const resWithoutResp = Object.keys(config["info"][especifics]).map( property => `${property}:${config["info"][especifics][property]}` )
-      // const resArray = resWithoutResp.map(e=>`$${e.length}\r\n${e}\r\n`)
-      // const res = `*${resArray.length}\r\n${resArray.join("")}`
-      // console.log(resArray)      
+      const resWithoutResp = Object.keys(config["info"][especifics]).map( property => `${property}:${config["info"][especifics][property]}` )
+      const resArray = resWithoutResp.map(e=>`$${e.length}\r\n${e}\r\n`)
+      const res = `*${resArray.length}\r\n${resArray.join("")}`
+      console.log(res)      
       
       return connection.write(`$${config["info"][especifics]['role'].length+5}\r\nrole:${config["info"][especifics]['role']}\r\n`)
     }
