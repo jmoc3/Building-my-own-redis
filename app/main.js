@@ -191,7 +191,7 @@ const server = net.createServer((connection) => {
       // const resArray = resWithoutResp.map(e=>`$${e.length}\r\n${e}\r\n`)
       // const res = `*${resArray.length}\r\n${resArray.join("")}`
       // console.log(resArray)
-      return connection.write(`11\r\nrole:${config["info"][especifics]['role']}\r\n`)
+      return connection.write(`$11\r\nrole:${config["info"][especifics]['role']}\r\n`)
     }
 
     // Default response to something wrong
