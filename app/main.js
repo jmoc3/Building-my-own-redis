@@ -19,7 +19,7 @@ const replicaofId = arguments.indexOf("--replicaof")
 const role = replicaofId == -1 ? "master" : "slave"
 
 const config = {
-  "ports":PORT,
+  "port":PORT,
   "info":{
     "replication":{
       "role":role,
