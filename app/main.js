@@ -103,13 +103,13 @@ const server = net.createServer((connection) => {
       }
       console.log(config, storage)
     } 
-    console.log(input)
     // PING configuration
     if (clientInput.toString()=="*1\r\n$4\r\nPING\r\n") return connection.write("$4\r\nPONG\r\n")
-
-    const input = Buffer.from(clientInput).toString().toLowerCase()
-    const inputArray =  input.split("\r\n")
-    
+      
+      const input = Buffer.from(clientInput).toString().toLowerCase()
+      const inputArray =  input.split("\r\n")
+      console.log(input)
+      
     console.log(input)
     // ECHO configuration
     const echo = inputArray[2] == "echo"
