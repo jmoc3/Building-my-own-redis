@@ -3,12 +3,13 @@ const fs = require("fs")
 // You can use print statements as follows for debugging, they'll be visible when running tests.
 
 const storage = {}
-const config = {"port":"6379"}
 
 const arguments = process.argv;
 
-const portIdx = arguments.indexOf("--port")
-const PORT = portIdx == -1 ? 6379 : process.argv[portIdx + 1]
+const portId = arguments.indexOf("--port")
+const PORT = portIdx == -1 ? 6379 : process.argv[portId + 1]
+const config = {"port":PORT}
+
 config["dir"] = arguments[3] ?? null
 config["dbfilename"] = arguments[5] ?? null
 const path = `${config["dir"]}/${config["dbfilename"]}`
@@ -17,7 +18,7 @@ const server = net.createServer((connection) => {
 
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
-    console.log(clientInput.toString())
+
     const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
         
@@ -102,7 +103,7 @@ const server = net.createServer((connection) => {
       }
       console.log(config, storage)
     } 
-    
+    console.log(input)
     // PING configuration
     if (clientInput.toString()=="*1\r\n$4\r\nPING\r\n") return connection.write("$4\r\nPONG\r\n")
 
@@ -171,6 +172,6 @@ const server = net.createServer((connection) => {
 
 });
 
-server.listen(PORT, "127.0.0.1", ()=>{
+server.listen(config["port"], "127.0.0.1", ()=>{
     console.log("Server connected")
 });
