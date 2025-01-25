@@ -47,8 +47,9 @@ const server = net.createServer((connection) => {
 
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
-
-    const existFile = fs.existsSync(path)
+    if(replicaofId != -1 ) connection.write(("*1\r\n$4\r\nPING\r\n")) 
+    
+      const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
         
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
@@ -214,5 +215,4 @@ const server = net.createServer((connection) => {
 
 server.listen(config["port"], "127.0.0.1", ()=>{
     console.log("Server connected")
-    replicaofId != -1 ? console.log("*1\r\n$4\r\nPING\r\n") : console.log("")
 });
