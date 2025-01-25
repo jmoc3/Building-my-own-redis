@@ -26,8 +26,7 @@ const config = {
       "repl_backlog_active":0,
       "repl_backlog_size":1048576,
       "repl_backlog_first_byte_offset":0,
-      "repl_backlog_histlen":null,
-      
+      "repl_backlog_histlen":null
     }
   }
 }
@@ -188,11 +187,11 @@ const server = net.createServer((connection) => {
 
     if(infoRep){
       
-      const resWithoutResp = Object.keys(config["info"][especifics]).map( property => `${property}:${config["info"][especifics][property]}` )
-      const resArray = resWithoutResp.map(e=>`$${e.length}\r\n${e}\r\n`)
-      const res = `*${resArray.length}\r\n${resArray.join("")}`
+      // const resWithoutResp = Object.keys(config["info"][especifics]).map( property => `${property}:${config["info"][especifics][property]}` )
+      // const resArray = resWithoutResp.map(e=>`$${e.length}\r\n${e}\r\n`)
+      // const res = `*${resArray.length}\r\n${resArray.join("")}`
       console.log(resArray)
-      return connection.write(res)
+      return connection.write(`11\r\nrole:${config["info"][especifics]['role']}\r\n`)
     }
 
     // Default response to something wrong
