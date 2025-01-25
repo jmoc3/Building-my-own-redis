@@ -20,7 +20,8 @@ const role = replicaofId == -1 ? "master" : "slave"
 const masterServerConf = process.argv[replicaofId + 1].split(" ")
 
 const portArray = [PORT, masterServerConf[2]]
-console.log(portArray)
+const portsClean = portArray.filter(e=> e!=undefined)
+console.log(portsClean)
 
 const config = {
   "ports":PORT,
