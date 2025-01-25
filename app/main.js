@@ -18,8 +18,15 @@ const PORT = portId == -1 ? 6379 : process.argv[portId + 1]
 const replicaofId = arguments.indexOf("--replicaof")
 const role = replicaofId == -1 ? "master" : "slave"
 
+const secondServerConf = replicaofId == -1 
+
+const masterPort = process.argv[replicaofId + 1].split(" ")[1]
+
+console.log(masterPort)
+
+const portArray = [PORT, masterPort]
 const config = {
-  "port":PORT,
+  "ports":PORT,
   "info":{
     "replication":{
       "role":role,
