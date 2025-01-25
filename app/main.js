@@ -47,7 +47,7 @@ config["dir"] = dirId == -1 ? null : process.argv[dir + 1]
 config["dbfilename"] = dbfilenameId == -1 ? null : process.argv[dbfilenameId + 1]
 const path = `${config["dir"]}/${config["dbfilename"]}`
 
-
+console.log(config["ports"])
 config["ports"].forEach((port,i) => {
 
   const server = net.createServer((connection) => {
