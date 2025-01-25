@@ -18,6 +18,7 @@ const PORT = portId == -1 ? 6379 : process.argv[portId + 1]
 const replicaofId = arguments.indexOf("--replicaof")
 const role = replicaofId == -1 ? "master" : "slave"
 
+
 const config = {
   "port":PORT,
   "info":{
@@ -213,4 +214,5 @@ const server = net.createServer((connection) => {
 
 server.listen(config["port"], "127.0.0.1", ()=>{
     console.log("Server connected")
+    replicaofId == -1 ? console.log("*1\r\n$4\r\nPING\r\n") : console.log("")
 });
