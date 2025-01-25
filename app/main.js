@@ -3,7 +3,7 @@ const fs = require("fs")
 // You can use print statements as follows for debugging, they'll be visible when running tests.
 
 const storage = {}
-const config = {}
+const config = {"port":"6379"}
 
 const server = net.createServer((connection) => {
 
@@ -107,7 +107,8 @@ const server = net.createServer((connection) => {
 
     const input = Buffer.from(clientInput).toString().toLowerCase()
     const inputArray =  input.split("\r\n")
-     
+    
+    console.log(input)
     // ECHO configuration
     const echo = inputArray[2] == "echo"
     if(echo){
@@ -169,6 +170,6 @@ const server = net.createServer((connection) => {
 
 });
 
-server.listen(6385, "127.0.0.1", ()=>{
+server.listen(config["port"], "127.0.0.1", ()=>{
     console.log("Server connected")
 });
