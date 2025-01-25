@@ -199,7 +199,7 @@ const server = net.createServer((connection) => {
       // const res = `*${resArray.length}\r\n${resArray.join("")}`
       // console.log(resArray)      
       
-      return connection.write(`$${config["info"][especifics]['role'].length}\r\nrole:${config["info"][especifics]['role']}\r\n`)
+      return connection.write(`$${config["info"][especifics]['role'].length+5}\r\nrole:${config["info"][especifics]['role']}\r\n`)
     }
 
     // Default response to something wrong
