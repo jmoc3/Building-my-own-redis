@@ -108,7 +108,7 @@ const server = net.createServer((connection) => {
       
       const input = Buffer.from(clientInput).toString().toLowerCase()
       const inputArray =  input.split("\r\n")
-      console.log(input)
+      console.log(inputArray)
       
     console.log(input)
     // ECHO configuration
