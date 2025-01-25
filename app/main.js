@@ -38,7 +38,7 @@ const config = {
 const dirId = arguments.indexOf("--dir")
 const dbfilenameId = arguments.indexOf("--dbfilename")
 
-config["dir"] = dirId == -1 ? null : process.argv[dir + 1]
+config["dir"] = dirId == -1 ? null : process.argv[dirId + 1]
 config["dbfilename"] = dbfilenameId == -1 ? null : process.argv[dbfilenameId + 1]
 const path = `${config["dir"]}/${config["dbfilename"]}`
 
