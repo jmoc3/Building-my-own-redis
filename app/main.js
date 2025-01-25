@@ -184,7 +184,7 @@ const server = net.createServer((connection) => {
 
     const infoRep = inputArray[2] == "info"
     const especifics = "replication"
-
+    console.log(input, inputArray)
     if(infoRep){
       
       const resWithoutResp = Object.keys(config["info"][especifics]).map( property => `${property}:${config["info"][especifics][property]}` )
