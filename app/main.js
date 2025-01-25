@@ -198,7 +198,7 @@ const server = net.createServer((connection) => {
       const resArray = resWithoutResp.map(e=>`+${e}`)
       const res = `*${resArray.length}\r\n${resArray.join("")}`
       
-      return connection.write(`${resArray.join("")}r/n`)
+      return connection.write(`${resArray.join("")}\r\n`)
     }
 
     // Default response to something wrong
