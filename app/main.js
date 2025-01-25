@@ -195,7 +195,7 @@ const server = net.createServer((connection) => {
     if(infoRep){
       
       const resWithoutResp = Object.keys(config["info"][especifics]).map( property => `${property}:${config["info"][especifics][property]}` )
-      const resArray = resWithoutResp.map(e=>`$${e.length}\r\n${e}\r\n`)
+      const resArray = resWithoutResp.map(e=>`${e}\r\n`)
       const res = `*${resArray.length}\r\n${resArray.join("")}`
       console.log(resArray.join(""))      
       
