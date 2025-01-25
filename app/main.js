@@ -13,7 +13,6 @@ config["dir"] = arguments[3] ?? null
 config["dbfilename"] = arguments[5] ?? null
 const path = `${config["dir"]}/${config["dbfilename"]}`
 
-console.log(config, arguments)
 const server = net.createServer((connection) => {
 
   // Setting of the default paths of execution passing in the terminal for tests  
