@@ -44,7 +44,7 @@ config["dbfilename"] = dbfilenameId == -1 ? null : process.argv[dbfilenameId + 1
 const path = `${config["dir"]}/${config["dbfilename"]}`
 
 const server = net.createServer((connection) => {
-  if(replicaofId != -1 ) connection.write(("*1\r\n$4\r\nPING\r\n")) 
+  if(replicaofId != -1 ) {connection.write(("*1\r\n$4\r\nPING\r\n")) }
 
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
