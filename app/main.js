@@ -6,6 +6,9 @@ const storage = {}
 const config = {"port":"6379"}
 
 const arguments = process.argv;
+
+const portIdx = arguments.indexOf("--port")
+const PORT = portIdx == -1 ? 6379 : process.argv[portIdx + 1]
 config["dir"] = arguments[3] ?? null
 config["dbfilename"] = arguments[5] ?? null
 const path = `${config["dir"]}/${config["dbfilename"]}`
@@ -169,6 +172,6 @@ const server = net.createServer((connection) => {
 
 });
 
-server.listen(config["port"], "127.0.0.1", ()=>{
+server.listen(PORT, "127.0.0.1", ()=>{
     console.log("Server connected")
 });
