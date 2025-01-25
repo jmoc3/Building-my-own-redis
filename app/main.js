@@ -214,5 +214,5 @@ const server = net.createServer((connection) => {
 
 server.listen(config["port"], "127.0.0.1", ()=>{
     console.log("Server connected")
-    replicaofId == -1 ? console.log("*1\r\n$4\r\nPING\r\n") : console.log("")
+    replicaofId != -1 ? console.log("*1\r\n$4\r\nPING\r\n") : console.log("")
 });
