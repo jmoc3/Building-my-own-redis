@@ -14,11 +14,15 @@ const arguments = process.argv;
 
 const portId = arguments.indexOf("--port")
 const PORT = portId == -1 ? 6379 : process.argv[portId + 1]
+
+const replicaofId = arguments.indexOf("--replicaof")
+const role = replicaofId == -1 ? "master" : "slave"
+
 const config = {
   "port":PORT,
   "info":{
     "replication":{
-      "role":"master",
+      "role":role,
       "connected_slaves":0,
       "master_replid":"8371b4fb1155b71f4a04d3e1bc3e18c4a990aeeb",
       "master_repl_offset":0,
@@ -31,8 +35,11 @@ const config = {
   }
 }
 
-config["dir"] = arguments[3] ?? null
-config["dbfilename"] = arguments[5] ?? null
+const dirId = arguments.indexOf("--dir")
+const dbfilenameId = arguments.indexOf("--dbfilename")
+
+config["dir"] = dirId == -1 ? null : process.argv[dir + 1]
+config["dbfilename"] = dbfilenameId == -1 ? null : process.argv[dbfilenameId + 1]
 const path = `${config["dir"]}/${config["dbfilename"]}`
 
 const server = net.createServer((connection) => {
@@ -190,7 +197,8 @@ const server = net.createServer((connection) => {
       // const resWithoutResp = Object.keys(config["info"][especifics]).map( property => `${property}:${config["info"][especifics][property]}` )
       // const resArray = resWithoutResp.map(e=>`$${e.length}\r\n${e}\r\n`)
       // const res = `*${resArray.length}\r\n${resArray.join("")}`
-      // console.log(resArray)
+      // console.log(resArray)      
+      
       return connection.write(`$11\r\nrole:${config["info"][especifics]['role']}\r\n`)
     }
 
