@@ -23,7 +23,7 @@ const server = net.createServer((connection) => {
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
       let fbFound = false
-      let hashTableSizeDefined = false
+      let hashTableSize = false
       let keysWithExpirity = false
       let spaceBewtweenWords = false
 
@@ -39,9 +39,9 @@ const server = net.createServer((connection) => {
         if(hexValue == "fb") { fbFound = true; continue }
         if(!fbFound) continue        
         
-        if(!hashTableSizeDefined){
+        if(!hashTableSize){
           config["hashTableSize"] = String.fromCharCode(hexValue).charCodeAt(0)
-          hashTableSizeDefined = true
+          hashTableSize = true
           continue
         }
         
@@ -72,6 +72,7 @@ const server = net.createServer((connection) => {
           spaceBewtweenWords = false
           continue
         }
+
         keyString += String.fromCharCode(file[i])
         
         if (i==indexStringEnd){
@@ -118,7 +119,6 @@ const server = net.createServer((connection) => {
     const confGet = (inputArray[2]=="config") && (inputArray[4] == "get")
      
     if(confGet) {
-      console.log(config[inputArray[6]])
       if((config[inputArray[6]]== null) || (config[inputArray[6]]== undefined) ){
         return connection.write('$-1\r\n') 
       }
