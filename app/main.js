@@ -2,6 +2,12 @@ const net = require("net");
 const fs = require("fs")
 // You can use print statements as follows for debugging, they'll be visible when running tests.
 
+const respConverter = (buffer) => {
+  stringArray = buffer.toString().slice(0,-1).split(" ")
+  inputConverted = stringArray.map(e => `$${e.length}\r\n${e.toLowerCase()}\r\n`)
+  return `*${stringArray.length}\r\n${inputConverted.join("")}`
+}
+
 const storage = {}
 
 const arguments = process.argv;
@@ -120,13 +126,11 @@ const server = net.createServer((connection) => {
       console.log(config, storage)
     } 
     // PING configuration
-    if (clientInput.toString()=="*1\r\n$4\r\nPING\r\n") return connection.write("$4\r\nPONG\r\n")
+    const input = respConverter(clientInput)
+    if (input=="*1\r\n$4\r\nping\r\n") return connection.write("$4\r\nPONG\r\n")
       
-    const input = Buffer.from(clientInput).toString().toLowerCase()
     const inputArray =  input.split("\r\n")
-    console.log(inputArray)
-      
-    console.log(input)
+
     // ECHO configuration
     const echo = inputArray[2] == "echo"
     if(echo){
@@ -179,9 +183,14 @@ const server = net.createServer((connection) => {
     }
 
     const infoRep = inputArray[2] == "info"
+    const especifics = "replication"
 
     if(infoRep){
-      connection.write("\r\nIm working\r\n")
+      
+      const resWithoutResp = Object.keys(config["info"][especifics]).map( property => `${property}:${config["info"][especifics][property]}` )
+      const resArray = resWithoutResp.map(e=>`$${e.length}\r\n${e}\r\n`)
+      const res = `*${resArray.length+1}\r\n#${especifics}\r\n${resArray.join("")}`
+      return connection.write(res)
     }
 
     // Default response to something wrong
