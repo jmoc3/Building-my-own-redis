@@ -218,7 +218,7 @@ const server = net.createServer((connection) => {
       console.log(binaryFile)
       const fileContent = binaryFile.join("")
 
-      connection.write(`$${fileContent.length}\r\n`) 
+      connection.write(`$${fileContent.length.toString(2).padStart(8,'0')}\r\n`) 
       connection.write(`${fileContent}`) 
       return
     }
