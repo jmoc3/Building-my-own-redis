@@ -225,7 +225,6 @@ server.listen(config["port"], "127.0.0.1", ()=>{
         console.log("Master Data Resp: " + data.toString())
         master.write("*3\r\n$8\r\nREPLCONF\r\n$14\r\nlistening-port\r\n$4\r\n6380\r\n")
         master.write("*3\r\n$8\r\nREPLCONF\r\n$4\r\ncapa\r\n$6\r\npsync2\r\n")
-        master.write("*3\r\n$5\r\nPSYNC\r\n$1\r\n?\r\n$2\r\n-1\r\n")
        
         master.end()
       })
