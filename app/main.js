@@ -23,12 +23,11 @@ if(replicaofBool){
   const masterConf = process.argv[replicaofId + 1].split(" ")
   const master = net.createConnection({host:masterConf[0], port:masterConf[1]}, ()=>{
     console.log("Connected to master")
-    sendNextCommand()
+    master.write("*1\r\n$4\r\nPING\r\n")
   })
   
   let actualCommandIndex = 0
-  const command = ["*1\r\n$4\r\nPING\r\n",
-                   "*3\r\n$8\r\nREPLCONF\r\n$14\r\nlistening-port\r\n$4\r\n6380\r\n",
+  const command = ["*3\r\n$8\r\nREPLCONF\r\n$14\r\nlistening-port\r\n$4\r\n6380\r\n",
                    "*3\r\n$8\r\nREPLCONF\r\n$4\r\ncapa\r\n$6\r\npsync2\r\n",
                    "*3\r\n$5\r\nPSYNC\r\n$1\r\n?\r\n$2\r\n-1\r\n"]
 
