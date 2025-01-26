@@ -207,6 +207,12 @@ const server = net.createServer((connection) => {
       return connection.write("+OK\r\n")
     }
 
+    // PSYNC configuration
+    const psync = inputArray[2] == "psync"
+    if(psync){
+      return connection.write(`+FULLRESYNC ${config["info"]["replication"]["master_replid"]} ${config["info"]["replication"]["master_repl_offset"]}\r\n`)
+    }
+
     // ECHO configuration
     const echo = inputArray[2] == "echo"
     if(echo){
