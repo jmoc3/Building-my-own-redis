@@ -216,7 +216,7 @@ const server = net.createServer((connection) => {
       const buffer = Buffer.from(base,"base64")
       const bufferHeader = Buffer.from(`$${buffer.length}\r\n`)  
        
-      return connection.write(Buffer.concat(bufferHeader,buffer))
+      return connection.write(Buffer.concat([bufferHeader,buffer]))
     }
 
     // ECHO configuration
