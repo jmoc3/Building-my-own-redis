@@ -38,6 +38,9 @@ if(replicaofBool){
     return master.end()
   }
 
+  master.on("data", (data)=>{
+    sendNextCommand()
+  })
 }
 
 const config = {
