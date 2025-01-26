@@ -16,8 +16,15 @@ const portId = arguments.indexOf("--port")
 const PORT = portId == -1 ? 6379 : process.argv[portId + 1]
 
 const replicaofId = arguments.indexOf("--replicaof")
-const role = replicaofId == -1 ? "master" : "slave"
+const replicaofBool = replicaofId != -1
+const role = replicaofBool ? "slave" : "master"
 
+if(replicaofBool){
+  const masterConf = process.argv[replicaofId + 1].split(" ")
+  const connectionMaster = net.createConnection({host:masterConf[0], port:masterConf[1]}, ()=>{
+    console.log("Connected to master")
+  })
+}
 
 const config = {
   "port":PORT,
