@@ -75,7 +75,7 @@ const server = net.createServer((connection) => {
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
     
-      const existFile = fs.existsSync(path)
+    const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
         
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
@@ -164,14 +164,7 @@ const server = net.createServer((connection) => {
     const input = clientInput.toString().toLowerCase()
     if (input=="*1\r\n$4\r\nping\r\n") return connection.write("$4\r\nPONG\r\n")
       
-    const inputArray =  input.split("\r\n")
-
-    // ECHO configuration
-    const echo = inputArray[2] == "echo"
-    if(echo){
-      const res = inputArray.filter((_,i)=>i>inputArray.indexOf("echo")).join("\r\n")
-      return connection.write(res)
-    }      
+    const inputArray =  input.split("\r\n")   
 
     // Default CONFIG GET configuration
     const confGet = (inputArray[2]=="config") && (inputArray[4] == "get")
@@ -182,6 +175,44 @@ const server = net.createServer((connection) => {
       }
       return connection.write(`*2\r\n$${inputArray[6].length}\r\n${inputArray[6]}\r\n$${config[inputArray[6]].length}\r\n${config[inputArray[6]]}\r\n`)
     }
+    
+    // KEYS configuration
+    const keys = inputArray[2] == "keys"
+    if(keys){
+      const keyWords = Object.keys(storage) 
+      const lenKeyWords = keyWords.map(e => e.length) 
+      let res = ""
+      for(i=0;i<keyWords.length;i++){
+        res += `$${lenKeyWords[i]}\r\n${keyWords[i]}\r\n`
+      }
+
+      return connection.write(`*${keyWords.length}\r\n${res}`)
+    }
+    
+    // INFO configuration
+    const infoRep = inputArray[2] == "info"
+    const especifics = "replication"
+
+    if(infoRep){
+      const resWithoutResp = Object.keys(config["info"][especifics]).map( property => `${property}:${config["info"][especifics][property]}` )
+      const resArray = resWithoutResp.map(e=>`+${e}`)
+      const res = `*${resArray.length}\r\n${resArray.join("")}`
+      
+      return connection.write(`${resArray.join("")}\r\n`)
+    }
+
+    // REPLCONF configuration
+    const replconf = inputArray[2] == "replconf"
+    if(replconf){
+      return connection.write("+OK\r\n")
+    }
+
+    // ECHO configuration
+    const echo = inputArray[2] == "echo"
+    if(echo){
+      const res = inputArray.filter((_,i)=>i>inputArray.indexOf("echo")).join("\r\n")
+      return connection.write(res)
+    }   
 
     // SET and GET configuration with expirity
     const set = inputArray[2] == "set"
@@ -205,29 +236,6 @@ const server = net.createServer((connection) => {
       if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
       }
       
-    const keys = inputArray[2] == "keys"
-    if(keys){
-      const keyWords = Object.keys(storage) 
-      const lenKeyWords = keyWords.map(e => e.length) 
-      let res = ""
-      for(i=0;i<keyWords.length;i++){
-        res += `$${lenKeyWords[i]}\r\n${keyWords[i]}\r\n`
-      }
-
-      return connection.write(`*${keyWords.length}\r\n${res}`)
-    }
-
-    const infoRep = inputArray[2] == "info"
-    const especifics = "replication"
-
-    if(infoRep){
-      
-      const resWithoutResp = Object.keys(config["info"][especifics]).map( property => `${property}:${config["info"][especifics][property]}` )
-      const resArray = resWithoutResp.map(e=>`+${e}`)
-      const res = `*${resArray.length}\r\n${resArray.join("")}`
-      
-      return connection.write(`${resArray.join("")}\r\n`)
-    }
 
     // Default response to something wrong
     return connection.write('$-1\r\n') 
