@@ -217,7 +217,9 @@ const server = net.createServer((connection) => {
       const binaryFile = hexFileArray.map(e=>parseInt(e,16).toString(2))
       const fileContent = binaryFile.join("")
 
-      return connection.write(`$${fileContent.length}\r\n${fileContent}`) 
+      connection.write(`$${fileContent.length}\r\n`) 
+      connection.write(`${fileContent}`) 
+      return
     }
 
     // ECHO configuration
