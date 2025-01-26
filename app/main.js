@@ -28,17 +28,15 @@ if(replicaofBool){
 
   const master = net.createConnection({host:masterConf[0], port:masterConf[1]}, ()=>{
     console.log("Connected to master")
+    sendNextCommand()
   })
-  const sendNextCommand = () => {
-    if(actualCommandIndex<command.length){
-      return master.write(command[actualCommandIndex]) 
+
+  function sendNextCommand(){
+  if(actualCommandIndex<command.length){
+    return master.write(command[actualCommandIndex]) 
     }
     return master.end()
   }
-
-  master.on("data",(data)=>{
-    sendNextCommand()
-  })
 
 }
 
