@@ -33,7 +33,9 @@ if(replicaofBool){
 
   function sendNextCommand(){
   if(actualCommandIndex<command.length){
-    return master.write(command[actualCommandIndex]) 
+      master.write(command[actualCommandIndex])
+      actualCommandIndex++
+      return 
     }
     return master.end()
   }
