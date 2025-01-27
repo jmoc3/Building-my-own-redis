@@ -18,13 +18,14 @@ const replicaofId = arguments.indexOf("--replicaof")
 const replicaofBool = replicaofId != -1
 const role = replicaofBool ? "slave" : "master"
 
+const masterConf = process.argv[replicaofId + 1].split(" ")
+const master = net.createConnection({host:masterConf[0], port:masterConf[1]}, ()=>{
+  console.log("Connected to master")
+  master.write("*1\r\n$4\r\nPING\r\n")
+})
+
 if(replicaofBool){
 
-  const masterConf = process.argv[replicaofId + 1].split(" ")
-  const master = net.createConnection({host:masterConf[0], port:masterConf[1]}, ()=>{
-    console.log("Connected to master")
-    master.write("*1\r\n$4\r\nPING\r\n")
-  })
   
   let actualCommandIndex = 0
   const command = ["*3\r\n$8\r\nREPLCONF\r\n$14\r\nlistening-port\r\n$4\r\n6380\r\n",
@@ -71,7 +72,6 @@ const path = `${config["dir"]}/${config["dbfilename"]}`
 
 const server = net.createServer((connection) => {
   
-
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
     
@@ -233,6 +233,7 @@ const server = net.createServer((connection) => {
 
     if (set) {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
+      if(replicaofBool){ master.write(clientInput.toString()) }
       if (!pxConf) {    
         return connection.write("+OK\r\n")
       }
