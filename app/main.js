@@ -32,17 +32,17 @@ if(replicaofBool){
                    "*3\r\n$8\r\nREPLCONF\r\n$4\r\ncapa\r\n$6\r\npsync2\r\n",
                    "*3\r\n$5\r\nPSYNC\r\n$1\r\n?\r\n$2\r\n-1\r\n"]
 
-  function sendNextCommand(){
-    if(actualCommandIndex<command.length){
-      master.write(command[actualCommandIndex])
-      actualCommandIndex++
+  function sendNextCommand(connection, index, commands){
+    if(index<commands.length){
+      connection.write(commands[index])
+      index++
       return 
     }
-    return master.end()
+    return connection.end()
   }
 
   master.on("data", (data)=>{
-    sendNextCommand()
+    sendNextCommand(master,actualCommandIndex,command)
   })
 }
 
@@ -236,8 +236,7 @@ const server = net.createServer((connection) => {
       
       if (!pxConf) {    
         connection.write("+OK\r\n")
-        setTimeout(()=>{console.log(`${inputArray.join("\r\n")}\r\n`);connection.write(`${inputArray.join("\r\n")}\r\n`);console.log("sent")},1000)
-        
+        sendNextCommand(connection,0,[clientInput.toString()])       
         return 
       }
       
