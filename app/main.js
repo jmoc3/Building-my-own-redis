@@ -18,6 +18,12 @@ const replicaofId = arguments.indexOf("--replicaof")
 const replicaofBool = replicaofId != -1
 const role = replicaofBool ? "slave" : "master"
 
+function sendToConnection(message,host="localhost",port="6380"){
+  const connection = net.createConnection({host,port},()=>{
+    connection.write(message)
+  })
+}
+
 if(replicaofBool){
 
   const masterConf = process.argv[replicaofId + 1].split(" ")
@@ -233,7 +239,7 @@ const server = net.createServer((connection) => {
 
     if (set) {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
-      if(replicaofBool){ master.write(clientInput.toString()) }
+      sendToConnection(clientInput.toString())
       if (!pxConf) {    
         return connection.write("+OK\r\n")
       }
