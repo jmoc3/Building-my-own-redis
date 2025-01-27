@@ -243,7 +243,9 @@ const server = net.createServer((connection) => {
       }, storage[inputArray[4]].expirity)
       
       connection.write("+OK\r\n")
+      console.log("sending...")
       connection.write(`${inputArray.join("\r\n")}\r\n`)
+      console.log("sent")
       return
     }
       
