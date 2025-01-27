@@ -232,8 +232,8 @@ const server = net.createServer((connection) => {
     const pxConf = inputArray[8] == "px"
 
     if (set) {
-      
-      connection.write(clientInput.toString())
+      console.log(inputArray)
+      connection.write(`*3\r\n$3\r\n${clientInput.toString().join("\r\n")}`)
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
      
       if (!pxConf) {    
