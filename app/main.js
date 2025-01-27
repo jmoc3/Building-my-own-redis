@@ -76,7 +76,7 @@ const server = net.createServer((connection) => {
   
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
-    console.log(clientInput.toString())
+
     const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
         
