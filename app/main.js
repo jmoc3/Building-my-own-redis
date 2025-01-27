@@ -210,6 +210,7 @@ const server = net.createServer((connection) => {
     // REPLCONF configuration
     const replconf = inputArray[2] == "replconf"
     if(replconf){
+      console.log("in replica")
       return connection.write("+OK\r\n")
     }
 
