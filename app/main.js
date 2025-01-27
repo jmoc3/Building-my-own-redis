@@ -236,7 +236,7 @@ const server = net.createServer((connection) => {
       
       if (!pxConf) {    
         connection.write("+OK\r\n")
-        setTimeout(()=>{connection.write(`${inputArray.join("\r\n")}\r\n`);console.log("sent")},1000)
+        setTimeout(()=>{console.log(`${inputArray.join("\r\n")}\r\n`);connection.write(`${inputArray.join("\r\n")}\r\n`);console.log("sent")},1000)
         
         return 
       }
