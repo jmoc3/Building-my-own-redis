@@ -8,6 +8,15 @@ const respConverter = (buffer) => {
   return `*${stringArray.length}\r\n${inputConverted.join("")}`
 }
 
+const sendNextCommand = (connection, index, commands) => {
+  if(index<commands.length){
+    connection.write(commands[index])
+    index++
+    return 
+  }
+  return connection.end()
+}
+
 const storage = {}
 const arguments = process.argv;
 
@@ -17,6 +26,8 @@ const PORT = portId == -1 ? 6379 : process.argv[portId + 1]
 const replicaofId = arguments.indexOf("--replicaof")
 const replicaofBool = replicaofId != -1
 const role = replicaofBool ? "slave" : "master"
+
+
 
 if(replicaofBool){
 
@@ -31,15 +42,6 @@ if(replicaofBool){
   const command = ["*3\r\n$8\r\nREPLCONF\r\n$14\r\nlistening-port\r\n$4\r\n6380\r\n",
                    "*3\r\n$8\r\nREPLCONF\r\n$4\r\ncapa\r\n$6\r\npsync2\r\n",
                    "*3\r\n$5\r\nPSYNC\r\n$1\r\n?\r\n$2\r\n-1\r\n"]
-
-  function sendNextCommand(connection, index, commands){
-    if(index<commands.length){
-      connection.write(commands[index])
-      index++
-      return 
-    }
-    return connection.end()
-  }
 
   master.on("data", (data)=>{
     sendNextCommand(master,actualCommandIndex,command)
