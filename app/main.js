@@ -235,7 +235,11 @@ const server = net.createServer((connection) => {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       
       if (!pxConf) {    
-        return connection.write("+OK\r\n")
+        connection.write("+OK\r\n")
+        console.log("sending...")
+        connection.write(`${inputArray.join("\r\n")}\r\n`)
+        console.log("sent")
+        return 
       }
       
       setTimeout( ()=>{ 
@@ -243,9 +247,6 @@ const server = net.createServer((connection) => {
       }, storage[inputArray[4]].expirity)
       
       connection.write("+OK\r\n")
-      console.log("sending...")
-      connection.write(`${inputArray.join("\r\n")}\r\n`)
-      console.log("sent")
       return
     }
       
