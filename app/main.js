@@ -18,14 +18,13 @@ const replicaofId = arguments.indexOf("--replicaof")
 const replicaofBool = replicaofId != -1
 const role = replicaofBool ? "slave" : "master"
 
-const masterConf = process.argv[replicaofId + 1].split(" ")
-const master = net.createConnection({host:masterConf[0], port:masterConf[1]}, ()=>{
-  console.log("Connected to master")
-  master.write("*1\r\n$4\r\nPING\r\n")
-})
-
 if(replicaofBool){
 
+  const masterConf = process.argv[replicaofId + 1].split(" ")
+  const master = net.createConnection({host:masterConf[0], port:masterConf[1]}, ()=>{
+    console.log("Connected to master")
+    master.write("*1\r\n$4\r\nPING\r\n")
+  })
   
   let actualCommandIndex = 0
   const command = ["*3\r\n$8\r\nREPLCONF\r\n$14\r\nlistening-port\r\n$4\r\n6380\r\n",
