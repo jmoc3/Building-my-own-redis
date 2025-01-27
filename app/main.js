@@ -21,6 +21,7 @@ const role = replicaofBool ? "slave" : "master"
 if(replicaofBool){
 
   const masterConf = process.argv[replicaofId + 1].split(" ")
+  console.log(masterConf)
   const master = net.createConnection({host:masterConf[0], port:masterConf[1]}, ()=>{
     console.log("Connected to master")
     master.write("*1\r\n$4\r\nPING\r\n")
