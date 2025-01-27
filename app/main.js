@@ -18,7 +18,7 @@ const replicaofId = arguments.indexOf("--replicaof")
 const replicaofBool = replicaofId != -1
 const role = replicaofBool ? "slave" : "master"
 
-function sendToConnection(message,host="127.0.0.1",port="6380"){
+function sendToConnection(message,host="127.0.0.1",port="6379"){
   const connection = net.createConnection({host,port},()=>{
     connection.write(message)
   })
