@@ -233,19 +233,20 @@ const server = net.createServer((connection) => {
 
     if (set) {
       console.log(`${inputArray.join("\r\n")}\r\n`)
-      connection.write(`${inputArray.join("\r\n")}\r\n`)
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
-     
+      
       if (!pxConf) {    
         return connection.write("+OK\r\n")
       }
-        
-        setTimeout( ()=>{ 
-            delete storage[inputArray[4]] 
-        }, storage[inputArray[4]].expirity)
-
-        return connection.write("+OK\r\n")
-      }
+      
+      setTimeout( ()=>{ 
+        delete storage[inputArray[4]] 
+      }, storage[inputArray[4]].expirity)
+      
+      connection.write("+OK\r\n")
+      connection.write(`${inputArray.join("\r\n")}\r\n`)
+      return
+    }
       
     if (get) {
       if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
