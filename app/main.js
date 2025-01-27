@@ -238,6 +238,7 @@ const server = net.createServer((connection) => {
     const pxConf = inputArray[8] == "px"
 
     if (set) {
+      console.log(config)
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       sendToConnection(clientInput.toString())
       if (!pxConf) {    
