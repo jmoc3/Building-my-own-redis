@@ -74,7 +74,7 @@ const server = net.createServer((connection) => {
   
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
-    
+    console.log(clientInput.toString())
     const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
         
@@ -232,7 +232,6 @@ const server = net.createServer((connection) => {
     const pxConf = inputArray[8] == "px"
 
     if (set) {
-      console.log(`${inputArray.join("\r\n")}\r\n`)
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       
       if (!pxConf) {    
