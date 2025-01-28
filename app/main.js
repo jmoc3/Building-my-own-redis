@@ -52,6 +52,7 @@ if(replicaofBool){
     const inputArray =  input.split("\r\n")  
 
     if(config["info"]["replication"]["master_repl_offset"]!=0){
+      console.log(input)
       config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(input).byteLength
     }
     
