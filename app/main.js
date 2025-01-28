@@ -71,7 +71,7 @@ if(replicaofBool){
         }
         if((i%2)==0) stringValue+=element
       })
-      console.log(stringValue)
+      console.log(values)
 
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       // console.log("inside set", inputArray, storage)
