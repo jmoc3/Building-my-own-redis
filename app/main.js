@@ -82,7 +82,6 @@ let propagationCommandsIndex = 0
 
 const server = net.createServer((connection) => {
   connectedClients.add(`${connection.remoteAddress}:${connection.remotePort}`)
-  console.log(connectedClients, arguments)
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
 
