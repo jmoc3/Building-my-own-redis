@@ -57,7 +57,7 @@ if(replicaofBool){
     const pxConf = inputArray[8] == "px"
 
     if (set) {
-      console.log(inputArray)
+      console.log(inputArray.slice(0,-1))
       const eachSet = []
 
       for(i=0;i<inputArray.length;i+=7){
