@@ -1,6 +1,5 @@
 const net = require("net");
 const fs = require("fs");
-const { Socket } = require("dgram");
 // You can use print statements as follows for debugging, they'll be visible when running tests.
 
 const respConverter = (buffer) => {
@@ -49,6 +48,7 @@ if(replicaofBool){
                    "*3\r\n$5\r\nPSYNC\r\n$1\r\n?\r\n$2\r\n-1\r\n"]
 
   master.on("data", (data)=>{
+    console.log(data)
     sendNextCommand(master,actualCommandIndex,command)
   })
 }
