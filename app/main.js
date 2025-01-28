@@ -75,14 +75,15 @@ if(replicaofBool){
 
         if (!pxConf) {    
           storage[request[4]] = {"value":request[6], "expirity":+request[10]}
-          return master.write("+OK\r\n")
+          return master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
+
         }
                 
         setTimeout( ()=>{ 
           delete storage[request[4]] 
         }, storage[request[4]].expirity)
       })
-      master.write("+OK\r\n")
+      master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
       return
     }
     
