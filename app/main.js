@@ -17,6 +17,10 @@ const sendNextCommand = (connection, index, commands) => {
   return connection.end()
 }
 
+const sendCommand = (connection, message) => {
+  connection.write(message)
+}
+
 const storage = {}
 const arguments = process.argv;
 
@@ -239,6 +243,7 @@ const server = net.createServer((connection) => {
       
       if (!pxConf) {    
         connection.write("+OK\r\n")
+        sendCommand(connection, clientInput.toString())
         propagationCommands.push(clientInput.toString())
         return 
       }
