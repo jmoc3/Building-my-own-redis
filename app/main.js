@@ -84,6 +84,7 @@ const server = net.createServer((connection) => {
   connectedClients.add(`${connection.remoteAddress}:${connection.remotePort}`)
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
+    console.log(`${connection.remoteAddress}:${connection.remotePort}`, arguments)
 
     const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
