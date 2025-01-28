@@ -60,14 +60,13 @@ if(replicaofBool){
       console.log(inputArray)
       let stringValue = ""
       const values = []
-      const firstLengthReq = inputArray[0].slice(1)
+      let firstLengthReq = inputArray[0].slice(1)
       inputArray.forEach((element,i) =>{
-        let words = firstLengthReq
         if(i==0) return
-        if((words * 2) == i){
+        if((firstLengthReq * 2) == i){
           stringValue+=element
           values.push(stringValue)
-          words = +element.slice(1)
+          firstLengthReq = +element.slice(1)
           stringValue=0
           return
         }
