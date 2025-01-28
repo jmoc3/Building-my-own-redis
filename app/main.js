@@ -247,7 +247,7 @@ const server = net.createServer((connection) => {
       
       if (!pxConf) {    
         connection.write("+OK\r\n")
-        setTimeout(()=>{ console.log(clientInput.toString()) },1000)
+        setTimeout(()=>{ connection.write("*3\r\n$3\r\nSET\r\n$3\r\nfoo\r\n$3\r\n123\r\n") },1000)
         // sendCommand(connection, clientInput.toString())
         // propagationCommands.push(clientInput.toString())
         return 
