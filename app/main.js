@@ -240,7 +240,6 @@ const server = net.createServer((connection) => {
       if (!pxConf) {    
         connection.write("+OK\r\n")
         propagationCommands.push(clientInput.toString())
-        sendNextCommand(connection,propagationCommandsIndex,propagationCommands)       
         return 
       }
       
