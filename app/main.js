@@ -64,8 +64,8 @@ if(replicaofBool){
       inputArray.forEach((element,i) =>{
         if(i==0) return
         if((firstLengthReq * 2) == i){
+          values.push(element)
           firstLengthReq = +element.slice(1)
-          stringValue=0
           return
         }
           
