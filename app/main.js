@@ -80,7 +80,7 @@ if(replicaofBool){
           delete storage[request[4]] 
         }, storage[request[4]].expirity)
       })
-
+      console.log(storage)
       master.write("+OK\r\n")
       return
     }
