@@ -52,9 +52,9 @@ if(replicaofBool){
     const inputArray =  input.split("\r\n")  
 
     const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
-    console.log(input)
-
+    
     if(config["info"]["replication"]["master_repl_offset"]!=0){
+      console.log(input)
       config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.slice(0,indexGetack).join("\r\n") + "\r\n").byteLength
     }
     
