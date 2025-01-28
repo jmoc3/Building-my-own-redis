@@ -45,7 +45,7 @@ if(replicaofBool){
   master.on("data", (data)=>{
     sendNextCommand(master,command)
 
-    console.log(data)
+    console.log(data.toString())
   })
 }
 
