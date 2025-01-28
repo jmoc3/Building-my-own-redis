@@ -57,8 +57,12 @@ if(replicaofBool){
     const pxConf = inputArray[8] == "px"
 
     if (set) {
+      const values = []
+      inputArray.forEach((element,i) =>{
+        console.log(element.slice(1))
+      })
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
-      console.log("inside set", inputArray, storage)
+      // console.log("inside set", inputArray, storage)
       if (!pxConf) {    
         // replicas.forEach(socket => {
         //   socket.write(clientInput.toString())
