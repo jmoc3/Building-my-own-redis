@@ -57,23 +57,23 @@ if(replicaofBool){
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       
       if (!pxConf) {    
-        replicas.forEach(socket => {
-          socket.write(clientInput.toString())
-        })
-        return connection.write("+OK\r\n")
+        // replicas.forEach(socket => {
+        //   socket.write(clientInput.toString())
+        // })
+        return master.write("+OK\r\n")
       }
       
       setTimeout( ()=>{ 
         delete storage[inputArray[4]] 
       }, storage[inputArray[4]].expirity)
       
-      connection.write("+OK\r\n")
+      master.write("+OK\r\n")
       return
     }
       
     if (get) {
       console.log("inside get", inputArray, storage)
-      if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
+      if(storage[inputArray[4]]!=undefined) return master.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
       }
       
     console.log("Llegado al final")
