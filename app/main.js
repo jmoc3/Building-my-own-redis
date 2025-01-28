@@ -89,17 +89,16 @@ if(replicaofBool){
     
     if (get) {
       if(storage[inputArray[4]]!=undefined) return master.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
-      }
+    }
 
     const getackfId = inputArray.indexOf("getack")
     console.log(inputArray.indexOf("getack"))
     if (getackfId!=-1){
       master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
-      console.log("Offset: " + config["info"]["replication"]["master_repl_offset"])
       config["info"]["replication"]["master_repl_offset"]+=37
       return 
     }
-    console.log("pass")
+
     // Default response to something wrong
     return master.write('$-1\r\n') 
     
