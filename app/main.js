@@ -50,6 +50,7 @@ if(replicaofBool){
 
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")   
+    console.log(input)
 
     // SET and GET configuration with expirity
     const set = inputArray[2] == "set"
@@ -66,21 +67,14 @@ if(replicaofBool){
       eachSet.pop()
       eachSet.forEach(request =>{
 
-        console.log(request)
         if (!pxConf) {    
-          // replicas.forEach(socket => {
-            //   socket.write(clientInput.toString())
-            // })
           storage[request[4]] = {"value":request[6], "expirity":+request[10]}
           return master.write("+OK\r\n")
         }
-        
-        // console.log("inside set", inputArray, storage)
-        
+                
         setTimeout( ()=>{ 
           delete storage[request[4]] 
         }, storage[request[4]].expirity)
-        
       })
 
       master.write("+OK\r\n")
