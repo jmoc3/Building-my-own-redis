@@ -243,7 +243,7 @@ const server = net.createServer((connection) => {
       
       if (!pxConf) {    
         connection.write("+OK\r\n")
-        setTimeout(()=>{connection.write(clientInput.toString());console.log(clientInput.toString())},1000)
+        console.log(config["info"]["replication"])
         // sendCommand(connection, clientInput.toString())
         // propagationCommands.push(clientInput.toString())
         return 
