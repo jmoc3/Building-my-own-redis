@@ -248,7 +248,7 @@ const server = net.createServer((connection) => {
       
       if (!pxConf) {    
         connection.write("+OK\r\n")
-        console.log(replicas)
+        console.log(replicas.length)
         // sendCommand(connection, clientInput.toString())
         // propagationCommands.push(clientInput.toString())
         return 
