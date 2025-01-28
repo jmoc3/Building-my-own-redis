@@ -8,15 +8,7 @@ const respConverter = (buffer) => {
   return `*${stringArray.length}\r\n${inputConverted.join("")}`
 }
 
-const sendNextCommand = (connection, index, commands) => {
-  if(index<commands.length){
-    console.log(commands[index])
-    connection.write(commands[index])
-    index++
-    return 
-  }
-  return connection.end()
-}
+
 
 const sendCommand = (connection, message) => {
   connection.write(message)
@@ -48,6 +40,16 @@ if(replicaofBool){
   const command = ["*3\r\n$8\r\nREPLCONF\r\n$14\r\nlistening-port\r\n$4\r\n6380\r\n",
                    "*3\r\n$8\r\nREPLCONF\r\n$4\r\ncapa\r\n$6\r\npsync2\r\n",
                    "*3\r\n$5\r\nPSYNC\r\n$1\r\n?\r\n$2\r\n-1\r\n"]
+
+  const sendNextCommand = (connection, index, commands) => {
+    if(index<commands.length){
+      console.log(index)
+      connection.write(commands[index])
+      index++
+      return 
+    }
+    return connection.end()
+  }
 
   master.on("data", (data)=>{
     sendNextCommand(master,actualCommandIndex,command)
