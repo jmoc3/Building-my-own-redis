@@ -57,7 +57,6 @@ if(replicaofBool){
     const pxConf = inputArray[8] == "px"
 
     if (set) {
-      console.log(inputArray.slice(0,-1))
       const eachSet = []
 
       for(i=0;i<inputArray.length;i+=7){
@@ -66,23 +65,24 @@ if(replicaofBool){
 
       eachSet.pop()
       eachSet.forEach(request =>{
-        // storage
+
         console.log(request)
+        if (!pxConf) {    
+          // replicas.forEach(socket => {
+            //   socket.write(clientInput.toString())
+            // })
+          storage[request[4]] = {"value":request[6], "expirity":+request[10]}
+          return master.write("+OK\r\n")
+        }
+        
+        // console.log("inside set", inputArray, storage)
+        
+        setTimeout( ()=>{ 
+          delete storage[request[4]] 
+        }, storage[request[4]].expirity)
+        
       })
 
-      storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
-      // console.log("inside set", inputArray, storage)
-      if (!pxConf) {    
-        // replicas.forEach(socket => {
-        //   socket.write(clientInput.toString())
-        // })
-        return master.write("+OK\r\n")
-      }
-      
-      setTimeout( ()=>{ 
-        delete storage[inputArray[4]] 
-      }, storage[inputArray[4]].expirity)
-      
       master.write("+OK\r\n")
       return
     }
