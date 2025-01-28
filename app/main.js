@@ -98,7 +98,7 @@ if(replicaofBool){
       config["info"]["replication"]["master_repl_offset"]+=37
       return 
     }
-    
+    console.log("pass")
     // Default response to something wrong
     return master.write('$-1\r\n') 
     
