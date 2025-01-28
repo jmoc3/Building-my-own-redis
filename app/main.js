@@ -82,10 +82,10 @@ let propagationCommandsIndex = 0
 
 const server = net.createServer((connection) => {
   connectedClients.add(`${connection.remoteAddress}:${connection.remotePort}`)
-  console.log(connectedClients)
+  console.log(connectedClients, arguments)
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
-    console.log(connectedClients.size)
+
     const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
         
