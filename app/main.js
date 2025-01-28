@@ -51,8 +51,10 @@ if(replicaofBool){
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")  
 
+    const indexGetack = inputArray.indexOf("getack")
+    console.log(inputArray.slice(0,indexGetack-4))
+
     if(config["info"]["replication"]["master_repl_offset"]!=0){
-      console.log(input)
       config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(input).byteLength
     }
     
@@ -91,9 +93,8 @@ if(replicaofBool){
     const getackfId = inputArray.indexOf("getack")
     if (getackfId){
       master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
-      if(config["info"]["replication"]["master_repl_offset"]==0){
-        config["info"]["replication"]["master_repl_offset"]+=37
-      }
+      config["info"]["replication"]["master_repl_offset"]+=37
+      
       console.log("Offset: " + config["info"]["replication"]["master_repl_offset"])
       return 
     }
