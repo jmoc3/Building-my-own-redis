@@ -51,10 +51,10 @@ if(replicaofBool){
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")   
 
-    // const getackfId = inputArray.indexOf("getack")
-    // if (getackfId){
-    //   return master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$1\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
-    // }
+    const getackfId = inputArray.indexOf("getack")
+    if (getackfId){
+      master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$1\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
+    }
 
     // SET and GET configuration with expirity
     const set = inputArray[2] == "set"
