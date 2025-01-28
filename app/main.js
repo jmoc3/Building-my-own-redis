@@ -23,6 +23,7 @@ const sendCommand = (connection, message) => {
 
 const storage = {}
 const arguments = process.argv;
+const replicas = []
 
 const portId = arguments.indexOf("--port")
 const PORT = portId == -1 ? 6379 : process.argv[portId + 1]
@@ -226,6 +227,7 @@ const server = net.createServer((connection) => {
       const buffer = Buffer.from(base,"base64")
       const bufferHeader = Buffer.from(`$${buffer.length}\r\n`)  
        
+      replicas.push(connection)
       return connection.write(Buffer.concat([bufferHeader,buffer]))
     }
 
@@ -246,6 +248,7 @@ const server = net.createServer((connection) => {
       
       if (!pxConf) {    
         connection.write("+OK\r\n")
+        console.log(replicas)
         // sendCommand(connection, clientInput.toString())
         // propagationCommands.push(clientInput.toString())
         return 
