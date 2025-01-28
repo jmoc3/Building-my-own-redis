@@ -10,6 +10,7 @@ const respConverter = (buffer) => {
 
 const sendNextCommand = (connection, index, commands) => {
   if(index<commands.length){
+    console.log(commands[index])
     connection.write(commands[index])
     index++
     return 
@@ -49,7 +50,6 @@ if(replicaofBool){
                    "*3\r\n$5\r\nPSYNC\r\n$1\r\n?\r\n$2\r\n-1\r\n"]
 
   master.on("data", (data)=>{
-    console.log(data)
     sendNextCommand(master,actualCommandIndex,command)
   })
 }
@@ -78,8 +78,6 @@ config["dir"] = dirId == -1 ? null : process.argv[dirId + 1]
 config["dbfilename"] = dbfilenameId == -1 ? null : process.argv[dbfilenameId + 1]
 const path = `${config["dir"]}/${config["dbfilename"]}`
 
-const propagationCommands = []
-let propagationCommandsIndex = 0
 const server = net.createServer((connection) => {
   console.log(process.argv)
   connectedClients.add(`${connection.remoteAddress}:${connection.remotePort}`)
@@ -247,13 +245,10 @@ const server = net.createServer((connection) => {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       
       if (!pxConf) {    
-        connection.write("+OK\r\n")
         replicas.forEach(socket => {
           socket.write(clientInput.toString())
         })
-        // sendCommand(connection, clientInput.toString())
-        // propagationCommands.push(clientInput.toString())
-        return 
+        return connection.write("+OK\r\n")
       }
       
       setTimeout( ()=>{ 
