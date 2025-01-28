@@ -47,20 +47,20 @@ if(replicaofBool){
     if(actualCommandIndex<3){
       return sendNextCommand(master,command)
     } 
+
+    const input = data.toString().toLowerCase()
+    const inputArray =  input.split("\r\n")   
     // INFO configuration
-    const infoRep = inputArray[2] == "info"
+    const infoRep = inputArray.indexOf("info")
     const especifics = "replication"
 
-    if(infoRep){
+    if(infoRep!=-1){
       const resWithoutResp = Object.keys(config["info"][especifics]).map( property => `${property}:${config["info"][especifics][property]}` )
       const resArray = resWithoutResp.map(e=>`+${e}`)
       const res = `*${resArray.length}\r\n${resArray.join("")}`
       
-      return master.write(`${resArray.join("")}\r\n`)
+      return connection.write(`${resArray.join("")}\r\n`)
     }
-
-    const input = data.toString().toLowerCase()
-    const inputArray =  input.split("\r\n")   
 
     const getackfId = inputArray.indexOf("getack")
     if (getackfId){
