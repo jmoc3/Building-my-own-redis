@@ -32,7 +32,7 @@ const replicaofId = arguments.indexOf("--replicaof")
 const replicaofBool = replicaofId != -1
 const role = replicaofBool ? "slave" : "master"
 
-
+const connectedClients = new Map()
 
 if(replicaofBool){
 
@@ -81,8 +81,8 @@ const propagationCommands = []
 let propagationCommandsIndex = 0
 
 const server = net.createServer((connection) => {
-  console.log(connection.remoteAddress, connection.remotePort, connection.remoteFamily)
-  
+  connectedClients.set(`${connection.remoteAddress}:${connection.remotePort}`,connection)
+  console.log(connectedClients)
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
 
