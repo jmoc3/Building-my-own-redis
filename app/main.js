@@ -87,12 +87,11 @@ if(replicaofBool){
     }
     
     if (get) {
-      if(storage[inputArray[4]]!=undefined) return master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
-
+      if(storage[inputArray[4]]!=undefined) return master.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
       }
 
     const getackfId = inputArray.indexOf("getack")
-    if (getackfId){
+    if (getackfId!=-1){
       master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
       config["info"]["replication"]["master_repl_offset"]+=37
       
