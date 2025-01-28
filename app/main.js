@@ -57,9 +57,18 @@ if(replicaofBool){
     const pxConf = inputArray[8] == "px"
 
     if (set) {
+      console.log(inputArray)
+      let stringValue = ""
       const values = []
+      const firstLengthReq = inputArray[0].slice(1)
       inputArray.forEach((element,i) =>{
-        console.log(element.slice(1))
+        let words = firstLengthReq
+        if(i==0) return
+        if((words * 2) == i){
+          words = +element.slice(1)
+          return
+        }
+        stringValue+=element
       })
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       // console.log("inside set", inputArray, storage)
