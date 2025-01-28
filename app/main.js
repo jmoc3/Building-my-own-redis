@@ -43,7 +43,10 @@ if(replicaofBool){
   }
 
   master.on("data", (data)=>{
-    sendNextCommand(master,command)
+
+    if(actualCommandIndex<3){
+      return sendNextCommand(master,command)
+    } 
 
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")   
