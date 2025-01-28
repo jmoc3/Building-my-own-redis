@@ -1,5 +1,6 @@
 const net = require("net");
-const fs = require("fs")
+const fs = require("fs");
+const { Socket } = require("dgram");
 // You can use print statements as follows for debugging, they'll be visible when running tests.
 
 const respConverter = (buffer) => {
@@ -78,10 +79,10 @@ const propagationCommands = []
 let propagationCommandsIndex = 0
 
 const server = net.createServer((connection) => {
+  console.log(connection.remoteAddress, connection.remotePort)
   
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
-    console.log(config["info"]["replication"])
 
     const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
