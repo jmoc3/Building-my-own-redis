@@ -51,11 +51,11 @@ if(replicaofBool){
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")  
 
-    const indexGetack = inputArray.indexOf("getack")
-    console.log(inputArray.slice(0,indexGetack-4))
+    const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
+    console.log(inputArray.slice(0,indexGetack))
 
     if(config["info"]["replication"]["master_repl_offset"]!=0){
-      config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(input).byteLength
+      config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.slice(0,indexGetack-4).join("\r\n")).byteLength
     }
     
     // SET and GET configuration with expirity
