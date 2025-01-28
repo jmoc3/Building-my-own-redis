@@ -79,8 +79,8 @@ const path = `${config["dir"]}/${config["dbfilename"]}`
 
 const propagationCommands = []
 let propagationCommandsIndex = 0
-console.log(config)
 const server = net.createServer((connection) => {
+  console.log(config)
   connectedClients.add(`${connection.remoteAddress}:${connection.remotePort}`)
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
