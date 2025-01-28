@@ -50,7 +50,9 @@ if(replicaofBool){
 
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")  
-    console.log(inputArray, new TextEncoder().encode(input).byteLength)
+    
+    config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(input).byteLength
+    
     // SET and GET configuration with expirity
     const set = inputArray[2] == "set"
     const get = inputArray[2] == "get"
