@@ -79,12 +79,11 @@ const path = `${config["dir"]}/${config["dbfilename"]}`
 
 const propagationCommands = []
 let propagationCommandsIndex = 0
-
+console.log(config)
 const server = net.createServer((connection) => {
   connectedClients.add(`${connection.remoteAddress}:${connection.remotePort}`)
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
-    console.log(`${connection.remoteAddress}:${connection.remotePort}`, arguments)
 
     const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
@@ -247,7 +246,6 @@ const server = net.createServer((connection) => {
       
       if (!pxConf) {    
         connection.write("+OK\r\n")
-        setTimeout(()=>{ connection.write("*3\r\n$3\r\nSET\r\n$3\r\nfoo\r\n$3\r\n123\r\n") },1000)
         // sendCommand(connection, clientInput.toString())
         // propagationCommands.push(clientInput.toString())
         return 
