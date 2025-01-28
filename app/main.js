@@ -90,7 +90,9 @@ if(replicaofBool){
     const getackfId = inputArray.indexOf("getack")
     if (getackfId){
       master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
-      config["info"]["replication"]["master_repl_offset"]+=37
+      if(config["info"]["replication"]["master_repl_offset"]!=0){
+        config["info"]["replication"]["master_repl_offset"]+=37
+      }
       console.log(config["info"]["replication"]["master_repl_offset"])
       return 
     }
