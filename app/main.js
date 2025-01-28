@@ -316,7 +316,7 @@ const server = net.createServer((connection) => {
     // WAIT configuration
     const wait = inputArray[2] == "wait"
     if(wait){
-      return connection.write(`:${inputArray[4]}\r\n`)
+      return connection.write(`:${replicas.length}\r\n`)
     }
 
     // Default response to something wrong
