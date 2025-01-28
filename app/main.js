@@ -61,6 +61,7 @@ if(replicaofBool){
       let stringValue = ""
       const values = []
       let firstLengthReq = +inputArray[0].slice(1)
+      console.log(firstLengthReq)
       inputArray.forEach((element,i) =>{
         if(i==0) return
         if((firstLengthReq * 2) == i){
