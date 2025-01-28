@@ -50,7 +50,7 @@ if(replicaofBool){
 
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")   
-    
+    console.log(input, new TextEncoder().encode(input).byteLength)
     // SET and GET configuration with expirity
     const set = inputArray[2] == "set"
     const get = inputArray[2] == "get"
@@ -75,13 +75,11 @@ if(replicaofBool){
           delete storage[request[4]] 
         }, storage[request[4]].expirity)
       })
-      console.log(storage)
       master.write("+OK\r\n")
       return
     }
     
     if (get) {
-      console.log("inside get", inputArray, storage)
       if(storage[inputArray[4]]!=undefined) return master.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
       }
 
