@@ -41,7 +41,7 @@ if(replicaofBool){
     }
     return connection.end()
   }
-
+  let ackQueryTimes = 0
   master.on("data", (data)=>{
 
     if(actualCommandIndex<3){
@@ -50,8 +50,9 @@ if(replicaofBool){
 
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")  
-    console.log(inputArray)
-    config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(input).byteLength
+    if(ackQueryTimes!=0){
+      config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(input).byteLength
+    }
     
     // SET and GET configuration with expirity
     const set = inputArray[2] == "set"
@@ -87,7 +88,9 @@ if(replicaofBool){
 
     const getackfId = inputArray.indexOf("getack")
     if (getackfId){
-      return master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
+      master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
+      ackQueryTimes++
+      return 
     }
     
     // Default response to something wrong
