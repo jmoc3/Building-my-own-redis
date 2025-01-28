@@ -58,20 +58,18 @@ if(replicaofBool){
 
     if (set) {
       console.log(inputArray)
-      let stringValue = ""
       const values = []
       let firstLengthReq = +inputArray[0].slice(1)
       console.log(firstLengthReq)
       inputArray.forEach((element,i) =>{
         if(i==0) return
         if((firstLengthReq * 2) == i){
-          stringValue+=element
-          values.push(stringValue)
           firstLengthReq = +element.slice(1)
           stringValue=0
           return
         }
-        if((i%2)==0) stringValue+=element
+          
+        if((i%2)==0) values.push(element)
       })
       console.log(values)
 
