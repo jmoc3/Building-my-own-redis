@@ -81,6 +81,7 @@ const server = net.createServer((connection) => {
   
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
+    console.log(config["info"]["replication"])
 
     const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
@@ -243,7 +244,6 @@ const server = net.createServer((connection) => {
       
       if (!pxConf) {    
         connection.write("+OK\r\n")
-        console.log(config["info"]["replication"])
         // sendCommand(connection, clientInput.toString())
         // propagationCommands.push(clientInput.toString())
         return 
