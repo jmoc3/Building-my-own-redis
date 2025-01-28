@@ -41,18 +41,17 @@ if(replicaofBool){
                    "*3\r\n$8\r\nREPLCONF\r\n$4\r\ncapa\r\n$6\r\npsync2\r\n",
                    "*3\r\n$5\r\nPSYNC\r\n$1\r\n?\r\n$2\r\n-1\r\n"]
 
-  const sendNextCommand = (connection, index, commands) => {
-    if(index<commands.length){
-      console.log(index)
-      connection.write(commands[index])
-      index++
+  const sendNextCommand = (connection, commands) => {
+    if(actualCommandIndex<commands.length){
+      connection.write(commands[actualCommandIndex])
+      actualCommandIndex++
       return 
     }
     return connection.end()
   }
 
   master.on("data", (data)=>{
-    sendNextCommand(master,actualCommandIndex,command)
+    sendNextCommand(master,command)
   })
 }
 
