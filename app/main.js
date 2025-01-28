@@ -50,7 +50,7 @@ if(replicaofBool){
 
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")  
-    console.log(inputArray)
+
     if(config["info"]["replication"]["master_repl_offset"]!=0){
       config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(input).byteLength
     }
@@ -93,7 +93,7 @@ if(replicaofBool){
       if(config["info"]["replication"]["master_repl_offset"]==0){
         config["info"]["replication"]["master_repl_offset"]+=37
       }
-      console.log(config["info"]["replication"]["master_repl_offset"])
+      console.log("Offset: " + config["info"]["replication"]["master_repl_offset"])
       return 
     }
     
