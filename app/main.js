@@ -45,7 +45,41 @@ if(replicaofBool){
   master.on("data", (data)=>{
     sendNextCommand(master,command)
 
-    console.log(data.toString())
+    const input = data.toString().toLowerCase()
+    const inputArray =  input.split("\r\n")   
+
+    // SET and GET configuration with expirity
+    const set = inputArray[2] == "set"
+    const get = inputArray[2] == "get"
+    const pxConf = inputArray[8] == "px"
+
+    if (set) {
+      storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
+      
+      if (!pxConf) {    
+        replicas.forEach(socket => {
+          socket.write(clientInput.toString())
+        })
+        return connection.write("+OK\r\n")
+      }
+      
+      setTimeout( ()=>{ 
+        delete storage[inputArray[4]] 
+      }, storage[inputArray[4]].expirity)
+      
+      connection.write("+OK\r\n")
+      return
+    }
+      
+    if (get) {
+      console.log("inside get", inputArray, storage)
+      if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
+      }
+      
+    console.log("Llegado al final")
+    // Default response to something wrong
+    return connection.write('$-1\r\n') 
+
   })
 }
 
