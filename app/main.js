@@ -283,8 +283,9 @@ const server = net.createServer((connection) => {
     const pxConf = inputArray[8] == "px"
 
     if (set) {
+
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
-      
+      console.log(storage)
       if (!pxConf) {    
         replicas.forEach(socket => {
           socket.write(clientInput.toString())
