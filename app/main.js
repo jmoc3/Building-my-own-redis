@@ -52,6 +52,8 @@ if(replicaofBool){
     const inputArray =  input.split("\r\n")   
     console.log(inputArray)
 
+    console.log(inputArray.slice(inputArray.indexOf("replconf")-1,(inputArray.length - 2)))
+
     // SET and GET configuration with expirity
     const set = inputArray[2] == "set"
     const get = inputArray[2] == "get"
