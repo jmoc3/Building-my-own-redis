@@ -8,12 +8,6 @@ const respConverter = (buffer) => {
   return `*${stringArray.length}\r\n${inputConverted.join("")}`
 }
 
-
-
-const sendCommand = (connection, message) => {
-  connection.write(message)
-}
-
 const storage = {}
 const arguments = process.argv;
 const replicas = []
@@ -24,8 +18,6 @@ const PORT = portId == -1 ? 6379 : process.argv[portId + 1]
 const replicaofId = arguments.indexOf("--replicaof")
 const replicaofBool = replicaofId != -1
 const role = replicaofBool ? "slave" : "master"
-
-const connectedClients = new Set()
 
 if(replicaofBool){
 
@@ -52,6 +44,8 @@ if(replicaofBool){
 
   master.on("data", (data)=>{
     sendNextCommand(master,command)
+
+    console.log(data)
   })
 }
 
@@ -80,8 +74,7 @@ config["dbfilename"] = dbfilenameId == -1 ? null : process.argv[dbfilenameId + 1
 const path = `${config["dir"]}/${config["dbfilename"]}`
 
 const server = net.createServer((connection) => {
-  console.log(process.argv)
-  connectedClients.add(`${connection.remoteAddress}:${connection.remotePort}`)
+
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
 
