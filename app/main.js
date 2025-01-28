@@ -76,9 +76,8 @@ if(replicaofBool){
       if(storage[inputArray[4]]!=undefined) return master.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
       }
       
-    console.log("Llegado al final")
     // Default response to something wrong
-    return connection.write('$-1\r\n') 
+    return master.write('$-1\r\n') 
 
   })
 }
@@ -292,7 +291,6 @@ const server = net.createServer((connection) => {
       if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
       }
       
-    console.log("Llegado al final")
     // Default response to something wrong
     return connection.write('$-1\r\n') 
     })
