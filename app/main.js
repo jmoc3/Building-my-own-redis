@@ -49,7 +49,7 @@ if(replicaofBool){
     } 
 
     const input = data.toString().toLowerCase()
-    const inputArray =  input.split("\r\n").slice(2,0)   
+    const inputArray =  input.split("\r\n").slice(1)   
     console.log(inputArray, new TextEncoder().encode(input).byteLength)
     // SET and GET configuration with expirity
     const set = inputArray[2] == "set"
