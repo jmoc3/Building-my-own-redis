@@ -41,7 +41,7 @@ if(replicaofBool){
     }
     return connection.end()
   }
-  let ackQueryTimes = 0
+
   master.on("data", (data)=>{
 
     if(actualCommandIndex<3){
@@ -50,7 +50,7 @@ if(replicaofBool){
 
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")  
-    if(ackQueryTimes!=0){
+    if(config["info"]["replication"]["master_repl_offset"]!=0){
       config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(input).byteLength
     }
     
@@ -88,9 +88,8 @@ if(replicaofBool){
 
     const getackfId = inputArray.indexOf("getack")
     if (getackfId){
-      ackQueryTimes++
+      config["info"]["replication"]["master_repl_offset"]+=37
       return master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
-
     }
     
     // Default response to something wrong
