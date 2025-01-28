@@ -50,20 +50,10 @@ if(replicaofBool){
 
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")   
-    // INFO configuration
-    const infoRep = inputArray.indexOf("info")
-    const especifics = "replication"
-
-    if(infoRep!=-1){
-      const resWithoutResp = Object.keys(config["info"][especifics]).map( property => `${property}:${config["info"][especifics][property]}` )
-      const resArray = resWithoutResp.map(e=>`+${e}`)
-      
-      master.write(`${resArray.join("")}\r\n`)
-    }
 
     const getackfId = inputArray.indexOf("getack")
     if (getackfId){
-      master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$1\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
+      return master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$1\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
     }
 
     // SET and GET configuration with expirity
@@ -71,13 +61,13 @@ if(replicaofBool){
     const get = inputArray[2] == "get"
     const pxConf = inputArray[8] == "px"
 
-    console.log(inputArray)
     if (set) {
       const eachSet = []
 
       for(i=0;i<inputArray.length;i+=7){
         eachSet.push(inputArray.slice(i,i + 7))
       }
+      
       eachSet.pop()
       eachSet.forEach(request =>{
 
