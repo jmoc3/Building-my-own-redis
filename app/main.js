@@ -57,9 +57,8 @@ if(replicaofBool){
     if(infoRep!=-1){
       const resWithoutResp = Object.keys(config["info"][especifics]).map( property => `${property}:${config["info"][especifics][property]}` )
       const resArray = resWithoutResp.map(e=>`+${e}`)
-      const res = `*${resArray.length}\r\n${resArray.join("")}`
       
-      return connection.write(`${resArray.join("")}\r\n`)
+      master.write(`${resArray.join("")}\r\n`)
     }
 
     const getackfId = inputArray.indexOf("getack")
