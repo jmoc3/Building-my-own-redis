@@ -68,7 +68,7 @@ if(replicaofBool){
           stringValue+=element
           values.push(stringValue)
           words = +element.slice(1)
-          stringValue==0
+          stringValue=0
           return
         }
         if((i%2)==0) stringValue+=element
