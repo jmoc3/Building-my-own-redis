@@ -65,8 +65,10 @@ if(replicaofBool){
         let words = firstLengthReq
         if(i==0) return
         if((words * 2) == i){
+          stringValue+=element
           values.push(stringValue)
           words = +element.slice(1)
+          stringValue==0
           return
         }
         if((i%2)==0) stringValue+=element
