@@ -51,10 +51,9 @@ if(replicaofBool){
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")  
     
-    console.log(inputArray.join(""), new TextEncoder().encode(inputArray.join("")).byteLength)
-    // if(config["info"]["replication"]["master_repl_offset"]!=0){
-    //   config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(input).byteLength
-    // }
+    if(config["info"]["replication"]["master_repl_offset"]!=0){
+      config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(input).byteLength
+    }
     
     // SET and GET configuration with expirity
     const set = inputArray[2] == "set"
@@ -91,7 +90,8 @@ if(replicaofBool){
     const getackfId = inputArray.indexOf("getack")
     if (getackfId){
       master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
-      // config["info"]["replication"]["master_repl_offset"]+=37
+      config["info"]["replication"]["master_repl_offset"]+=37
+      console.log(config["info"]["replication"]["master_repl_offset"])
       return 
     }
     
