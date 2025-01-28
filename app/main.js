@@ -58,20 +58,13 @@ if(replicaofBool){
 
     if (set) {
       console.log(inputArray)
-      const values = []
-      let firstLengthReq = +inputArray[0].slice(1)
-      console.log(firstLengthReq)
-      inputArray.forEach((element,i) =>{
-        if(i==0) return
-        if((firstLengthReq * 2) == i){
-          values.push(element)
-          firstLengthReq = +element.slice(1)
-          return
-        }
-          
-        if((i%2)==0) values.push(element)
-      })
-      console.log(values)
+      const eachSet = []
+
+      for(i=0;i<eachSet.length;i+=7){
+        eachSet.push(inputArray.slice(i,i + 7))
+      }
+
+      console.log(eachSet)
 
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       // console.log("inside set", inputArray, storage)
