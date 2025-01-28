@@ -65,11 +65,14 @@ if(replicaofBool){
         let words = firstLengthReq
         if(i==0) return
         if((words * 2) == i){
+          values.push(stringValue)
           words = +element.slice(1)
           return
         }
-        stringValue+=element
+        if((i%2)==0) stringValue+=element
       })
+      console.log(stringValue)
+
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       // console.log("inside set", inputArray, storage)
       if (!pxConf) {    
