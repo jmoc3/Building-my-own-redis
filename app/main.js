@@ -44,8 +44,6 @@ if(replicaofBool){
 
   master.on("data", (data)=>{
     sendNextCommand(master,command)
-
-    console.log(data.toString())
   })
 }
 
@@ -254,6 +252,7 @@ const server = net.createServer((connection) => {
     }
       
     if (get) {
+      console.log("inside get", inputArray)
       if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
       }
       
