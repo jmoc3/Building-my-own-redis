@@ -61,13 +61,13 @@ if(replicaofBool){
     const get = inputArray[2] == "get"
     const pxConf = inputArray[8] == "px"
 
+    console.log(inputArray)
     if (set) {
       const eachSet = []
 
       for(i=0;i<inputArray.length;i+=7){
         eachSet.push(inputArray.slice(i,i + 7))
       }
-      console.log(eachSet)
       eachSet.pop()
       eachSet.forEach(request =>{
 
