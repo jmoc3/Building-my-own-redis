@@ -58,7 +58,7 @@ if(replicaofBool){
 
     if (set) {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
-      
+      console.log("inside set", inputArray, storage)
       if (!pxConf) {    
         // replicas.forEach(socket => {
         //   socket.write(clientInput.toString())
