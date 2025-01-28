@@ -61,6 +61,7 @@ if(replicaofBool){
       const eachSet = []
 
       for(i=0;i<eachSet.length;i+=7){
+        console.log(i)
         eachSet.push(inputArray.slice(i,i + 7))
       }
 
