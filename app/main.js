@@ -55,7 +55,7 @@ if(replicaofBool){
     console.log(inputArray.slice(0,indexGetack))
 
     if(config["info"]["replication"]["master_repl_offset"]!=0){
-      config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.slice(0,indexGetack-4).join("\r\n")).byteLength
+      config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.slice(0,indexGetack).join("\r\n")).byteLength
     }
     
     // SET and GET configuration with expirity
