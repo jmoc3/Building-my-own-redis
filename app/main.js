@@ -51,7 +51,7 @@ if(replicaofBool){
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")  
     
-    console.log(new TextEncoder().encode(inputArray.slice(2,-1).join("")).byteLength)
+    console.log(data.length)
     // if(config["info"]["replication"]["master_repl_offset"]!=0){
     //   config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(input).byteLength
     // }
