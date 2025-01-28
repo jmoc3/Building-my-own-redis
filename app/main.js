@@ -50,12 +50,11 @@ if(replicaofBool){
 
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")   
-    console.log(inputArray)
+
     const getackfId = inputArray.indexOf("getack")
     if (getackfId){
       return master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$1\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
     }
-    console.log(inputArray.slice(inputArray.indexOf("replconf")-1,(inputArray.length - 1)))
 
     // SET and GET configuration with expirity
     const set = inputArray[2] == "set"
