@@ -27,12 +27,10 @@ const replicaofId = arguments.indexOf("--replicaof")
 const replicaofBool = replicaofId != -1
 const role = replicaofBool ? "slave" : "master"
 
-
-
 if(replicaofBool){
 
   const masterConf = process.argv[replicaofId + 1].split(" ")
-  console.log(masterConf)
+
   const master = net.createConnection({host:masterConf[0], port:masterConf[1]}, ()=>{
     console.log("Connected to master")
     master.write("*1\r\n$4\r\nPING\r\n")
@@ -71,6 +69,9 @@ const dbfilenameId = arguments.indexOf("--dbfilename")
 config["dir"] = dirId == -1 ? null : process.argv[dirId + 1]
 config["dbfilename"] = dbfilenameId == -1 ? null : process.argv[dbfilenameId + 1]
 const path = `${config["dir"]}/${config["dbfilename"]}`
+
+const propagationCommands = []
+let propagationCommandsIndex = 0
 
 const server = net.createServer((connection) => {
   
@@ -238,7 +239,8 @@ const server = net.createServer((connection) => {
       
       if (!pxConf) {    
         connection.write("+OK\r\n")
-        sendNextCommand(connection,0,[clientInput.toString()])       
+        propagationCommands.push(clientInput.toString())
+        sendNextCommand(connection,propagationCommandsIndex,propagationCommands)       
         return 
       }
       
