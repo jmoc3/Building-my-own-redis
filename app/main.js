@@ -310,10 +310,15 @@ const server = net.createServer((connection) => {
     }
       
     if (get) {
-      console.log("inside get", inputArray, storage)
       if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
-      }
+    }
       
+    // WAIT configuration
+    const wait = inputArray[2] == "wait"
+    if(wait){
+      return `:${inputArray[4]}\r\n`
+    }
+
     // Default response to something wrong
     return connection.write('$-1\r\n') 
     })
