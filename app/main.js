@@ -32,6 +32,8 @@ const replicaofId = arguments.indexOf("--replicaof")
 const replicaofBool = replicaofId != -1
 const role = replicaofBool ? "slave" : "master"
 
+
+
 if(replicaofBool){
 
   const masterConf = process.argv[replicaofId + 1].split(" ")
@@ -79,7 +81,7 @@ const propagationCommands = []
 let propagationCommandsIndex = 0
 
 const server = net.createServer((connection) => {
-  console.log(connection.remoteAddress, connection.remotePort)
+  console.log(connection.remoteAddress, connection.remotePort, connection.remoteFamily)
   
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
