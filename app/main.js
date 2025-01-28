@@ -53,10 +53,9 @@ if(replicaofBool){
 
     const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
 
-    if(config["info"]["replication"]["master_repl_offset"]!=0){
-      console.log(inputArray.slice(0,indexGetack).join("\r\n") + "\r\n")
-      return config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.slice(0,indexGetack).join("\r\n") + "\r\n").byteLength
-    }
+    console.log(inputArray.slice(0,indexGetack).join("\r\n") + "\r\n")
+    config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.slice(0,indexGetack).join("\r\n") + "\r\n").byteLength
+
     
     // SET and GET configuration with expirity
     const set = inputArray[2] == "set"
@@ -95,7 +94,6 @@ if(replicaofBool){
     console.log(inputArray.indexOf("getack"))
     if (getackfId!=-1){
       master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
-      config["info"]["replication"]["master_repl_offset"]+=37
       return 
     }
 
