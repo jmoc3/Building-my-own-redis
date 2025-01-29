@@ -51,6 +51,8 @@ if(replicaofBool){
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")  
 
+    if(input.indexOf("+fullresync") !=-1 ) return
+
     const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
 
     if(config["info"]["replication"]["master_repl_offset"]!=0){
@@ -91,7 +93,7 @@ if(replicaofBool){
     }
 
     const getackfId = inputArray.indexOf("getack")
-    console.log(inputArray, getackfId,"exists", input.indexOf("+fullresync"))
+    console.log(inputArray, getackfId,"exists")
     if (getackfId!=-1){
 
       master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
