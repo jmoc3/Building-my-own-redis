@@ -68,7 +68,7 @@ if(replicaofBool){
       for(i=0;i<inputArray.length;i+=7){
         eachSet.push(inputArray.slice(i,i + 7))
       }
-      
+      console.log(inputArray)
       eachSet.pop()
       eachSet.forEach(request =>{
         
