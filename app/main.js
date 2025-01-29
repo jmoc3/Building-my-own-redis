@@ -73,7 +73,7 @@ if(replicaofBool){
       for(i=0;i<inputArray.length;i+=7){
         eachSet.push(inputArray.slice(i,i + 7))
       }
-      console.log(inputArray)
+      // console.log(inputArray)
       eachSet.pop()
       eachSet.forEach(request =>{
         
@@ -229,7 +229,7 @@ const server = net.createServer((connection) => {
     if (input=="*1\r\n$4\r\nping\r\n") return connection.write("$4\r\nPONG\r\n")
       
     const inputArray =  input.split("\r\n")   
-    console.log(inputArray)
+    // console.log(inputArray)
     // Default CONFIG GET configuration
     const confGet = (inputArray[2]=="config") && (inputArray[4] == "get")
      
