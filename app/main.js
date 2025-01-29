@@ -225,10 +225,11 @@ const server = net.createServer((connection) => {
     // PING configuration
     // const input = respConverter(clientInput)
     const input = clientInput.toString().toLowerCase()
+    
     if (input=="*1\r\n$4\r\nping\r\n") return connection.write("$4\r\nPONG\r\n")
       
     const inputArray =  input.split("\r\n")   
-
+    console.log(inputArray)
     // Default CONFIG GET configuration
     const confGet = (inputArray[2]=="config") && (inputArray[4] == "get")
      
@@ -318,7 +319,7 @@ const server = net.createServer((connection) => {
 
     // WAIT configuration
     const wait = inputArray[2] == "wait"
-    console.log(inputArray, replicas.length)
+    // console.log(inputArray, replicas.length)
     if(wait){
       return connection.write(`:${replicas.length}\r\n`)
     }
