@@ -54,9 +54,15 @@ if(replicaofBool){
     const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
     
     const fileIncluded = input.indexOf("+fullresync") != -1
-    console.log(inputArray, fileIncluded)
-    config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.slice(0,indexGetack).join("\r\n") + "\r\n").byteLength
-    
+    console.log(inputArray,(fileIncluded && (inputArray.indexOf("getack") == -1)))
+
+    if(!fileIncluded){
+      if(inputArray.indexOf("getack")==-1){
+        config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.join("\r\n") + "\r\n").byteLength  
+      }else{
+        config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.slice(0,indexGetack).join("\r\n") + "\r\n").byteLength
+      }
+    }    
     
     // SET and GET configuration with expirity
     const set = inputArray[2] == "set"
