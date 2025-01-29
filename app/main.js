@@ -318,10 +318,10 @@ const server = net.createServer((connection) => {
 
     // WAIT configuration
     const wait = inputArray[2] == "wait"
-    console.log(inputArray, replicas.length, config["info"]["replication"]["master_repl_offset"])
     if(wait){
+      console.log(inputArray, replicas.length, config["info"]["replication"]["master_repl_offset"])
       setTimeout(()=>{
-        replicas[+inputArray[4]].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
+        replicas[(+inputArray[4]) - 1].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
       },+inputArray[6])
       
       connection.write(`:${replicas.length}\r\n`)
