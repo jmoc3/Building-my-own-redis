@@ -318,7 +318,7 @@ const server = net.createServer((connection) => {
 
     // WAIT configuration
     const wait = inputArray[2] == "wait"
-    console.log(inputArray, replicas.length, config["info"]["replication"]["master_repl_offset"])
+    console.log(inputArray, replicas.length, config["info"]["replication"])
     if(wait){
       return connection.write(`:${replicas.length}\r\n`)
     }
