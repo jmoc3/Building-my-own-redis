@@ -50,7 +50,7 @@ if(replicaofBool){
 
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")  
-
+    console.log(inputArray)
     if(input.indexOf("+fullresync") !=-1 ) return
 
     const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
