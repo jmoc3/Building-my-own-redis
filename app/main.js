@@ -82,27 +82,24 @@ if(replicaofBool){
           delete storage[request[4]] 
         }, storage[request[4]].expirity)
       })
-      master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
-      return
+      
+      return master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
     }
     
     if (get) {
-      console.log(storage)
       if(storage[inputArray[4]]!=undefined) return master.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
     }
 
     const getackfId = inputArray.indexOf("getack")
-    console.log(inputArray, getackfId,"exists")
+    console.log(inputArray, getackfId,"exists", input.indexOf("+fullresync"))
     if (getackfId!=-1){
 
       master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
       config["info"]["replication"]["master_repl_offset"]+=37 
-
-    }else{
-
-      // Default response to something wrong
-      master.write('$-1\r\n') 
+      return
     }
+      // Default response to something wrong
+    return master.write('$-1\r\n') 
     
 
     
