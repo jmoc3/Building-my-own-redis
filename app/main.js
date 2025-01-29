@@ -325,7 +325,7 @@ const server = net.createServer((connection) => {
     }
 
     // Default response to something wrong
-    return connection.write('$-1\r\n') 
+    // return connection.write('$-1\r\n') 
     })
 
     connection.on("end", ()=>{
