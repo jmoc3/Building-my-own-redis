@@ -317,7 +317,7 @@ const server = net.createServer((connection) => {
     }
 
     // WAIT configuration
-    console.log(inputArray)
+    console.log(inputArray,config["info"])
     const wait = inputArray[2] == "wait"
     if(wait){
       setTimeout(()=>{
