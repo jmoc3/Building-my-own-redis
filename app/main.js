@@ -50,8 +50,6 @@ if(replicaofBool){
 
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")  
-    console.log(inputArray)
-    if(input.indexOf("+fullresync") !=-1 ) return
 
     const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
 
@@ -73,35 +71,33 @@ if(replicaofBool){
       
       eachSet.pop()
       eachSet.forEach(request =>{
-
+        
+        storage[request[4]] = {"value":request[6], "expirity":+request[10]}
+        
         if (!pxConf) {    
-          storage[request[4]] = {"value":request[6], "expirity":+request[10]}
-          return master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
-
+          master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
+        }else{ 
+          setTimeout( ()=>{ 
+            delete storage[request[4]] 
+          }, storage[request[4]].expirity)
+          master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
         }
-                
-        setTimeout( ()=>{ 
-          delete storage[request[4]] 
-        }, storage[request[4]].expirity)
       })
       
-      return master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
     }
     
     if (get) {
-      if(storage[inputArray[4]]!=undefined) return master.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
+      if(storage[inputArray[4]]!=undefined) master.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
     }
 
     const getackfId = inputArray.indexOf("getack")
     console.log(inputArray, getackfId,"exists")
     if (getackfId!=-1){
-
       master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
       config["info"]["replication"]["master_repl_offset"]+=37 
-      return
     }
-      // Default response to something wrong
-    return master.write('$-1\r\n') 
+    //   // Default response to something wrong
+    // return master.write('$-1\r\n') 
     
 
     
