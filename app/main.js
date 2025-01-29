@@ -43,14 +43,14 @@ if(replicaofBool){
   }
 
   master.on("data", (data)=>{
-
+    
+    console.log(data)
     if(actualCommandIndex<3){
       return sendNextCommand(master,command)
     } 
     
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")  
-    console.log(inputArray)
 
     const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
     const fileIncluded = input.indexOf("+fullresync") != -1    
