@@ -44,7 +44,6 @@ if(replicaofBool){
 
   master.on("data", (data)=>{
     
-    console.log(data)
     if(actualCommandIndex<3){
       return sendNextCommand(master,command)
     } 
@@ -319,7 +318,7 @@ const server = net.createServer((connection) => {
 
     // WAIT configuration
     const wait = inputArray[2] == "wait"
-    // console.log(inputArray, replicas.length)
+    console.log(inputArray, replicas.length)
     if(wait){
       return connection.write(`:${replicas.length}\r\n`)
     }
