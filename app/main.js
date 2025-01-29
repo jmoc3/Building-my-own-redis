@@ -51,6 +51,8 @@ if(replicaofBool){
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")  
 
+    console.log(inputArray)
+
     const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
     const fileIncluded = input.indexOf("+fullresync") != -1    
 
@@ -98,7 +100,6 @@ if(replicaofBool){
 
     if (getackfId!=-1){
       master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
-      console.log("responding...")
       config["info"]["replication"]["master_repl_offset"]+=37 
     }
     //   // Default response to something wrong
@@ -318,7 +319,6 @@ const server = net.createServer((connection) => {
     }
 
     // WAIT configuration
-    console.log(inputArray,config["info"])
     const wait = inputArray[2] == "wait"
     if(wait){
       setTimeout(()=>{
