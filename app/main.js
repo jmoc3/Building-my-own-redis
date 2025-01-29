@@ -52,9 +52,7 @@ if(replicaofBool){
     const inputArray =  input.split("\r\n")  
 
     const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
-    
-    const fileIncluded = input.indexOf("+fullresync") != -1
-    console.log(inputArray,(fileIncluded && (inputArray.indexOf("getack") == -1)))
+    const fileIncluded = input.indexOf("+fullresync") != -1    
 
     if(!fileIncluded){
       if(inputArray.indexOf("getack")==-1){
@@ -304,15 +302,14 @@ const server = net.createServer((connection) => {
         replicas.forEach(socket => {
           socket.write(clientInput.toString())
         })
-        return connection.write("+OK\r\n")
+        connection.write("+OK\r\n")
+      }else{
+        setTimeout( ()=>{ 
+          delete storage[inputArray[4]] 
+        }, storage[inputArray[4]].expirity)
+        
+        connection.write("+OK\r\n")
       }
-      
-      setTimeout( ()=>{ 
-        delete storage[inputArray[4]] 
-      }, storage[inputArray[4]].expirity)
-      
-      connection.write("+OK\r\n")
-      return
     }
       
     if (get) {
@@ -321,6 +318,7 @@ const server = net.createServer((connection) => {
 
     // WAIT configuration
     const wait = inputArray[2] == "wait"
+    console.log(inputArray)
     if(wait){
       return connection.write(`:${replicas.length}\r\n`)
     }
