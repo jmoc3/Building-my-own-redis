@@ -66,7 +66,7 @@ if(replicaofBool){
     const set = inputArray[2] == "set"
     const get = inputArray[2] == "get"
     const pxConf = inputArray[8] == "px"
-
+    console.log(inputArray)
     if (set) {
       const eachSet = []
 
