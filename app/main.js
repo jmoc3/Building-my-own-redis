@@ -321,9 +321,18 @@ const server = net.createServer((connection) => {
     // WAIT configuration
     const wait = inputArray[2] == "wait"
     if(wait){
-      setTimeout(()=>{
-        replicas.forEach(replica => replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n"))
-      },+inputArray[6])
+
+      const rq = new Promise(()=>{
+        setTimeout(()=>{
+          replicas[0].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
+        },+inputArray[6])
+      })
+      rq.then((res)=>{
+        console.log(res)
+      })      
+      // setTimeout(()=>{
+      //   replicas.forEach(replica => replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n"))
+      // },+inputArray[6])
       
       connection.write(`:${replicas.length}\r\n`)
     }
