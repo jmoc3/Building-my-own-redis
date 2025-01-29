@@ -47,9 +47,10 @@ if(replicaofBool){
     if(actualCommandIndex<3){
       return sendNextCommand(master,command)
     } 
-
+    
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")  
+    console.log(inputArray)
 
     const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
     const fileIncluded = input.indexOf("+fullresync") != -1    
@@ -66,7 +67,6 @@ if(replicaofBool){
     const set = inputArray[2] == "set"
     const get = inputArray[2] == "get"
     const pxConf = inputArray[8] == "px"
-    console.log(inputArray)
     if (set) {
       const eachSet = []
 
