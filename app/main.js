@@ -322,7 +322,7 @@ const server = net.createServer((connection) => {
     // WAIT configuration
     const wait = inputArray[2] == "wait"
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
-    if(replconfGetack) { config["conn"]++ }
+    if(replconfGetack) { config["conn"] = 1 }
     console.log(inputArray, replconfGetack)
 
     if(wait){
