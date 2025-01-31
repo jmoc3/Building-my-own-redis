@@ -326,8 +326,14 @@ const server = net.createServer((connection) => {
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
 
     console.log(Object.keys(storage))
+    const storageKeys = Object.keys(storage)
+
     if(wait){
-      replicas[+inputArray[4]-1].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
+
+      replicas.forEach(replica => {
+        replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
+      })
+      // replicas[+inputArray[4]-1].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
       connection.write(`:${replicas.length}\r\n`)
     }
 
