@@ -134,9 +134,9 @@ const dbfilenameId = arguments.indexOf("--dbfilename")
 config["dir"] = dirId == -1 ? null : process.argv[dirId + 1]
 config["dbfilename"] = dbfilenameId == -1 ? null : process.argv[dbfilenameId + 1]
 const path = `${config["dir"]}/${config["dbfilename"]}`
-let ackResponse=0
 
 const server = net.createServer((connection) => {
+  let ackResponse=0
   config["conn"] = connection
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
@@ -326,8 +326,7 @@ const server = net.createServer((connection) => {
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
     if (replconfGetack) { ackResponse++ }
     console.log(inputArray)
-    const storageKeys = Object.keys(storage)
-
+    
     if(wait){
 
       replicas.forEach(replica => {
