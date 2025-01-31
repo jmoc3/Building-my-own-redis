@@ -227,7 +227,6 @@ const server = net.createServer((connection) => {
     // PING configuration
     // const input = respConverter(clientInput)
     const input = clientInput.toString().toLowerCase()
-    console.log(input)
     if (input=="*1\r\n$4\r\nping\r\n") return connection.write("$4\r\nPONG\r\n")
       
     const inputArray =  input.split("\r\n")   
@@ -324,13 +323,13 @@ const server = net.createServer((connection) => {
     if(wait){
 
             
-      setTimeout(()=>{
-        replicas.forEach(replica => {
-          console.log(index)
-          replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
-          index++
-        })
-      },+inputArray[6])
+      // setTimeout(()=>{
+      //   replicas.forEach(replica => {
+      //     console.log(index)
+      //     replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
+      //     index++
+      //   })
+      // },+inputArray[6])
           
       connection.write(`:${replicas.length}\r\n`)
     }
