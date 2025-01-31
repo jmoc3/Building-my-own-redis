@@ -139,11 +139,10 @@ const server = net.createServer((connection) => {
   config["conn"] = connection
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
-    console.log(inputArray)
-
+    
     const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
-        
+      
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
       // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
       let fbFound = false
@@ -229,7 +228,7 @@ const server = net.createServer((connection) => {
     // const input = respConverter(clientInput)
     const input = clientInput.toString().toLowerCase()
     if (input=="*1\r\n$4\r\nping\r\n") return connection.write("$4\r\nPONG\r\n")
-      
+    console.log(inputArray)
     const inputArray =  input.split("\r\n")   
     // console.log(inputArray)
     // Default CONFIG GET configuration
