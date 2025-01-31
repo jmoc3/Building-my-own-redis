@@ -323,7 +323,7 @@ const server = net.createServer((connection) => {
     // WAIT configuration
     const wait = inputArray[2] == "wait"
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
-
+    if(replconfGetack) { config["conn"]++ }
     console.log(inputArray, replconfGetack)
 
     if(wait){
@@ -332,8 +332,9 @@ const server = net.createServer((connection) => {
         replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
       })
       // replicas[+inputArray[4]-1].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
-      console.log("aaaa")
+      console.log(config)
       connection.write(`:${0}\r\n`)
+      console.log(config)
     }
 
     // Default response to something wrong
