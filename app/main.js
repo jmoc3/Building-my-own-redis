@@ -124,7 +124,8 @@ const config = {
       // "repl_backlog_first_byte_offset":0,
       // "repl_backlog_histlen":null
     }
-  }
+  },
+  "conn":null
 }
 
 const dirId = arguments.indexOf("--dir")
@@ -135,7 +136,7 @@ config["dbfilename"] = dbfilenameId == -1 ? null : process.argv[dbfilenameId + 1
 const path = `${config["dir"]}/${config["dbfilename"]}`
 
 const server = net.createServer((connection) => {
-
+  config["conn"] = connection
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
 
@@ -226,7 +227,7 @@ const server = net.createServer((connection) => {
     // PING configuration
     // const input = respConverter(clientInput)
     const input = clientInput.toString().toLowerCase()
-    
+    console.log(input)
     if (input=="*1\r\n$4\r\nping\r\n") return connection.write("$4\r\nPONG\r\n")
       
     const inputArray =  input.split("\r\n")   
