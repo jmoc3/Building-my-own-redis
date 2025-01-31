@@ -323,12 +323,12 @@ const server = net.createServer((connection) => {
     // WAIT configuration
     const wait = inputArray[2] == "wait"
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
-    if (replconfGetack) { res++ }
-    console.log(inputArray, res)
+    let ackResponse=0
+    if (replconfGetack) { ackResponse++ }
+    console.log(inputArray)
     const storageKeys = Object.keys(storage)
 
     if(wait){
-      let ackResponse=0
 
       replicas.forEach(replica => {
         replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
