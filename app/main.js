@@ -325,7 +325,7 @@ const server = net.createServer((connection) => {
     const wait = inputArray[2] == "wait"
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
 
-    console.log(Object.keys(storage))
+    console.log(Object.keys(storage),inputArray)
     const storageKeys = Object.keys(storage)
 
     if(wait){
