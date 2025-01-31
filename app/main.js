@@ -326,7 +326,7 @@ const server = net.createServer((connection) => {
         replicas[0].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
       },+inputArray[6])
       
-      console.log(config)
+      setTimeout(()=>console.log(config),2000)
       
       // setTimeout(()=>{
       //   replicas.forEach(replica => replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n"))
