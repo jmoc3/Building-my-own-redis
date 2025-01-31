@@ -328,9 +328,8 @@ const server = net.createServer((connection) => {
         },+inputArray[6])
       })
       console.log(rq)
-      await rq.then((res)=>{
-        console.log(res)
-      })      
+      const res = await (await rq).json()
+      console.log(res)
       // setTimeout(()=>{
       //   replicas.forEach(replica => replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n"))
       // },+inputArray[6])
