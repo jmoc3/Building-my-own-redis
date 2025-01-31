@@ -333,7 +333,7 @@ const server = net.createServer((connection) => {
         replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
       })
       // replicas[+inputArray[4]-1].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
-      connection.write(`:${replicas.length}\r\n`)
+      connection.write(`:${res}\r\n`)
     }
 
     // Default response to something wrong
