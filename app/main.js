@@ -134,6 +134,7 @@ const dbfilenameId = arguments.indexOf("--dbfilename")
 config["dir"] = dirId == -1 ? null : process.argv[dirId + 1]
 config["dbfilename"] = dbfilenameId == -1 ? null : process.argv[dbfilenameId + 1]
 const path = `${config["dir"]}/${config["dbfilename"]}`
+let ackResponse=0
 
 const server = net.createServer((connection) => {
   config["conn"] = connection
@@ -323,7 +324,6 @@ const server = net.createServer((connection) => {
     // WAIT configuration
     const wait = inputArray[2] == "wait"
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
-    let ackResponse=0
     if (replconfGetack) { ackResponse++ }
     console.log(inputArray)
     const storageKeys = Object.keys(storage)
