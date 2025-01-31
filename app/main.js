@@ -125,7 +125,7 @@ const config = {
       // "repl_backlog_histlen":null
     }
   },
-  "conn":null
+  "conn":0
 }
 
 const dirId = arguments.indexOf("--dir")
