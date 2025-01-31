@@ -137,6 +137,7 @@ const path = `${config["dir"]}/${config["dbfilename"]}`
 
 const server = net.createServer((connection) => {
   config["conn"] = connection
+  let res=0
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
     
@@ -319,12 +320,13 @@ const server = net.createServer((connection) => {
     if (get) {
       if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
     }
-    let index=0
+    
     // WAIT configuration
     const wait = inputArray[2] == "wait"
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
-
-    if(wait || replconfGetack){
+    if(replconfGetack) { res++ }
+    console.log(res)
+    if(wait){
       replicas[+inputArray[4]-1].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
       connection.write(`:${replicas.length}\r\n`)
     }
