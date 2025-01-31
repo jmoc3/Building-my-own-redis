@@ -228,8 +228,8 @@ const server = net.createServer((connection) => {
     // const input = respConverter(clientInput)
     const input = clientInput.toString().toLowerCase()
     if (input=="*1\r\n$4\r\nping\r\n") return connection.write("$4\r\nPONG\r\n")
+      const inputArray =  input.split("\r\n")   
     console.log(inputArray)
-    const inputArray =  input.split("\r\n")   
     // console.log(inputArray)
     // Default CONFIG GET configuration
     const confGet = (inputArray[2]=="config") && (inputArray[4] == "get")
