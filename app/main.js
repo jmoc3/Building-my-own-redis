@@ -137,7 +137,7 @@ const path = `${config["dir"]}/${config["dbfilename"]}`
 const server = net.createServer((connection) => {
 
   // Setting of the default paths of execution passing in the terminal for tests  
-  connection.on("data", (clientInput)=>{
+  connection.on("data", async (clientInput)=>{
 
     const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
@@ -327,7 +327,8 @@ const server = net.createServer((connection) => {
           replicas[0].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
         },+inputArray[6])
       })
-      rq.then((res)=>{
+      
+      await rq.then((res)=>{
         console.log(res)
       })      
       // setTimeout(()=>{
