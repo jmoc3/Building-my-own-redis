@@ -100,6 +100,7 @@ if(replicaofBool){
 
     if (getackfId!=-1){
       master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
+      console.log("aaa")
       config["info"]["replication"]["master_repl_offset"]+=37 
     }
     //   // Default response to something wrong
@@ -325,9 +326,7 @@ const server = net.createServer((connection) => {
       setTimeout(()=>{
         replicas[0].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
       },+inputArray[6])
-      
-      setTimeout(()=>console.log(config),2000)
-      
+            
       // setTimeout(()=>{
       //   replicas.forEach(replica => replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n"))
       // },+inputArray[6])
