@@ -99,7 +99,6 @@ if(replicaofBool){
     const getackfId = inputArray.indexOf("getack")
 
     if (getackfId!=-1){
-      console.log("aaa")
       master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
       config["info"]["replication"]["master_repl_offset"]+=37 
     }
@@ -318,19 +317,20 @@ const server = net.createServer((connection) => {
     if (get) {
       if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
     }
-
+    let index=0
     // WAIT configuration
     const wait = inputArray[2] == "wait"
     if(wait){
-      
-      setTimeout(()=>{
-        replicas[0].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
-      },+inputArray[6])
+
             
-      // setTimeout(()=>{
-      //   replicas.forEach(replica => replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n"))
-      // },+inputArray[6])
-      
+      setTimeout(()=>{
+        replicas.forEach(replica => {
+          console.log(index)
+          replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
+          index++
+        })
+      },+inputArray[6])
+          
       connection.write(`:${replicas.length}\r\n`)
     }
 
