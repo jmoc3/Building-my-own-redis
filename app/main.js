@@ -332,7 +332,6 @@ const server = net.createServer((connection) => {
 
       replicas.forEach(replica => {
         replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
-        ackResponse++
       })
       // replicas[+inputArray[4]-1].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
       connection.write(`:${ackResponse}\r\n`)
