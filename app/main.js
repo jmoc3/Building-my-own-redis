@@ -137,7 +137,6 @@ const path = `${config["dir"]}/${config["dbfilename"]}`
 
 const server = net.createServer((connection) => {
   config["conn"] = connection
-  let res=0
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
     
@@ -329,11 +328,14 @@ const server = net.createServer((connection) => {
     const storageKeys = Object.keys(storage)
 
     if(wait){
+      let ackResponse=0
+
       replicas.forEach(replica => {
         replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
+        ackResponse++
       })
       // replicas[+inputArray[4]-1].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
-      connection.write(`:${res}\r\n`)
+      connection.write(`:${ackResponse}\r\n`)
     }
 
     // Default response to something wrong
