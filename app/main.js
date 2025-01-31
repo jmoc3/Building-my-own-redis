@@ -229,7 +229,7 @@ const server = net.createServer((connection) => {
     const input = clientInput.toString().toLowerCase()
     if (input=="*1\r\n$4\r\nping\r\n") return connection.write("$4\r\nPONG\r\n")
       const inputArray =  input.split("\r\n")   
-    console.log(inputArray)
+
     // console.log(inputArray)
     // Default CONFIG GET configuration
     const confGet = (inputArray[2]=="config") && (inputArray[4] == "get")
@@ -269,6 +269,7 @@ const server = net.createServer((connection) => {
     // REPLCONF configuration
     const replconfList = (inputArray[2] == "replconf") && (inputArray[4] == "listening-port")
     const replconfCapa = (inputArray[2] == "replconf") && (inputArray[4] == "capa")
+
     if(replconfList || replconfCapa){
       return connection.write("+OK\r\n")
     }
@@ -322,6 +323,8 @@ const server = net.createServer((connection) => {
     // WAIT configuration
     const wait = inputArray[2] == "wait"
     if(wait){
+
+      console.log(inputArray)
       replicas[+inputArray[4]-1].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
   
       connection.write(`:${replicas.length}\r\n`)
