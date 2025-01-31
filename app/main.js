@@ -267,8 +267,9 @@ const server = net.createServer((connection) => {
     }
 
     // REPLCONF configuration
-    const replconf = inputArray[2] == "replconf"
-    if(replconf){
+    const replconfList = (inputArray[2] == "replconf") && (inputArray[4] == "listening-port")
+    const replconfCapa = (inputArray[2] == "replconf") && (inputArray[4] == "capa")
+    if(replconfList || replconfCapa){
       return connection.write("+OK\r\n")
     }
 
