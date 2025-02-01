@@ -307,7 +307,6 @@ const server = net.createServer((connection) => {
     const pxConf = inputArray[8] == "px"
     
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
-    let counter = 0
     console.log(inputArray, replconfGetack)
     if (set) {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
@@ -321,19 +320,18 @@ const server = net.createServer((connection) => {
           
           if((i==1) && replconfGetack){
             replicas[0].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
-            counter++
             continue
           }
 
-          if((i%2)!=0 && replconfGetack){
-            replicas[Math.floor((i/2))].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")    
-            counter++        
-          }else{
-            console.log("index: ",i)
-            replicas[i/2].write(clientInput.toString())
+          if(replconfGetack){
+            if((i%2)!=0){
+              replicas[i/2].write(clientInput.toString())
+            }else{
+              replicas[Math.floor((i/2))].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")            
+            }
           }
         }    
-        console.log(counter)
+
         connection.write("+OK\r\n")
       }else{
         setTimeout( ()=>{ 
