@@ -284,6 +284,7 @@ const server = net.createServer((connection) => {
       const bufferHeader = Buffer.from(`$${buffer.length}\r\n`)  
        
       replicas.push(connection)
+      replicasStorage["replWithAck"]["quantity"]++
       return connection.write(Buffer.concat([bufferHeader,buffer]))
     }
     // ECHO configuration
