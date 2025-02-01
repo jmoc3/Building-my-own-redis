@@ -284,9 +284,9 @@ const server = net.createServer((connection) => {
       const bufferHeader = Buffer.from(`$${buffer.length}\r\n`)  
        
       replicas.push(connection)
+      console.log(replicas.length. replicasStorage["list"].length)
       return connection.write(Buffer.concat([bufferHeader,buffer]))
     }
-
     // ECHO configuration
     const echo = inputArray[2] == "echo"
     if(echo){
