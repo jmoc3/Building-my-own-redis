@@ -224,13 +224,14 @@ const server = net.createServer((connection) => {
       }
       console.log(config, storage)
     } 
-    // PING configuration
+    
     // const input = respConverter(clientInput)
     const input = clientInput.toString().toLowerCase()
+    
+    // PING configuration
     if (input=="*1\r\n$4\r\nping\r\n") return connection.write("$4\r\nPONG\r\n")
       const inputArray =  input.split("\r\n")   
 
-    // console.log(inputArray)
     // Default CONFIG GET configuration
     const confGet = (inputArray[2]=="config") && (inputArray[4] == "get")
      
@@ -302,7 +303,7 @@ const server = net.createServer((connection) => {
     
     if(replconfGetack){replicas["replWithAck"]++}
 
-    console.log(replconfGetack)
+    console.log(inputArray, replconfGetack)
     
     if (set) {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
