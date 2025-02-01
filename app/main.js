@@ -350,8 +350,7 @@ const server = net.createServer((connection) => {
     if(wait){
     
     // setInterval(()=>timeLimitExpired=true, inputArray[4])
-    console.log("replProperty: " + replicasStorage["replWithAck"])
-    connection.write(`:${config["conn"]}\r\n`)
+    connection.write(`:${replicasStorage["replWithAck"]}\r\n`)
     }
   })
 
