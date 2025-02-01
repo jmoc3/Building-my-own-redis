@@ -297,11 +297,14 @@ const server = net.createServer((connection) => {
     const set = inputArray[2] == "set"
     const get = inputArray[2] == "get"
     const pxConf = inputArray[8] == "px"
-    console.log(inputArray)
+    console.log(0%2==0)
     if (set) {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       
-      if (!pxConf) {    
+      if (!pxConf) {
+        // for(i=0;i<(replicas.length*2);i++){
+          
+        // }    
         replicas.forEach(socket => {
           socket.write(clientInput.toString())
         })
