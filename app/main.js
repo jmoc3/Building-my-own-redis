@@ -302,8 +302,6 @@ const server = net.createServer((connection) => {
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
     
     if(replconfGetack){replicasStorage["replWithAck"]["quantity"]++}
-
-    console.log(inputArray, replconfGetack)
     
     if (set) {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
