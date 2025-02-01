@@ -351,13 +351,13 @@ const server = net.createServer((connection) => {
         connection.write(`:${replicasStorage["replWithAck"]["quantity"]}\r\n`)
         replicasStorage["replWithAck"]["quantity"] = 0
         return
+      }else{ 
+        setInterval(()=>{
+          console.log("TimeOutResponding")
+          connection.write(`:${replicasStorage["replWithAck"]["quantity"]}\r\n`)
+          replicasStorage["replWithAck"]["quantity"] = 0
+        }, +inputArray[6])
       }
-      
-      setInterval(()=>{
-        console.log("TimeOutResponding")
-        connection.write(`:${replicasStorage["replWithAck"]["quantity"]}\r\n`)
-        replicasStorage["replWithAck"]["quantity"] = 0
-      }, +inputArray[6])
     }
   })
 
