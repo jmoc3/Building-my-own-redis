@@ -1,4 +1,4 @@
 export const replicasStorage = {
     "list":[],
-    "replWithAck":{"quantity":0}
+    "replWithAck":{"quantity":4}
 }

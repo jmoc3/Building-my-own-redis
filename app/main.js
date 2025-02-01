@@ -344,17 +344,17 @@ const server = net.createServer((connection) => {
     
     // WAIT configuration
     const wait = inputArray[2] == "wait"
-    console.log(inputArray)
+
     if(wait){
       setTimeout(()=>{
         if((replicasStorage["replWithAck"]["quantity"]==(+inputArray[4]))){
-          connection.write(`:${replicasStorage["replWithAck"]["quantity"]}\r\n`)
-          replicasStorage["replWithAck"]["quantity"] = 0
+          connection.write(`:${(replicas.length - replicasStorage["replWithAck"]["quantity"])}\r\n`)
+          replicasStorage["replWithAck"]["quantity"] = replicas.length
           return
         }else{ 
           setInterval(()=>{
-            connection.write(`:${replicasStorage["replWithAck"]["quantity"]}\r\n`)
-            replicasStorage["replWithAck"]["quantity"] = 0
+            connection.write(`:${(replicas.length - replicasStorage["replWithAck"]["quantity"])}\r\n`)
+            replicasStorage["replWithAck"]["quantity"] = replicas.length
           }, (+inputArray[6]-1000))
         }
       },1000)
