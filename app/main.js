@@ -322,6 +322,7 @@ const server = net.createServer((connection) => {
             replicas[0].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
             continue
           }
+          console.log(replconfGetack, i)
 
           if(replconfGetack){
             if((i%2)!=0){
