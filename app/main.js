@@ -352,7 +352,7 @@ const server = net.createServer((connection) => {
           return
         }else{ 
           setInterval(()=>{
-            connection.write(`:${(replicas.length - replicasStorage["replWithAck"]["quantity"])}\r\n`)
+            connection.write(`:${(replicasStorage["replWithAck"]["quantity"])}\r\n`)
             replicasStorage["replWithAck"]["quantity"] = 0
           }, (+inputArray[6]-1000))
         }
