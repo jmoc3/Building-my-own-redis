@@ -232,7 +232,7 @@ const server = net.createServer((connection) => {
     // PING configuration
     if (input=="*1\r\n$4\r\nping\r\n") return connection.write("$4\r\nPONG\r\n")
     
-      const inputArray =  input.split("\r\n")   
+    const inputArray =  input.split("\r\n")   
     commandHistory.push(inputArray[2])
 
     // Default CONFIG GET configuration
@@ -309,8 +309,9 @@ const server = net.createServer((connection) => {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       
       if (!pxConf) {
+        console.log(commandHistory)
+
         for(let i=0;i<(replicas.length*2);i++){
-          console.log(commandHistory)
           if(i==0){
             replicas[0].write(clientInput.toString())
             continue
