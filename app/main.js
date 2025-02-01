@@ -345,7 +345,7 @@ const server = net.createServer((connection) => {
     const wait = inputArray[2] == "wait"
     let timeLimitExpired = false
     if(wait){
-      setInterval(()=>timeLimitExpired=true, inputArray[4])
+      setInterval(()=>{timeLimitExpired=true}, +inputArray[4])
       if(replconfGetack || timeLimitExpired){
         connection.write(`:${replicasStorage["replWithAck"]}\r\n`)
       }
