@@ -53,13 +53,13 @@ if(replicaofBool){
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")  
 
-    console.log(inputArray)
-
+    
     const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
     const fileIncluded = input.indexOf("+fullresync") != -1    
-    console.log("fileInclude: " + fileIncluded)
     if(!fileIncluded){
       if(inputArray.indexOf("getack")==-1){
+        console.log("fileInclude: " + fileIncluded)
+        console.log(inputArray.join("\r\n") + "\r\n")
         config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.join("\r\n") + "\r\n").byteLength  
       }else{
         config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.slice(0,indexGetack).join("\r\n") + "\r\n").byteLength
@@ -310,7 +310,7 @@ const server = net.createServer((connection) => {
       
       if (!pxConf) {
         
-        console.log(commandHistory[-1]=="wait")
+        console.log(commandHistory[-2]=="wait")
         for(let i=0;i<(replicas.length*2);i++){
           if(i==0){
             replicas[0].write(clientInput.toString())
