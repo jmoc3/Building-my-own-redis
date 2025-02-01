@@ -354,7 +354,7 @@ const server = net.createServer((connection) => {
       }
 
       setInterval(()=>{
-        connection.write(`:${replicasStorage["replWithAck"]}\r\n`)
+        connection.write(`:${replicasStorage["replWithAck"]["quantity"]}\r\n`)
       }, +inputArray[6])
     }
   })
