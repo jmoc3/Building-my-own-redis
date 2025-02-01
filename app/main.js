@@ -297,7 +297,6 @@ const server = net.createServer((connection) => {
     const set = inputArray[2] == "set"
     const get = inputArray[2] == "get"
     const pxConf = inputArray[8] == "px"
-    console.log(3/2)
     if (set) {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       
@@ -309,6 +308,7 @@ const server = net.createServer((connection) => {
           }
 
           if(0%2==0){
+            console.log(i)
             replicas[i/2].write(clientInput.toString())
           }else{
             replicas[Math.floor((i/2))-0.5].write(clientInput.toString())
