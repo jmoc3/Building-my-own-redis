@@ -136,7 +136,6 @@ config["dbfilename"] = dbfilenameId == -1 ? null : process.argv[dbfilenameId + 1
 const path = `${config["dir"]}/${config["dbfilename"]}`
 
 const server = net.createServer((connection) => {
-  let replRes = 0
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
     
@@ -261,7 +260,6 @@ const server = net.createServer((connection) => {
     if(infoRep){
       const resWithoutResp = Object.keys(config["info"][especifics]).map( property => `${property}:${config["info"][especifics][property]}` )
       const resArray = resWithoutResp.map(e=>`+${e}`)
-      const res = `*${resArray.length}\r\n${resArray.join("")}`
       
       return connection.write(`${resArray.join("")}\r\n`)
     }
@@ -303,12 +301,11 @@ const server = net.createServer((connection) => {
     const pxConf = inputArray[8] == "px"
     
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
-    console.log(inputArray, replconfGetack)
     
     if(replconfGetack){replRes++}
     if (set) {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
-      
+      let replRes=0
       if (!pxConf) {
         for(i=0;i<(replicas.length*2);i++){
           if(i==0){
@@ -320,6 +317,7 @@ const server = net.createServer((connection) => {
             replicas[0].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
             continue
           }
+          console.log(inputArray, replconfGetack)
           
           if((i%2)==0){
             replicas[i/2].write(clientInput.toString())
@@ -331,7 +329,6 @@ const server = net.createServer((connection) => {
               // }
             }
           }    
-
         console.log()
         connection.write("+OK\r\n")
       }else{
@@ -347,14 +344,14 @@ const server = net.createServer((connection) => {
       if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
     }
     
-      // WAIT configuration
-      const wait = inputArray[2] == "wait"
-      console.log(replRes)
-      if(wait){
-      
-      // setInterval(()=>timeLimitExpired=true, inputArray[4])
-      connection.write(`:${replRes}\r\n`)
-      replRes = 0
+    // WAIT configuration
+    const wait = inputArray[2] == "wait"
+    console.log(replRes)
+    if(wait){
+    
+    // setInterval(()=>timeLimitExpired=true, inputArray[4])
+    connection.write(`:${replRes}\r\n`)
+    replRes = 0
     }
   })
 
