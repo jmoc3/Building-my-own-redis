@@ -348,6 +348,7 @@ const server = net.createServer((connection) => {
     if(wait){
       setTimeout(()=>{
         if((replicasStorage["replWithAck"]["quantity"]==(+inputArray[4]))){
+          console.log(replicas.length, replicasStorage["replWithAck"]["quantity"] )
           connection.write(`:${(replicas.length - replicasStorage["replWithAck"]["quantity"])}\r\n`)
           replicasStorage["replWithAck"]["quantity"] = replicas.length
           return
