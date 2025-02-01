@@ -309,8 +309,8 @@ const server = net.createServer((connection) => {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       
       if (!pxConf) {
-        console.log(commandHistory)
-
+        
+        console.log(commandHistory[-2]=="wait")
         for(let i=0;i<(replicas.length*2);i++){
           if(i==0){
             replicas[0].write(clientInput.toString())
