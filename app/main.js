@@ -284,7 +284,6 @@ const server = net.createServer((connection) => {
       const bufferHeader = Buffer.from(`$${buffer.length}\r\n`)  
        
       replicas.push(connection)
-      replicasStorage["replWithAck"]["quantity"]++
       return connection.write(Buffer.concat([bufferHeader,buffer]))
     }
     // ECHO configuration
@@ -348,13 +347,13 @@ const server = net.createServer((connection) => {
     if(wait){
       setTimeout(()=>{
         if((replicasStorage["replWithAck"]["quantity"]==(+inputArray[4]))){
-          connection.write(`:${(replicasStorage["replWithAck"]["quantity"] - replicas.length)}\r\n`)
-          replicasStorage["replWithAck"]["quantity"] = replicas.length
+          connection.write(`:${(replicasStorage["replWithAck"]["quantity"])}\r\n`)
+          replicasStorage["replWithAck"]["quantity"] = 0
           return
         }else{ 
           setInterval(()=>{
-            connection.write(`:${(replicas.length - replicasStorage["replWithAck"]["quantity"] - replicas.length)}\r\n`)
-            replicasStorage["replWithAck"]["quantity"] = replicas.length
+            connection.write(`:${(replicas.length - replicasStorage["replWithAck"]["quantity"])}\r\n`)
+            replicasStorage["replWithAck"]["quantity"] = 0
           }, (+inputArray[6]-1000))
         }
       },1000)
