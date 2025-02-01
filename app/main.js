@@ -298,6 +298,7 @@ const server = net.createServer((connection) => {
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
 
     if(wait){
+      console.log(replconfGetack)
       connection.write(`:${config["conn"]}\r\n`)
     }
 
@@ -305,7 +306,7 @@ const server = net.createServer((connection) => {
     const set = inputArray[2] == "set"
     const get = inputArray[2] == "get"
     const pxConf = inputArray[8] == "px"
-    console.log(inputArray)
+
     if (set) {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       
@@ -315,7 +316,6 @@ const server = net.createServer((connection) => {
             replicas[0].write(clientInput.toString())
             continue
           }
-          console.log(replconfGetack)
           
           if(i==1){
             replicas[0].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
