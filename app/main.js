@@ -346,7 +346,7 @@ const server = net.createServer((connection) => {
     
     // WAIT configuration
     const wait = inputArray[2] == "wait"
-
+    console.log(inputArray)
     if(wait){
       if((replicasStorage["replWithAck"]["quantity"]==(+inputArray[4]))){
         connection.write(`:${replicasStorage["replWithAck"]["quantity"]}\r\n`)
