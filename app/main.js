@@ -56,7 +56,7 @@ if(replicaofBool){
 
     const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
     const fileIncluded = input.indexOf("+fullresync") != -1    
-
+    console.log("fileInclude: " + fileIncluded)
     if(!fileIncluded){
       if(inputArray.indexOf("getack")==-1){
         config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.join("\r\n") + "\r\n").byteLength  
