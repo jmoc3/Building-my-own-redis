@@ -297,7 +297,7 @@ const server = net.createServer((connection) => {
     const set = inputArray[2] == "set"
     const get = inputArray[2] == "get"
     const pxConf = inputArray[8] == "px"
-    console.log(0/0)
+    console.log(inputArray)
     if (set) {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       
@@ -319,9 +319,7 @@ const server = net.createServer((connection) => {
             replicas[Math.floor((i/2))].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")            
           }
         }    
-        // replicas.forEach(socket => {
-        //   socket.write(clientInput.toString())
-        // })
+
         connection.write("+OK\r\n")
       }else{
         setTimeout( ()=>{ 
@@ -342,14 +340,7 @@ const server = net.createServer((connection) => {
     if(replconfGetack) { config["conn"] += 1 }
 
     if(wait){
-
-      // replicas.forEach(replica => {
-      //   replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
-      // })
-      
-      // replicas[+inputArray[4]-1].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
       connection.write(`:${config["conn"]}\r\n`)
-
     }
 
     // Default response to something wrong
