@@ -308,12 +308,15 @@ const server = net.createServer((connection) => {
             continue
           }
 
+          if(i==1){
+            replicas[0].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
+            continue
+          }
+
           if((i%2)==0){
             replicas[i/2].write(clientInput.toString())
           }else{
-            // "*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n"
-            replicas[Math.ceil((i/2))].write(clientInput.toString())
-            
+            replicas[Math.floor((i/2))].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")            
           }
         }    
         replicas.forEach(socket => {
