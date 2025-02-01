@@ -81,7 +81,6 @@ if(replicaofBool){
         storage[request[4]] = {"value":request[6], "expirity":+request[10]}
         
         if (!pxConf) {    
-          console.log("sending command")
           master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
         }else{ 
           setTimeout( ()=>{ 
@@ -327,9 +326,9 @@ const server = net.createServer((connection) => {
 
     if(wait){
 
-      replicas.forEach(replica => {
-        replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
-      })
+      // replicas.forEach(replica => {
+      //   replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
+      // })
       
       // replicas[+inputArray[4]-1].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
       connection.write(`:${config["conn"]}\r\n`)
