@@ -346,13 +346,16 @@ const server = net.createServer((connection) => {
     
     // WAIT configuration
     const wait = inputArray[2] == "wait"
-    let timeLimitExpired = false
+
     if(wait){
-      setInterval(()=>{timeLimitExpired=true}, +inputArray[6])
-      if((replicasStorage["replWithAck"]["quantity"]==(+inputArray[4])) || timeLimitExpired){
-        console.log("a")
+      if((replicasStorage["replWithAck"]["quantity"]==(+inputArray[4]))){
         connection.write(`:${replicasStorage["replWithAck"]}\r\n`)
+        return
       }
+
+      setInterval(()=>{
+        connection.write(`:${replicasStorage["replWithAck"]}\r\n`)
+      }, +inputArray[6])
     }
   })
 
