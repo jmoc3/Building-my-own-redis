@@ -1,4 +1,4 @@
-import { replicasStorage } from "./repl";
+import { replicasStorage } from "./replicas.js";
 const net = require("net");
 const fs = require("fs");
 // You can use print statements as follows for debugging, they'll be visible when running tests.
