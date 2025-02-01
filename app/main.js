@@ -296,8 +296,10 @@ const server = net.createServer((connection) => {
     // WAIT configuration
     const wait = inputArray[2] == "wait"
     
+    let timeLimitExpired = false
     if(wait){
       
+      setInterval(()=>timeLimitExpired=true, inputArray[4])
       connection.write(`:${config["conn"]}\r\n`)
     }
     
@@ -327,7 +329,7 @@ const server = net.createServer((connection) => {
           if((i%2)==0){
             replicas[i/2].write(clientInput.toString())
           }else{
-            if(replconfGetack){
+            if(replconfGetack || timeLimitExpired){
               replicas[Math.floor((i/2))].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")            
             }else{
               continue
