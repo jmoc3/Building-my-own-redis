@@ -81,6 +81,7 @@ if(replicaofBool){
         storage[request[4]] = {"value":request[6], "expirity":+request[10]}
         
         if (!pxConf) {    
+          console.log("sending command")
           master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
         }else{ 
           setTimeout( ()=>{ 
@@ -302,7 +303,6 @@ const server = net.createServer((connection) => {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       
       if (!pxConf) {    
-        console.log("Setting command")
         replicas.forEach(socket => {
           socket.write(clientInput.toString())
         })
