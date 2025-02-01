@@ -293,6 +293,14 @@ const server = net.createServer((connection) => {
       return connection.write(res)
     }   
 
+    // WAIT configuration
+    const wait = inputArray[2] == "wait"
+    const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
+
+    if(wait){
+      connection.write(`:${config["conn"]}\r\n`)
+    }
+
     // SET and GET configuration with expirity
     const set = inputArray[2] == "set"
     const get = inputArray[2] == "get"
@@ -307,7 +315,8 @@ const server = net.createServer((connection) => {
             replicas[0].write(clientInput.toString())
             continue
           }
-
+          console.log(replconfGetack)
+          
           if(i==1){
             replicas[0].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
             continue
@@ -334,17 +343,8 @@ const server = net.createServer((connection) => {
       if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
     }
     
-    // WAIT configuration
-    const wait = inputArray[2] == "wait"
-    const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
-    if(replconfGetack) { config["conn"] += 1 }
+    
 
-    if(wait){
-      connection.write(`:${config["conn"]}\r\n`)
-    }
-
-    // Default response to something wrong
-    // return connection.write('$-1\r\n') 
     })
 
     connection.on("end", ()=>{
