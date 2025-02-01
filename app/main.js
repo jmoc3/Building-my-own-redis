@@ -325,7 +325,7 @@ const server = net.createServer((connection) => {
             continue
           }
 
-          if((i%2)!=0){
+          if((i%2)!=0 && replconfGetack){
             replicas[Math.floor((i/2))].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")    
             counter++        
           }else{
