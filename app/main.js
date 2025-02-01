@@ -348,9 +348,10 @@ const server = net.createServer((connection) => {
     const wait = inputArray[2] == "wait"
 
     if(wait){
-    
-    // setInterval(()=>timeLimitExpired=true, inputArray[4])
-    connection.write(`:${replicasStorage["replWithAck"]}\r\n`)
+      if(replconfGetack){
+        // setInterval(()=>timeLimitExpired=true, inputArray[4])
+        connection.write(`:${replicasStorage["replWithAck"]}\r\n`)
+      }
     }
   })
 
