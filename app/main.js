@@ -329,7 +329,7 @@ const server = net.createServer((connection) => {
             replicas[Math.floor((i/2))].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")    
             counter++        
           }else{
-            console.log(i)
+            console.log("index: ",i)
             replicas[i/2].write(clientInput.toString())
           }
         }    
