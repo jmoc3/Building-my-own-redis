@@ -136,6 +136,7 @@ config["dbfilename"] = dbfilenameId == -1 ? null : process.argv[dbfilenameId + 1
 const path = `${config["dir"]}/${config["dbfilename"]}`
 
 const server = net.createServer((connection) => {
+  let replRes = 0
   // Setting of the default paths of execution passing in the terminal for tests  
   connection.on("data", (clientInput)=>{
     
@@ -303,6 +304,7 @@ const server = net.createServer((connection) => {
     
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
     console.log(inputArray, replconfGetack)
+    
     if (set) {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       
@@ -343,15 +345,16 @@ const server = net.createServer((connection) => {
     
     if (get) {
       if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
-      }
+    }
     
-    // WAIT configuration
-    const wait = inputArray[2] == "wait"
-    let replRes = 0
-    if(wait){
+      // WAIT configuration
+      const wait = inputArray[2] == "wait"
+      console.log(replRes)
+      if(wait){
       
       // setInterval(()=>timeLimitExpired=true, inputArray[4])
       connection.write(`:${replRes}\r\n`)
+      replRes = 0
     }
   })
 
