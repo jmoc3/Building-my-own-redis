@@ -332,7 +332,7 @@ const server = net.createServer((connection) => {
             replicas[i/2].write(clientInput.toString())
           }
         }    
-
+        console.log(counter)
         connection.write("+OK\r\n")
       }else{
         setTimeout( ()=>{ 
