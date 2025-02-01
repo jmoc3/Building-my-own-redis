@@ -52,10 +52,11 @@ if(replicaofBool){
     
     const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")  
-
     
     const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
     const fileIncluded = input.indexOf("+fullresync") != -1    
+    console.log(inputArray)
+    
     if(!fileIncluded){
       if(inputArray.indexOf("getack")==-1){
         console.log("Without GetAck")
