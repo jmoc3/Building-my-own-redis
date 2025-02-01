@@ -292,10 +292,7 @@ const server = net.createServer((connection) => {
       const res = inputArray.filter((_,i)=>i>inputArray.indexOf("echo")).join("\r\n")
       return connection.write(res)
     }   
-
-    
-    // let timeLimitExpired = false
-    
+   
     // SET and GET configuration with expirity
     const set = inputArray[2] == "set"
     const get = inputArray[2] == "get"
@@ -346,10 +343,10 @@ const server = net.createServer((connection) => {
     
     // WAIT configuration
     const wait = inputArray[2] == "wait"
-
+    let timeLimitExpired = false
     if(wait){
-      if(replconfGetack){
-        // setInterval(()=>timeLimitExpired=true, inputArray[4])
+      setInterval(()=>timeLimitExpired=true, inputArray[4])
+      if(replconfGetack || timeLimitExpired){
         connection.write(`:${replicasStorage["replWithAck"]}\r\n`)
       }
     }
