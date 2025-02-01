@@ -295,8 +295,7 @@ const server = net.createServer((connection) => {
 
     // WAIT configuration
     const wait = inputArray[2] == "wait"
-    const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
-
+    
     if(wait){
       connection.write(`:${config["conn"]}\r\n`)
     }
@@ -306,7 +305,8 @@ const server = net.createServer((connection) => {
     const get = inputArray[2] == "get"
     const pxConf = inputArray[8] == "px"
     
-    console.log(inputArray)
+    const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
+    console.log(inputArray, replconfGetack)
     if (set) {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       
