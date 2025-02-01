@@ -304,14 +304,14 @@ const server = net.createServer((connection) => {
       if (!pxConf) {
         for(i=0;i<(replicas.length*2);i++){
           if(i==0){
-            replicas[0].write(clientInput.string())
+            replicas[0].write(clientInput.toString())
             continue
           }
 
           if(0%2==0){
-            replicas[i/2].write(clientInput.string())
+            replicas[i/2].write(clientInput.toString())
           }else{
-            // replicas[i-1]
+            replicas[Math.floor((i/2))-0.5].write(clientInput.toString())
             
           }
         }    
@@ -339,9 +339,9 @@ const server = net.createServer((connection) => {
 
     if(wait){
 
-      // replicas.forEach(replica => {
-      //   replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
-      // })
+      replicas.forEach(replica => {
+        replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
+      })
       
       // replicas[+inputArray[4]-1].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
       connection.write(`:${config["conn"]}\r\n`)
