@@ -310,7 +310,7 @@ const server = net.createServer((connection) => {
           if((i%2)==0){
             replicas[i/2].write(clientInput.toString())
           }else{
-            console.log(i,Math.ceil((i/2)))
+            console.log(i,replicas.length, (i/2))
             replicas[Math.ceil((i/2))].write(clientInput.toString())
             
           }
