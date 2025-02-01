@@ -12,6 +12,7 @@ const respConverter = (buffer) => {
 const storage = {}
 const args = process.argv;
 const replicas = replicasStorage["list"]
+const commandHistory = []
 
 const portId = args.indexOf("--port")
 const PORT = portId == -1 ? 6379 : process.argv[portId + 1]
@@ -228,7 +229,7 @@ const server = net.createServer((connection) => {
     
     // const input = respConverter(clientInput)
     const input = clientInput.toString().toLowerCase()
-    
+    commandHistory.push(inputArray[2])
     // PING configuration
     if (input=="*1\r\n$4\r\nping\r\n") return connection.write("$4\r\nPONG\r\n")
       const inputArray =  input.split("\r\n")   
@@ -308,6 +309,7 @@ const server = net.createServer((connection) => {
       
       if (!pxConf) {
         for(let i=0;i<(replicas.length*2);i++){
+          console.log(commandHistory)
           if(i==0){
             replicas[0].write(clientInput.toString())
             continue
@@ -321,11 +323,7 @@ const server = net.createServer((connection) => {
           if((i%2)==0){
             replicas[i/2].write(clientInput.toString())
           }else{
-            // if(replconfGetack ){
             replicas[Math.floor((i/2))].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")            
-            // }else{
-              // continue
-              // }
             }
           }    
         connection.write("+OK\r\n")
