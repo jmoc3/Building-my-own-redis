@@ -58,10 +58,13 @@ if(replicaofBool){
     const fileIncluded = input.indexOf("+fullresync") != -1    
     if(!fileIncluded){
       if(inputArray.indexOf("getack")==-1){
-        console.log("fileInclude: " + fileIncluded)
+        console.log("Without GetAck")
         console.log(inputArray.join("\r\n") + "\r\n")
         config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.join("\r\n") + "\r\n").byteLength  
       }else{
+        console.log("With GetAck")
+        console.log("fileInclude: " + fileIncluded)
+        console.log(inputArray.join("\r\n") + "\r\n")
         config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.slice(0,indexGetack).join("\r\n") + "\r\n").byteLength
       }
     }    
