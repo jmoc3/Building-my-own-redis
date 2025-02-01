@@ -307,7 +307,7 @@ const server = net.createServer((connection) => {
     const pxConf = inputArray[8] == "px"
     
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
-    const counter = 0
+    let counter = 0
     console.log(inputArray, replconfGetack)
     if (set) {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
