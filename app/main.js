@@ -297,10 +297,11 @@ const server = net.createServer((connection) => {
     const wait = inputArray[2] == "wait"
     
     let timeLimitExpired = false
+    let replRes = 0
     if(wait){
       
       setInterval(()=>timeLimitExpired=true, inputArray[4])
-      connection.write(`:${config["conn"]}\r\n`)
+      connection.write(`:${replRes}\r\n`)
     }
     
     // SET and GET configuration with expirity
@@ -309,7 +310,6 @@ const server = net.createServer((connection) => {
     const pxConf = inputArray[8] == "px"
     
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
-    let replRes = 0
     console.log(inputArray, replconfGetack)
     if (set) {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
@@ -338,7 +338,7 @@ const server = net.createServer((connection) => {
           }
         }    
 
-        console.log(replRes, i)
+        console.log()
         connection.write("+OK\r\n")
       }else{
         setTimeout( ()=>{ 
