@@ -299,7 +299,7 @@ const server = net.createServer((connection) => {
     const get = inputArray[2] == "get"
     const pxConf = inputArray[8] == "px"
     
-    const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "getack")
+    const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
     
     if(replconfGetack){replicas["replWithAck"]++}
 
