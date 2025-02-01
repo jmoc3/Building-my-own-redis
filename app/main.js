@@ -298,16 +298,16 @@ const server = net.createServer((connection) => {
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
 
     if(wait){
-      console.log(replconfGetack)
       connection.write(`:${config["conn"]}\r\n`)
     }
-
+    
     // SET and GET configuration with expirity
     const set = inputArray[2] == "set"
     const get = inputArray[2] == "get"
     const pxConf = inputArray[8] == "px"
-
+    
     if (set) {
+      console.log(replconfGetack)
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
       
       if (!pxConf) {
