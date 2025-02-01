@@ -301,7 +301,7 @@ const server = net.createServer((connection) => {
     
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
     
-    if(replconfGetack){replicas["replWithAck"]++}
+    if(replconfGetack){replicasStorage["replWithAck"]["quantity"]++}
 
     console.log(inputArray, replconfGetack)
     
@@ -348,8 +348,8 @@ const server = net.createServer((connection) => {
     const wait = inputArray[2] == "wait"
     let timeLimitExpired = false
     if(wait){
-      setInterval(()=>{timeLimitExpired=true}, +inputArray[4])
-      if(replconfGetack || timeLimitExpired){
+      setInterval(()=>{timeLimitExpired=true}, +inputArray[6])
+      if((replicasStorage["replWithAck"]["quantity"]==(+inputArray[4])) || timeLimitExpired){
         console.log("a")
         connection.write(`:${replicasStorage["replWithAck"]}\r\n`)
       }
