@@ -293,16 +293,8 @@ const server = net.createServer((connection) => {
       return connection.write(res)
     }   
 
-    // WAIT configuration
-    const wait = inputArray[2] == "wait"
     
-    let timeLimitExpired = false
-    let replRes = 0
-    if(wait){
-      
-      setInterval(()=>timeLimitExpired=true, inputArray[4])
-      connection.write(`:${replRes}\r\n`)
-    }
+    // let timeLimitExpired = false
     
     // SET and GET configuration with expirity
     const set = inputArray[2] == "set"
@@ -331,12 +323,12 @@ const server = net.createServer((connection) => {
             replicas[i/2].write(clientInput.toString())
           }else{
             // if(replconfGetack ){
-              replicas[Math.floor((i/2))].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")            
+            replicas[Math.floor((i/2))].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")            
             // }else{
               // continue
-            // }
-          }
-        }    
+              // }
+            }
+          }    
 
         console.log()
         connection.write("+OK\r\n")
@@ -348,11 +340,20 @@ const server = net.createServer((connection) => {
         connection.write("+OK\r\n")
       }
     }
-      
+    
     if (get) {
       if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
+      }
+    
+    // WAIT configuration
+    const wait = inputArray[2] == "wait"
+    let replRes = 0
+    if(wait){
+      
+      // setInterval(()=>timeLimitExpired=true, inputArray[4])
+      connection.write(`:${replRes}\r\n`)
     }
-    })
+  })
 
     connection.on("end", ()=>{
         console.log("Someone out")
