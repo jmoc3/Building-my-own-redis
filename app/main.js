@@ -318,7 +318,7 @@ const server = net.createServer((connection) => {
             continue
           }
           
-          if((i==1) && replconfGetack){
+          if((i==1)){
             replicas[0].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
             continue
           }
