@@ -330,7 +330,7 @@ const server = net.createServer((connection) => {
               // }
             }
           }    
-        console.log()
+        console.log(config["conn"])
         connection.write("+OK\r\n")
       }else{
         setTimeout( ()=>{ 
