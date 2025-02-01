@@ -345,7 +345,13 @@ const server = net.createServer((connection) => {
     const wait = inputArray[2] == "wait"
 
     if(wait){
+      
+      
       setTimeout(()=>{
+        if(replicasStorage["replWithAck"]["quantity"]==0){
+          connection.write(`:${replicas.length}\r\n`)
+          return 
+        }
         if((replicasStorage["replWithAck"]["quantity"]==(+inputArray[4]))){
           connection.write(`:${(replicasStorage["replWithAck"]["quantity"])}\r\n`)
           replicasStorage["replWithAck"]["quantity"] = 0
@@ -357,7 +363,6 @@ const server = net.createServer((connection) => {
           }, (+inputArray[6]-1000))
         }
       },1000)
-
     }
   })
 
