@@ -1,3 +1,4 @@
+import { replicasStorage } from "./repl";
 const net = require("net");
 const fs = require("fs");
 // You can use print statements as follows for debugging, they'll be visible when running tests.
@@ -9,13 +10,13 @@ const respConverter = (buffer) => {
 }
 
 const storage = {}
-const arguments = process.argv;
-const replicas = []
+const args = process.argv;
+const replicas = replicasStorage["list"]
 
-const portId = arguments.indexOf("--port")
+const portId = args.indexOf("--port")
 const PORT = portId == -1 ? 6379 : process.argv[portId + 1]
 
-const replicaofId = arguments.indexOf("--replicaof")
+const replicaofId = args.indexOf("--replicaof")
 const replicaofBool = replicaofId != -1
 const role = replicaofBool ? "slave" : "master"
 
@@ -128,8 +129,8 @@ const config = {
   "conn":0
 }
 
-const dirId = arguments.indexOf("--dir")
-const dbfilenameId = arguments.indexOf("--dbfilename")
+const dirId = args.indexOf("--dir")
+const dbfilenameId = args.indexOf("--dbfilename")
 
 config["dir"] = dirId == -1 ? null : process.argv[dirId + 1]
 config["dbfilename"] = dbfilenameId == -1 ? null : process.argv[dbfilenameId + 1]
@@ -302,11 +303,11 @@ const server = net.createServer((connection) => {
     
     const replconfGetack = (inputArray[2] == "replconf") && (inputArray[4] == "ack")
     
-    if(replconfGetack){config["conn"]++}
-
+    if(replconfGetack){replicas["replWithAck"]++}
+    console.log(replconfGetack)
     if (set) {
       storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
-      let replRes=0
+      
       if (!pxConf) {
         for(i=0;i<(replicas.length*2);i++){
           if(i==0){
@@ -330,7 +331,6 @@ const server = net.createServer((connection) => {
               // }
             }
           }    
-        console.log(config["conn"])
         connection.write("+OK\r\n")
       }else{
         setTimeout( ()=>{ 
@@ -351,8 +351,8 @@ const server = net.createServer((connection) => {
     if(wait){
     
     // setInterval(()=>timeLimitExpired=true, inputArray[4])
+    console.log(replicasStorage["replWithAck"])
     connection.write(`:${config["conn"]}\r\n`)
-    replRes = 0
     }
   })
 
