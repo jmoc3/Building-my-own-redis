@@ -297,6 +297,7 @@ const server = net.createServer((connection) => {
     const wait = inputArray[2] == "wait"
     
     if(wait){
+      
       connection.write(`:${config["conn"]}\r\n`)
     }
     
@@ -317,15 +318,15 @@ const server = net.createServer((connection) => {
             continue
           }
           
-          if(i==1){
+          if((i==1) && replconfGetack){
             replicas[0].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
             continue
           }
 
-          if((i%2)==0){
-            replicas[i/2].write(clientInput.toString())
-          }else{
+          if((i%2)!=0){
             replicas[Math.floor((i/2))].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")            
+          }else{
+            replicas[i/2].write(clientInput.toString())
           }
         }    
 
