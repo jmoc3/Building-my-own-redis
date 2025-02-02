@@ -346,6 +346,7 @@ const server = net.createServer((connection) => {
     }
     
     if (get) {
+      console.log(inputArray)
       if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
     }
     
