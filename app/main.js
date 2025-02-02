@@ -99,6 +99,7 @@ if(replicaofBool){
     }
     
     if (get) {
+      console.log(storage)
       if(storage[inputArray[4]]!=undefined) {
         master.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
       }else{master.write("$-1\r\n")}
