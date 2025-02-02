@@ -354,7 +354,7 @@ const server = net.createServer((connection) => {
 
     if(wait){
 
-      replicasStorage["replWithAck"]["waiting"]
+      replicasStorage["replWithAck"]["waiting"] = true
       setTimeout(()=>{
         if(replicasStorage["replWithAck"]["quantity"]==0){
           connection.write(`:${replicas.length}\r\n`)
