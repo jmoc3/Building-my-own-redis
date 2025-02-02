@@ -162,7 +162,7 @@ const server = net.createServer((connection) => {
       let expirity = ""
       let pair = []
       
-      for(i=0;i<file.length;i++){
+      for(let i=0;i<file.length;i++){
         const hexValue =  file[i].toString(16).padStart(2,"0")
         if(hexValue == "ff") { break }
         if(hexValue == "fb") { fbFound = true; continue }
