@@ -59,8 +59,8 @@ if(replicaofBool){
     if(!fileIncluded){
       if(inputArray.indexOf("getack")==-1){
         console.log("Without GetAck")
-        console.log(inputArray.join("\r\n") + "\r\n")
-        config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.join("\r\n") + "\r\n").byteLength  
+        console.log(inputArray.join("\r\n"))
+        config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.join("\r\n")).byteLength  
       }else{
         console.log("With GetAck")
         console.log("fileInclude: " + fileIncluded)
