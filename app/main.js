@@ -314,7 +314,7 @@ const server = net.createServer((connection) => {
       
       if (!pxConf) {
         
-        console.log(commandHistory[commandHistory.length-3])
+        console.log(commandHistory[commandHistory.length-4])
         for(let i=0;i<(replicas.length*2);i++){
           if(i==0){
             replicas[0].write(clientInput.toString())
