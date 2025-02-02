@@ -54,7 +54,7 @@ if(replicaofBool){
     const inputArray =  input.split("\r\n")  
     
     const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
-    const fileIncluded = input.indexOf("+fullresync") != -1    
+    const fileIncluded = (input.indexOf("+fullresync") != -1 ) || (input.indexOf("redis")!=-1)
     console.log(inputArray)
     if(!fileIncluded){
       if(inputArray.indexOf("getack")==-1){
