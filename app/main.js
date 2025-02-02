@@ -322,7 +322,7 @@ const server = net.createServer((connection) => {
             continue
           }
           
-          if((i==1)){
+          if((i==1) && replicasStorage["replWithAck"]["waiting"]){
             replicas[0].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
             continue
           }
@@ -330,9 +330,11 @@ const server = net.createServer((connection) => {
           if((i%2)==0){
             replicas[i/2].write(clientInput.toString())
           }else{
-            replicas[Math.floor((i/2))].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")            
-            }
-          }    
+            if(replicasStorage["replWithAck"]["waiting"]){
+              replicas[Math.floor((i/2))].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")            
+            }else{ continue }
+          }
+        }    
         connection.write("+OK\r\n")
       }else{
         setTimeout( ()=>{ 
@@ -351,7 +353,8 @@ const server = net.createServer((connection) => {
     const wait = inputArray[2] == "wait"
 
     if(wait){
-      
+
+      replicasStorage["replWithAck"]["waiting"]
       setTimeout(()=>{
         if(replicasStorage["replWithAck"]["quantity"]==0){
           connection.write(`:${replicas.length}\r\n`)
@@ -360,6 +363,7 @@ const server = net.createServer((connection) => {
         if((replicasStorage["replWithAck"]["quantity"]==(+inputArray[4]))){
           connection.write(`:${(replicasStorage["replWithAck"]["quantity"])}\r\n`)
           replicasStorage["replWithAck"]["quantity"] = 0
+          replicasStorage["replWithAck"]["waiting"] = false
           return
         }else{ 
           setInterval(()=>{
