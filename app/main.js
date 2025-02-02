@@ -99,8 +99,9 @@ if(replicaofBool){
     }
     
     if (get) {
-      if(storage[inputArray[4]]!=undefined) master.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
-    }
+      if(storage[inputArray[4]]!=undefined) {
+        master.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
+      }else{master.write("$-1\r\n")}
 
     const getackfId = inputArray.indexOf("getack")
 
@@ -228,7 +229,7 @@ const server = net.createServer((connection) => {
         }  
               
       }
-      console.log(config, storage)
+      // console.log(config, storage)
     } 
     
     // const input = respConverter(clientInput)
@@ -347,7 +348,9 @@ const server = net.createServer((connection) => {
     
     if (get) {
       console.log(inputArray)
-      if(storage[inputArray[4]]!=undefined) return connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
+      if(storage[inputArray[4]]!=undefined) {
+        connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
+      }else{connection.write("$-1\r\n")}
     }
     
     // WAIT configuration
