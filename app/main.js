@@ -102,7 +102,7 @@ if(replicaofBool){
       if(storage[inputArray[4]]!=undefined) {
         master.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
       }else{master.write("$-1\r\n")}
-
+    }
     const getackfId = inputArray.indexOf("getack")
 
     if (getackfId!=-1){
