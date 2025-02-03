@@ -315,27 +315,10 @@ const server = net.createServer((connection) => {
       
       if (!pxConf) {
         
-        const waitCommandSetted = commandHistory[commandHistory.length-3]=="wait"
-        console.log(commandHistory, commandHistory.length, )
-        for(let i=0;i<(replicas.length);i++){
-          replicas[i].write(clientInput.toString())
-          // if(i==0){
-          //   continue
-          // }
-          // console.log(replicasStorage["replWithAck"])
-          // if((i==1) && replicasStorage["replWithAck"]["waiting"]){
-          //   replicas[0].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
-          //   continue
-          // }
-          
-          // if((i%2)==0){
-          //   replicas[i/2].write(clientInput.toString())
-          // }else{
-          //   if(replicasStorage["replWithAck"]["waiting"]){
-          //     replicas[Math.floor((i/2))].write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")            
-          //   }else{ continue }
-          // }
-        }    
+        replicas.forEach(replica=>{
+          replica.write(clientInput.toString())
+        })
+
         connection.write("+OK\r\n")
       }else{
         setTimeout( ()=>{ 
