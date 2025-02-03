@@ -1,3 +1,5 @@
+import net from "net"
+
 export const slaveConnect = ({host, port}) => {
   const slave = net.createConnection({ host, port }, ()=>{
     console.log("Slave up")
