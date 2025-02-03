@@ -5,6 +5,7 @@ import { storage } from "./storage.js";
 import { replicasStorage } from "./replicas.js";
 import { config } from "./dbConfig.js";
 import { slaveConnect } from "./slaveConnection.js";
+import { fileReader } from "./fileReader.js";
 // You can use print statements as follows for debugging, they'll be visible when running tests.
 
 const respConverter = (buffer) => {
@@ -26,13 +27,9 @@ const role = replicaofBool ? "slave" : "master"
 config["info"]["replication"]["role"] = role
 
 if(replicaofBool){
-
   const slaveConf = process.argv[replicaofId + 1].split(" ")
   slaveConnect({ host:slaveConf[0], port:slaveConf[1] })
-  
 }
-
-
 
 const dirId = args.indexOf("--dir")
 const dbfilenameId = args.indexOf("--dbfilename")
@@ -42,93 +39,12 @@ config["dbfilename"] = dbfilenameId == -1 ? null : process.argv[dbfilenameId + 1
 const path = `${config["dir"]}/${config["dbfilename"]}`
 
 const server = net.createServer((connection) => {
-  // Setting of the default paths of execution passing in the terminal for tests  
+
   connection.on("data", (clientInput)=>{
-    
     const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
-      
-      const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
-
-      let fbFound = false
-      let hashTableSize = false
-      let keysWithExpirity = false
-      let spaceBewtweenWords = false
-
-      let indexStringEnd = 0
-      let indexExpirityEnd = 0
-      let keyString = ""
-      let expirity = ""
-      let pair = []
-      
-      for(let i=0;i<file.length;i++){
-        const hexValue =  file[i].toString(16).padStart(2,"0")
-        if(hexValue == "ff") { break }
-        if(hexValue == "fb") { fbFound = true; continue }
-        if(!fbFound) continue        
-        
-        if(!hashTableSize){
-          config["hashTableSize"] = String.fromCharCode(hexValue).charCodeAt(0)
-          hashTableSize = true
-          continue
-        }
-        
-        if(!keysWithExpirity){
-          config["keysWithExpirity"] = String.fromCharCode(hexValue).charCodeAt(0)
-          keysWithExpirity = true
-          continue
-        }
-        
-        if(hexValue=="fc"){ indexExpirityEnd = i+9; continue} 
-        
-        if(i<indexExpirityEnd){
-          expirity += hexValue
-          continue
-        }
-        
-        if(i==indexExpirityEnd) {pair[2] = expirity; expirity = "";continue}
-        
-        if(hexValue=="00") { continue }
-
-        if (file[i-1].toString(16).padStart(2,"0") == "00") {
-          spaceBewtweenWords = true
-        }
-        
-        if(spaceBewtweenWords){
-          indexStringEnd = i + String.fromCharCode(file[i]).charCodeAt(0)
-
-          spaceBewtweenWords = false
-          continue
-        }
-
-        keyString += String.fromCharCode(file[i])
-        
-        if (i==indexStringEnd){
-          
-          if (pair[0]==undefined) { pair[0] = keyString }
-          else { 
-            pair[1] = keyString 
-            if(pair[2]!=undefined){
-              pair[2] = new Date(Number(BigInt("0x" + pair[2].match(/../g).reverse().join("")))) ?? ""
-
-              if(Date.now() < pair[2]){
-                storage[pair[0]] = {"value":pair[1], "expirity":pair[2]}
-              }
-            }else{
-              storage[pair[0]] = {"value":pair[1], "expirity":""}
-            }
-
-            pair=[] 
-          }
-          
-          keyString = ""
-          spaceBewtweenWords = true
-          continue
-        }  
-              
-      }
-      // console.log(config, storage)
-    } 
+      fileReader(path)
+    }
     
     // const input = respConverter(clientInput)
     const input = clientInput.toString().toLowerCase()
