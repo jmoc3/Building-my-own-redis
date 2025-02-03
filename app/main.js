@@ -1,4 +1,7 @@
+import { storage } from "./storage.js";
 import { replicasStorage } from "./replicas.js";
+import { config } from "./dbConfig.js";
+import { slaveConnect } from "./slaveConnection.js";
 import net from "net"
 import fs from "fs"
 // You can use print statements as follows for debugging, they'll be visible when running tests.
@@ -9,132 +12,26 @@ const respConverter = (buffer) => {
   return `*${stringArray.length}\r\n${inputConverted.join("")}`
 }
 
-const storage = {}
-const args = process.argv;
 const replicas = replicasStorage["list"]
-const commandHistory = []
 
+const args = process.argv;
 const portId = args.indexOf("--port")
 const PORT = portId == -1 ? 6379 : process.argv[portId + 1]
 
 const replicaofId = args.indexOf("--replicaof")
 const replicaofBool = replicaofId != -1
+
 const role = replicaofBool ? "slave" : "master"
+config["info"]["replication"]["role"] = role
 
 if(replicaofBool){
 
-  const masterConf = process.argv[replicaofId + 1].split(" ")
-
-  const master = net.createConnection({host:masterConf[0], port:masterConf[1]}, ()=>{
-    console.log("Connected to master")
-    master.write("*1\r\n$4\r\nPING\r\n")
-  })
+  const slaveConf = process.argv[replicaofId + 1].split(" ")
+  slaveConnect({ host:slaveConf[0], port:slaveConf[1] })
   
-  let actualCommandIndex = 0
-  const command = ["*3\r\n$8\r\nREPLCONF\r\n$14\r\nlistening-port\r\n$4\r\n6380\r\n",
-                   "*3\r\n$8\r\nREPLCONF\r\n$4\r\ncapa\r\n$6\r\npsync2\r\n",
-                   "*3\r\n$5\r\nPSYNC\r\n$1\r\n?\r\n$2\r\n-1\r\n"]
-
-  const sendNextCommand = (connection, commands) => {
-    if(actualCommandIndex<commands.length){
-      connection.write(commands[actualCommandIndex])
-      actualCommandIndex++
-      return 
-    }
-    return connection.end()
-  }
-
-  master.on("data", (data)=>{
-    
-    if(actualCommandIndex<3){
-      return sendNextCommand(master,command)
-    } 
-    
-    const input = data.toString().toLowerCase()
-    const inputArray =  input.split("\r\n")  
-    
-    const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
-    const fileIncluded = (input.indexOf("+fullresync") != -1 ) || (input.indexOf("redis")!=-1)
-    console.log(inputArray)
-    if(!fileIncluded){
-      if(inputArray.indexOf("getack")==-1){
-        console.log("Without GetAck")
-        console.log(inputArray.join("\r\n"))
-        config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.join("\r\n")).byteLength  
-      }else{
-        console.log("With GetAck")
-        console.log("fileInclude: " + fileIncluded)
-        if(inputArray.slice(0,indexGetack).length!=0){
-          config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.slice(0,indexGetack).join("\r\n") + "\r\n").byteLength
-        }
-      }
-    }    
-    
-    // SET and GET configuration with expirity
-    const set = inputArray[2] == "set"
-    const get = inputArray[2] == "get"
-    const pxConf = inputArray[8] == "px"
-    if (set) {
-      const eachSet = []
-
-      for(let i=0;i<inputArray.length;i+=7){
-        eachSet.push(inputArray.slice(i,i + 7))
-      }
-      // console.log(inputArray)
-      eachSet.pop()
-      eachSet.forEach(request =>{
-        
-        storage[request[4]] = {"value":request[6], "expirity":+request[10]}
-        
-        if (!pxConf) {    
-          master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
-        }else{ 
-          setTimeout( ()=>{ 
-            delete storage[request[4]] 
-          }, storage[request[4]].expirity)
-          master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
-        }
-      })
-      
-    }
-    
-    if (get) {
-      if(storage[inputArray[4]]!=undefined) {
-        master.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
-      }else{master.write("$-1\r\n")}
-    }
-    const getackfId = inputArray.indexOf("getack")
-
-    if (getackfId!=-1){
-      console.log(config["info"]["replication"]["master_repl_offset"])
-      master.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
-      config["info"]["replication"]["master_repl_offset"]+=37 
-    }
-    //   // Default response to something wrong
-    // return master.write('$-1\r\n') 
-    
-
-    
-  })
 }
 
-const config = {
-  "port":PORT,
-  "info":{
-    "replication":{
-      "role":role,
-      "connected_slaves":0,
-      "master_replid":"8371b4fb1155b71f4a04d3e1bc3e18c4a990aeeb",
-      "master_repl_offset":0,
-      // "second_repl_offset":-1,
-      // "repl_backlog_active":0,
-      // "repl_backlog_size":1048576,
-      // "repl_backlog_first_byte_offset":0,
-      // "repl_backlog_histlen":null
-    }
-  },
-  "conn":0
-}
+
 
 const dirId = args.indexOf("--dir")
 const dbfilenameId = args.indexOf("--dbfilename")
@@ -151,7 +48,7 @@ const server = net.createServer((connection) => {
     if(config["dir"]!=null && existFile){
       
       const file = fs.readFileSync(`${config["dir"]}/${config["dbfilename"]}`)
-      // const file = fs.readFileSync(`/home/jmoc/Desktop/codecrafters-redis-javascript/app/regular_set.rdb`)
+
       let fbFound = false
       let hashTableSize = false
       let keysWithExpirity = false
@@ -238,7 +135,6 @@ const server = net.createServer((connection) => {
     if (input=="*1\r\n$4\r\nping\r\n") return connection.write("$4\r\nPONG\r\n")
     
     const inputArray =  input.split("\r\n")   
-    commandHistory.push(inputArray[2])
 
     // Default CONFIG GET configuration
     const confGet = (inputArray[2]=="config") && (inputArray[4] == "get")
@@ -343,27 +239,23 @@ const server = net.createServer((connection) => {
 
     if(wait){
 
-      replicasStorage["replWithAck"]["waiting"] = true
       replicas.forEach(replica => {
         replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
       })
       setTimeout(()=>{
         if(replicasStorage["replWithAck"]["quantity"]==0){
           connection.write(`:${replicas.length}\r\n`)
-          replicasStorage["replWithAck"]["waiting"] = false
           return 
         }
-        
+
         if((replicasStorage["replWithAck"]["quantity"]==(+inputArray[4]))){
           connection.write(`:${(replicasStorage["replWithAck"]["quantity"])}\r\n`)
           replicasStorage["replWithAck"]["quantity"] = 0
-          replicasStorage["replWithAck"]["waiting"] = false
           return
         }else{ 
           setInterval(()=>{
             connection.write(`:${(replicasStorage["replWithAck"]["quantity"])}\r\n`)
             replicasStorage["replWithAck"]["quantity"] = 0
-            replicasStorage["replWithAck"]["waiting"] = false
           }, (+inputArray[6]-1000))
         }
       },1000)
@@ -376,7 +268,7 @@ const server = net.createServer((connection) => {
 
 });
 
-server.listen(config["port"], "127.0.0.1", ()=>{
+server.listen(PORT, "127.0.0.1", ()=>{
     console.log("Server connected")
    
 });
