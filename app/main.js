@@ -1,9 +1,10 @@
+import net from "net"
+import fs from "fs"
+
 import { storage } from "./storage.js";
 import { replicasStorage } from "./replicas.js";
 import { config } from "./dbConfig.js";
 import { slaveConnect } from "./slaveConnection.js";
-import net from "net"
-import fs from "fs"
 // You can use print statements as follows for debugging, they'll be visible when running tests.
 
 const respConverter = (buffer) => {
