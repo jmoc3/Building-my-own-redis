@@ -1,6 +1,6 @@
 import net from "net"
 
-import { config } from "./dbConfig"
+import { config } from "./dbConfig.js"
 
 export const slaveConnect = ({host, port}) => {
   const slave = net.createConnection({ host, port }, ()=>{
