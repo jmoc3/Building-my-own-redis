@@ -1,8 +1,8 @@
-import { config } from "./dbConfig"
-import { storage } from "./storage"
+import { config } from "./dbConfig.js"
+import { storage } from "./storage.js"
 
 export const fileReader = (path) =>{
-  
+
   const file = fs.readFileSync(path)
 
   let fbFound = false
