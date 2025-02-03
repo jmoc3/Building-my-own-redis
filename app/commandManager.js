@@ -10,22 +10,22 @@ const respConverter = (buffer) => {
 
 const replicas = replicasStorage["list"]
 
-export const commandManager = (clientInput) => {
+export const commandManager = ({conn,data}) => {
     // const input = respConverter(clientInput)
-    const input = clientInput.toString().toLowerCase()
+    const input = data.toString().toLowerCase()
     const inputArray =  input.split("\r\n")   
     
     // PING configuration
-    if (input=="*1\r\n$4\r\nping\r\n") return connection.write("$4\r\nPONG\r\n")
+    if (input=="*1\r\n$4\r\nping\r\n") return conn.write("$4\r\nPONG\r\n")
     
     // Default CONFIG GET configuration
     const confGet = (inputArray[2]=="config") && (inputArray[4] == "get")
      
     if(confGet) {
       if((config[inputArray[6]]== null) || (config[inputArray[6]]== undefined) ){
-        return connection.write('$-1\r\n') 
+        return conn.write('$-1\r\n') 
       }
-      return connection.write(`*2\r\n$${inputArray[6].length}\r\n${inputArray[6]}\r\n$${config[inputArray[6]].length}\r\n${config[inputArray[6]]}\r\n`)
+      return conn.write(`*2\r\n$${inputArray[6].length}\r\n${inputArray[6]}\r\n$${config[inputArray[6]].length}\r\n${config[inputArray[6]]}\r\n`)
     }
     
     // KEYS configuration
@@ -38,7 +38,7 @@ export const commandManager = (clientInput) => {
         res += `$${lenKeyWords[i]}\r\n${keyWords[i]}\r\n`
       }
 
-      return connection.write(`*${keyWords.length}\r\n${res}`)
+      return conn.write(`*${keyWords.length}\r\n${res}`)
     }
     
     // INFO configuration
@@ -49,7 +49,7 @@ export const commandManager = (clientInput) => {
       const resWithoutResp = Object.keys(config["info"][especifics]).map( property => `${property}:${config["info"][especifics][property]}` )
       const resArray = resWithoutResp.map(e=>`+${e}`)
       
-      return connection.write(`${resArray.join("")}\r\n`)
+      return conn.write(`${resArray.join("")}\r\n`)
     }
 
     // REPLCONF configuration
@@ -57,27 +57,27 @@ export const commandManager = (clientInput) => {
     const replconfCapa = (inputArray[2] == "replconf") && (inputArray[4] == "capa")
 
     if(replconfList || replconfCapa){
-      return connection.write("+OK\r\n")
+      return conn.write("+OK\r\n")
     }
 
     // PSYNC configuration
     const psync = inputArray[2] == "psync"
     if(psync){
 
-      connection.write(`+FULLRESYNC ${config["info"]["replication"]["master_replid"]} ${config["info"]["replication"]["master_repl_offset"]}\r\n`)
+      conn.write(`+FULLRESYNC ${config["info"]["replication"]["master_replid"]} ${config["info"]["replication"]["master_repl_offset"]}\r\n`)
       const base = "UkVESVMwMDEx+glyZWRpcy12ZXIFNy4yLjD6CnJlZGlzLWJpdHPAQPoFY3RpbWXCbQi8ZfoIdXNlZC1tZW3CsMQQAPoIYW9mLWJhc2XAAP/wbjv+wP9aog=="
       const buffer = Buffer.from(base,"base64")
       const bufferHeader = Buffer.from(`$${buffer.length}\r\n`)  
        
-      replicas.push(connection)
-      return connection.write(Buffer.concat([bufferHeader,buffer]))
+      replicas.push(conn)
+      return conn.write(Buffer.concat([bufferHeader,buffer]))
     }
 
     // ECHO configuration
     const echo = inputArray[2] == "echo"
     if(echo){
       const res = inputArray.filter((_,i)=>i>inputArray.indexOf("echo")).join("\r\n")
-      return connection.write(res)
+      return conn.write(res)
     }   
    
     // SET and GET configuration with expirity
@@ -95,23 +95,23 @@ export const commandManager = (clientInput) => {
       if (!pxConf) {
         
         replicas.forEach(replica=>{
-          replica.write(clientInput.toString())
+          replica.write(data.toString())
         })
 
-        connection.write("+OK\r\n")
+        conn.write("+OK\r\n")
       }else{
         setTimeout( ()=>{ 
           delete storage[inputArray[4]] 
         }, storage[inputArray[4]].expirity)
         
-        connection.write("+OK\r\n")
+        conn.write("+OK\r\n")
       }
     }
     
     if (get) {
       if(storage[inputArray[4]]!=undefined) {
-        connection.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
-      }else{connection.write("$-1\r\n")}
+        conn.write(`$${storage[inputArray[4]].value.length}\r\n${storage[inputArray[4]].value}\r\n`)
+      }else{conn.write("$-1\r\n")}
     }
     
     // WAIT configuration
@@ -124,17 +124,17 @@ export const commandManager = (clientInput) => {
       })
       setTimeout(()=>{
         if(replicasStorage["replWithAck"]["quantity"]==0){
-          connection.write(`:${replicas.length}\r\n`)
+          conn.write(`:${replicas.length}\r\n`)
           return 
         }
 
         if((replicasStorage["replWithAck"]["quantity"]==(+inputArray[4]))){
-          connection.write(`:${(replicasStorage["replWithAck"]["quantity"])}\r\n`)
+          conn.write(`:${(replicasStorage["replWithAck"]["quantity"])}\r\n`)
           replicasStorage["replWithAck"]["quantity"] = 0
           return
         }else{ 
           setInterval(()=>{
-            connection.write(`:${(replicasStorage["replWithAck"]["quantity"])}\r\n`)
+            conn.write(`:${(replicasStorage["replWithAck"]["quantity"])}\r\n`)
             replicasStorage["replWithAck"]["quantity"] = 0
           }, (+inputArray[6]-1000))
         }
