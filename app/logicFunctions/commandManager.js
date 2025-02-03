@@ -130,13 +130,13 @@ export const commandManager = ({conn,data}) => {
 
       if((replicasStorage["replWithAck"]["quantity"]==(+inputArray[4]))){
         conn.write(`:${(replicasStorage["replWithAck"]["quantity"])}\r\n`)
+        replicasStorage["replWithAck"]["quantity"] = 0
       }else{ 
         setInterval(()=>{
           conn.write(`:${(replicasStorage["replWithAck"]["quantity"])}\r\n`)
+          replicasStorage["replWithAck"]["quantity"] = 0
         }, (+inputArray[6]-1000))
       }
-      
-      replicasStorage["replWithAck"]["quantity"] = 0
     },1000)
   }
 }
