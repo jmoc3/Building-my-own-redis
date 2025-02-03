@@ -353,6 +353,7 @@ const server = net.createServer((connection) => {
           replicasStorage["replWithAck"]["waiting"] = false
           return 
         }
+        
         if((replicasStorage["replWithAck"]["quantity"]==(+inputArray[4]))){
           connection.write(`:${(replicasStorage["replWithAck"]["quantity"])}\r\n`)
           replicasStorage["replWithAck"]["quantity"] = 0
