@@ -1,4 +1,6 @@
 export const config = {
+  "dir":"",
+  "dbfilename":"",
   "info":{
     "replication":{
       "role":"master",

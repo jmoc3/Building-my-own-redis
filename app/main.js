@@ -2,10 +2,9 @@ import net from "net"
 import fs from "fs"
 
 import { config } from "./dbConfig.js";
-import { slaveConnect } from "./slaveConnection.js";
-import { fileReader } from "./fileReader.js";
-import { commandManager } from "./commandManager.js";
-// You can use print statements as follows for debugging, they'll be visible when running tests.
+import { slaveConnect } from "./logicFunctions/slaveConnection.js";
+import { fileReader } from "./logicFunctions/fileReader.js";
+import { commandManager } from "./logicFunctions/commandManager.js";
 
 const args = process.argv;
 const portId = args.indexOf("--port")
@@ -37,10 +36,6 @@ const server = net.createServer((connection) => {
       fileReader(path)
     }
     commandManager({conn: connection, data})
-  })
-
-  connection.on("end", ()=>{
-      console.log("Someone out")
   })
 
 });

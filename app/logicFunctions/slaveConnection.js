@@ -1,7 +1,7 @@
 import net from "net"
 
-import { config } from "./dbConfig.js"
-import { storage } from "./storage.js"
+import { config } from "../dbConfig.js"
+import { storage } from "../storage.js"
 
 export const slaveConnect = ({host, port}) => {
   const slave = net.createConnection({ host, port }, ()=>{
@@ -20,7 +20,7 @@ export const slaveConnect = ({host, port}) => {
       actualCommandIndex++
       return 
     }
-      return connection.end()
+    return connection.end()
   }
 
   slave.on("data", (data)=>{   
@@ -31,7 +31,7 @@ export const slaveConnect = ({host, port}) => {
           
     const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
     const fileIncluded = (input.indexOf("+fullresync") != -1 ) || (input.indexOf("redis")!=-1)
-    console.log(inputArray)
+
     if(!fileIncluded){
       if(inputArray.indexOf("getack")==-1){
         config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.join("\r\n")).byteLength  
@@ -66,7 +66,6 @@ export const slaveConnect = ({host, port}) => {
           slave.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
         }
       })
-              
     }
         
     if (get) {
@@ -77,12 +76,8 @@ export const slaveConnect = ({host, port}) => {
     const getackfId = inputArray.indexOf("getack")
 
     if (getackfId!=-1){
-      console.log(config["info"]["replication"]["master_repl_offset"])
       slave.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)
       config["info"]["replication"]["master_repl_offset"]+=37 
-    }
-    // Default response to something wrong
-    // return master.write('$-1\r\n') 
-  
+    }  
   })
 }
