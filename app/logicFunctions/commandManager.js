@@ -161,7 +161,7 @@ export const commandManager = ({conn,data}) => {
     }
     storage[inputArray[4]] = {"value":[],"expirity":"","type":"stream"}
 
-    const xaddIds = storage.map(keys => { if(keys.type=="stream"){ keys.value[0] } })
+    const xaddIds = Object.values(storage).map(object => { if(object.type=="stream"){ object.value[0] } })
     console.log(xaddIds)
 
     storage[inputArray[4]].value.push([inputArray[6],inputArray[8],inputArray[10]])
