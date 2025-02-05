@@ -163,7 +163,7 @@ export const commandManager = ({conn,data}) => {
     if(storage[inputArray[4]]!=undefined){
       const xaddIds = storage[inputArray[4]].value.map(info => info[0])   
       if(xaddIds[xaddIds.length-1] == inputArray[6]){ 
-        conn.write("- ERR The ID specified in XADD is equal or smaller than the target stream top item\r\n")
+        conn.write("-ERR The ID specified in XADD is equal or smaller than the target stream top item\r\n")
       }else{ 
         storage[inputArray[4]].value.push([inputArray[6],inputArray[8],inputArray[10]])  
       }
