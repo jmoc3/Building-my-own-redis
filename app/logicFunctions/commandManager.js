@@ -157,7 +157,7 @@ export const commandManager = ({conn,data}) => {
     const sequenceNumber = fragments[1]
 
     if(inputArray[6]=="0-0"){
-      conn.write("- ERR The ID specified in XADD must be greater than 0-0\r\n")
+      conn.write("-ERR The ID specified in XADD must be greater than 0-0\r\n")
     }
           
     if(storage[inputArray[4]]!=undefined){
