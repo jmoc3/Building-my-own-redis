@@ -55,7 +55,7 @@ export const slaveConnect = ({host, port}) => {
 
       eachSet.pop()
       eachSet.forEach(request =>{     
-        storage[request[4]] = {"value":request[6], "expirity":+request[10]}
+        storage[request[4]] = {"value":request[6], "expirity":+request[10], "type":"string"}
                   
         if (!pxConf) {    
         slave.write(`*3\r\n$8\r\nREPLCONF\r\n$3\r\nACK\r\n$${config["info"]["replication"]["master_repl_offset"].toString().length}\r\n${config["info"]["replication"]["master_repl_offset"]}\r\n`)

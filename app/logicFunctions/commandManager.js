@@ -90,7 +90,7 @@ export const commandManager = ({conn,data}) => {
   if(replconfGetack){replicasStorage["replWithAck"]["quantity"]++}
   
   if (set) {
-    storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10]}
+    storage[inputArray[4]] = {"value":inputArray[6], "expirity":+inputArray[10], "type":"string"}
     
     if (!pxConf) {
       
@@ -142,10 +142,8 @@ export const commandManager = ({conn,data}) => {
 
   const type = inputArray[2]=="type"
 
-  if(type){ 
-    let res
-    storage[inputArray[4]]!=undefined ? res = `+${typeof storage[inputArray[4]].value}\r\n` : res = `+none\r\n`
-    conn.write(res)
+  if(type){    
+    conn.write(`+${storage[inputArray[4]].type}\r\n`)
   }
 
   const xadd = inputArray[2]=="xadd"
