@@ -159,9 +159,7 @@ export const commandManager = ({conn,data}) => {
     if(inputArray[6]=="0-0"){
       conn.write("- ERR The ID specified in XADD must be greater than 0-0\r\n")
     }
-    
-    if((inputArray[6]==xaddIds[-1])) console.log(true)
-      
+          
     if(storage[inputArray[4]]!=undefined){
       const xaddIds = storage[inputArray[4]].value.map(info => info[0])   
       console.log(xaddIds, inputArray[6])
