@@ -160,9 +160,9 @@ export const commandManager = ({conn,data}) => {
       conn.write("- ERR The ID specified in XADD must be greater than 0-0\r\n")
     }
           
+    console.log(xaddIds, xaddIds[xaddIds.length-1].split("-")[0], inputArray[6])
     if(storage[inputArray[4]]!=undefined){
       const xaddIds = storage[inputArray[4]].value.map(info => info[0])   
-      console.log(xaddIds, xaddIds[xaddIds.length-1].split("-")[0], inputArray[6])
       if((xaddIds[xaddIds.length-1] == inputArray[6]) || (xaddIds[xaddIds.length-1].split("-")[0] > milliSecondsTime)){ 
         conn.write("-ERR The ID specified in XADD is equal or smaller than the target stream top item\r\n")
       }else{ 
