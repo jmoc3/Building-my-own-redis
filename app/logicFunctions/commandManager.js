@@ -160,8 +160,11 @@ export const commandManager = ({conn,data}) => {
       conn.write("- ERR The ID specified in XADD must be greater than 0-0\r\n")
     }
 
+    const streamNames = Object.keys(storage).map(object=>{if(storage[object].type=="stream"){ return object }})
     const xaddIds = Object.values(storage).map(object=>{if(object.type=="stream"){ return object.value.map(info=> info[0] ) }})
-    console.log(xaddIds, storage)
+    
+    console.log(xaddIds, streamNames, storage)
+    
     if(milliSecondsTime==xaddIds[-1]) console.log(true)
     storage[inputArray[4]] = {"value":[[inputArray[6],inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
 
