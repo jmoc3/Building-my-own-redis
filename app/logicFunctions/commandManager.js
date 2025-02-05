@@ -163,7 +163,7 @@ export const commandManager = ({conn,data}) => {
     const streamNames = Object.keys(storage).map(object=>{if(storage[object].type=="stream"){ return object }})
     const xaddIds = Object.values(storage).map(object=>{if(object.type=="stream"){ return object.value.map(info=> info[0] ) }})
     
-    console.log(xaddIds, milliSecondsTime)
+    console.log(xaddIds, inputArray)
     
     if((inputArray[4]==streamNames[-1])  && (milliSecondsTime==xaddIds[-1])) console.log(true)
     
