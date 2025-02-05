@@ -143,9 +143,9 @@ export const commandManager = ({conn,data}) => {
   const type = inputArray[2]=="type"
 
   if(type){
-    const value = storage[inputArray[4]].value 
-    const valueType = typeof value
-    console.log(valueType)
+    const value = storage[inputArray[4]] 
+    // const valueType = typeof value
+    console.log(typeof valueType)
     conn.write(`+${valueType}\r\n`)
   }
 
