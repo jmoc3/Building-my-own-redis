@@ -160,14 +160,13 @@ export const commandManager = ({conn,data}) => {
       conn.write("- ERR The ID specified in XADD must be greater than 0-0\r\n")
     }
     
-    const xaddIds = storage[inputArray[4]].value.map(info => info[0])
-    
-    console.log(xaddIds, inputArray[6])
-    
     if((inputArray[6]==xaddIds[-1])) console.log(true)
-    
+      
     if(storage[inputArray[4]]!=undefined){
-      storage[inputArray[4]].value.push([inputArray[6],inputArray[8],inputArray[10]])
+      const xaddIds = storage[inputArray[4]].value.map(info => info[0])   
+      console.log(xaddIds, inputArray[6])
+      
+      storage[inputArray[4]].value.push([inputArray[6],inputArray[8],inputArray[10]])  
     }else{
       storage[inputArray[4]] = {"value":[[inputArray[6],inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
     }
