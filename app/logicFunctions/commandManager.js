@@ -148,4 +148,10 @@ export const commandManager = ({conn,data}) => {
     conn.write(res)
   }
 
+  const xadd = inputArray[2]=="xadd"
+
+  if(xadd){
+    console.log(inputArray)
+  }
+
 }
