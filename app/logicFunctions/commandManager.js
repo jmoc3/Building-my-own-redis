@@ -151,7 +151,7 @@ export const commandManager = ({conn,data}) => {
   const xadd = inputArray[2]=="xadd"
 
   if(xadd){
-    console.log(inputArray)
+    console.log(inputArray,storage)
   }
 
 }
