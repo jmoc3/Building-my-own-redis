@@ -144,7 +144,7 @@ export const commandManager = ({conn,data}) => {
 
   if(type){    
     let res = ``
-    storage[inputArray] != undefined ? res = `+${storage[inputArray[4]].type}\r\n` : res = `+none\r\n` 
+    storage[inputArray[4]] != undefined ? res = `+${storage[inputArray[4]].type}\r\n` : res = `+none\r\n` 
     conn.write(res)
   }
 
