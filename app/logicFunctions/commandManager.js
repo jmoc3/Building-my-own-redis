@@ -153,7 +153,7 @@ export const commandManager = ({conn,data}) => {
   if(xadd){
 
     const fragments = inputArray[6].split("-")
-    const milliSecondsTime = fragments[0]
+    const milliSecondsTime = +fragments[0]
     const sequenceNumber = fragments[1]
 
     if(inputArray[6]=="0-0"){
