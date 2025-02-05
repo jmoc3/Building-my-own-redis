@@ -139,4 +139,12 @@ export const commandManager = ({conn,data}) => {
       }
     },1000)
   }
+
+  const type = inputArray[2]=="type"
+
+  if(type){
+    const valueType = typeof storage[inputArray[4]]
+    console.log(valueType)
+  }
+
 }
