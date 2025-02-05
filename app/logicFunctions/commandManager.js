@@ -167,6 +167,7 @@ export const commandManager = ({conn,data}) => {
         conn.write("-ERR The ID specified in XADD is equal or smaller than the target stream top item\r\n")
       }else{ 
         storage[inputArray[4]].value.push([inputArray[6],inputArray[8],inputArray[10]])  
+        conn.write(`$${inputArray[6].length}\r\n${inputArray[6]}\r\n`)
       }
     }else{
       storage[inputArray[4]] = {"value":[[inputArray[6],inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
