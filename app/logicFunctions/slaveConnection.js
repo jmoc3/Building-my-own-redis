@@ -31,7 +31,7 @@ export const slaveConnect = ({host, port}) => {
           
     const indexGetack = inputArray.indexOf("getack") == -1 ? -1 : (inputArray.indexOf("getack") - 4)
     const fileIncluded = (input.indexOf("+fullresync") != -1 ) || (input.indexOf("redis")!=-1)
-    console.log(inputArray, fileIncluded)
+    console.log(inputArray, fileIncluded, "a")
     if(!fileIncluded){
       if(inputArray.indexOf("getack")==-1){
         config["info"]["replication"]["master_repl_offset"]+=new TextEncoder().encode(inputArray.join("\r\n")).byteLength  
