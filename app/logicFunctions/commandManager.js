@@ -160,6 +160,10 @@ export const commandManager = ({conn,data}) => {
       conn.write("- ERR The ID specified in XADD must be greater than 0-0\r\n")
     }
 
+    const xaddIds = storage[inputArray[4]].value.map(object=> object[0])
+    console.log(xaddIds)
+
+
     storage[inputArray[4]] = {"value":[[inputArray[6],inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
     conn.write(`$${inputArray[6].length}\r\n${inputArray[6]}\r\n`)
   }
