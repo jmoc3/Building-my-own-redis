@@ -165,7 +165,7 @@ export const commandManager = ({conn,data}) => {
     
     console.log(xaddIds, inputArray[6])
     
-    if((inputArray[4]==streamNames[-1])  && (milliSecondsTime==xaddIds[-1])) console.log(true)
+    if((inputArray[6]==xaddIds[-1])) console.log(true)
     
     if(storage[inputArray[4]]!=undefined){
       storage[inputArray[4]].value.push([inputArray[6],inputArray[8],inputArray[10]])
