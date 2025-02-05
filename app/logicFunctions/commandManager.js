@@ -170,10 +170,8 @@ export const commandManager = ({conn,data}) => {
       }
     }else{
       storage[inputArray[4]] = {"value":[[inputArray[6],inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
+      conn.write(`$${inputArray[6].length}\r\n${inputArray[6]}\r\n`)
     }
-  
-    console.log(storage[inputArray[4]].value)
-    conn.write(`$${inputArray[6].length}\r\n${inputArray[6]}\r\n`)
   }
 
 }
