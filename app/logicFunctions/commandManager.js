@@ -143,7 +143,9 @@ export const commandManager = ({conn,data}) => {
   const type = inputArray[2]=="type"
 
   if(type){    
-    conn.write(`+${storage[inputArray[4]].type}\r\n`)
+    let res = ``
+    storage[inputArray] != undefined ? res = `+${storage[inputArray[4]].type}\r\n` : res = `+none\r\n` 
+    conn.write(res)
   }
 
   const xadd = inputArray[2]=="xadd"
