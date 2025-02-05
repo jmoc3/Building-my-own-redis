@@ -165,7 +165,7 @@ export const commandManager = ({conn,data}) => {
     
     console.log(xaddIds, streamNames, storage)
     
-    if(milliSecondsTime==xaddIds[-1]) console.log(true)
+    if((inputArray[4]==streamNames[-1])  && (milliSecondsTime==xaddIds[-1])) console.log(true)
     storage[inputArray[4]] = {"value":[[inputArray[6],inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
 
 
