@@ -162,7 +162,7 @@ export const commandManager = ({conn,data}) => {
           
     if(storage[inputArray[4]]!=undefined){
       const xaddIds = storage[inputArray[4]].value.map(info => info[0])   
-      console.log(xaddIds, xaddIds[xaddIds.length-1], inputArray[6])
+      console.log(xaddIds, xaddIds[xaddIds.length-1] == inputArray[6])
       
       storage[inputArray[4]].value.push([inputArray[6],inputArray[8],inputArray[10]])  
     }else{
