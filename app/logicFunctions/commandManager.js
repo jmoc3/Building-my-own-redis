@@ -151,10 +151,8 @@ export const commandManager = ({conn,data}) => {
   const xadd = inputArray[2]=="xadd"
 
   if(xadd){
-    storage[inputArray[4]]={"value":[[inputArray[6],inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
-
-    console.log(inputArray,storage)
-
+    storage[inputArray[4]] = {"value":[[inputArray[6],inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
+    conn.write(`$${inputArray[6].length}\r\n${inputArray[6]}\r\n`)
   }
 
 }
