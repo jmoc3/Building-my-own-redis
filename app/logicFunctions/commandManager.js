@@ -174,7 +174,7 @@ export const commandManager = ({conn,data}) => {
     if((xaddIds[xaddIds.length-1] == inputArray[6]) || (+xaddIds[xaddIds.length-1].split("-")[0] > milliSecondsTime)){ 
       conn.write("-ERR The ID specified in XADD is equal or smaller than the target stream top item\r\n")
     }else{ 
-      autoId ? id=xaddIds.slice(-1).split("-")[0] : id=inputArray[6]
+      autoId ? id=xaddIds[xaddIds.length-1].split("-")[0] : id=inputArray[6]
       storage[inputArray[4]].value.push([`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]])  
       conn.write(`$${inputArray[6].length}\r\n${inputArray[6]}\r\n`)
     }
