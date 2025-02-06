@@ -155,7 +155,7 @@ export const commandManager = ({conn,data}) => {
     const fragments = inputArray[6].split("-")
     const milliSecondsTime = +fragments[0]
 
-    console.log(inputArray[6])
+    console.log(fragments[1])
     if(inputArray[6]=="0-0"){
       conn.write("-ERR The ID specified in XADD must be greater than 0-0\r\n")
     }
