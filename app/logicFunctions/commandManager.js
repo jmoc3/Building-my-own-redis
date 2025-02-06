@@ -159,6 +159,11 @@ export const commandManager = ({conn,data}) => {
     if(inputArray[6]=="0-0"){
       conn.write("-ERR The ID specified in XADD must be greater than 0-0\r\n")
     }
+    
+    if(fragments[1]=="*"){
+      console.log("autogenerate ID")
+      return
+    }
       
     if(storage[inputArray[4]]==undefined){
       storage[inputArray[4]] = {"value":[[inputArray[6],inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
@@ -168,10 +173,6 @@ export const commandManager = ({conn,data}) => {
     
     const xaddIds = storage[inputArray[4]].value.map(info => info[0])   
 
-    if(fragments[1]=="*"){
-      console.log("autogenerate ID")
-      return
-    }
     if((xaddIds[xaddIds.length-1] == inputArray[6]) || (+xaddIds[xaddIds.length-1].split("-")[0] > milliSecondsTime)){ 
       conn.write("-ERR The ID specified in XADD is equal or smaller than the target stream top item\r\n")
     }else{ 
