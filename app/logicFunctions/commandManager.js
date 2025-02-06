@@ -154,7 +154,6 @@ export const commandManager = ({conn,data}) => {
 
     const fragments = inputArray[6].split("-")
     const milliSecondsTime = +fragments[0]
-    const sequenceNumber = fragments[1]
 
     if(inputArray[6]=="0-0"){
       conn.write("-ERR The ID specified in XADD must be greater than 0-0\r\n")
@@ -162,7 +161,7 @@ export const commandManager = ({conn,data}) => {
           
     if(storage[inputArray[4]]!=undefined){
       const xaddIds = storage[inputArray[4]].value.map(info => info[0])   
-      console.log(xaddIds, xaddIds[xaddIds.length-1].split("-")[0], milliSecondsTime)
+
       if((xaddIds[xaddIds.length-1] == inputArray[6]) || (+xaddIds[xaddIds.length-1].split("-")[0] > milliSecondsTime)){ 
         conn.write("-ERR The ID specified in XADD is equal or smaller than the target stream top item\r\n")
       }else{ 
