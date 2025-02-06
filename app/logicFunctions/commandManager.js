@@ -165,7 +165,7 @@ export const commandManager = ({conn,data}) => {
     if(storage[inputArray[4]]==undefined){
       autoId ? id=1 : id=inputArray[6]
       storage[inputArray[4]] = {"value":[[`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
-      conn.write(`$${inputArray[6].length}\r\n${inputArray[6]}\r\n`)
+      conn.write(`$${inputArray[6].length}\r\n${milliSecondsTime}-${id}\r\n`)
       return
     }
     
