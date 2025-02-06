@@ -158,7 +158,7 @@ export const commandManager = ({conn,data}) => {
       conn.write("-ERR The ID specified in XADD must be greater than 0-0\r\n")
     }
     const autoId = fragments[1]=="*"
-    
+    console.log(Math.floor(Date.now()/1000))
     let id;
     if(storage[inputArray[4]]==undefined){
       autoId ? id=0 : id=inputArray[6].split("-")[1]
