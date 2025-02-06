@@ -172,14 +172,15 @@ export const commandManager = ({conn,data}) => {
     const xaddIds = storage[inputArray[4]].value.map(info => info[0])   
     if((xaddIds[xaddIds.length-1] == inputArray[6]) || (+xaddIds[xaddIds.length-1].split("-")[0] > milliSecondsTime)){ 
       conn.write("-ERR The ID specified in XADD is equal or smaller than the target stream top item\r\n")
-    }else{ 
-
-      autoId ? id=0 : id=inputArray[6].split("-")[1]
-      xaddIds[xaddIds.length-1].split("-")[0]==fragments[0] ? id=(+xaddIds[xaddIds.length-1].split("-")[1]+1) : id=id
-
-      storage[inputArray[4]].value.push([`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]])  
-      conn.write(`$${inputArray[6].length}\r\n${milliSecondsTime}-${id}\r\n`)
+      return
     }
+
+    autoId ? id=0 : id=inputArray[6].split("-")[1]
+    xaddIds[xaddIds.length-1].split("-")[0]==fragments[0] ? id=(+xaddIds[xaddIds.length-1].split("-")[1]+1) : id=id
+
+    storage[inputArray[4]].value.push([`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]])  
+    conn.write(`$${inputArray[6].length}\r\n${milliSecondsTime}-${id}\r\n`)
+    
   }
 
 }
