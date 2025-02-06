@@ -158,18 +158,24 @@ export const commandManager = ({conn,data}) => {
     if(inputArray[6]=="0-0"){
       conn.write("-ERR The ID specified in XADD must be greater than 0-0\r\n")
     }
-          
-    if(storage[inputArray[4]]!=undefined){
-      const xaddIds = storage[inputArray[4]].value.map(info => info[0])   
-
-      if((xaddIds[xaddIds.length-1] == inputArray[6]) || (+xaddIds[xaddIds.length-1].split("-")[0] > milliSecondsTime)){ 
-        conn.write("-ERR The ID specified in XADD is equal or smaller than the target stream top item\r\n")
-      }else{ 
-        storage[inputArray[4]].value.push([inputArray[6],inputArray[8],inputArray[10]])  
-        conn.write(`$${inputArray[6].length}\r\n${inputArray[6]}\r\n`)
-      }
-    }else{
+      
+    if(storage[inputArray[4]]==undefined){
       storage[inputArray[4]] = {"value":[[inputArray[6],inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
+      conn.write(`$${inputArray[6].length}\r\n${inputArray[6]}\r\n`)
+      return
+    }
+
+    const xaddIds = storage[inputArray[4]].value.map(info => info[0])   
+
+    if(fragments[1]=="*"){
+      console.log("autogenerate ID")
+      return
+    }
+    
+    if((xaddIds[xaddIds.length-1] == inputArray[6]) || (+xaddIds[xaddIds.length-1].split("-")[0] > milliSecondsTime)){ 
+      conn.write("-ERR The ID specified in XADD is equal or smaller than the target stream top item\r\n")
+    }else{ 
+      storage[inputArray[4]].value.push([inputArray[6],inputArray[8],inputArray[10]])  
       conn.write(`$${inputArray[6].length}\r\n${inputArray[6]}\r\n`)
     }
   }
