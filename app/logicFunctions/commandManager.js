@@ -159,10 +159,10 @@ export const commandManager = ({conn,data}) => {
     }
     const autoId = fragments[1]=="*"
     
-    if(inputArray[6]=="*"){
+    if(inputArray[6]==""){
       const unixTime = Math.floor(Date.now()/1000)
       storage[inputArray[4]] = {"value":[[`${unixTime}-0`,inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
-      conn.write(`$3\r\n${unixTime}-0\r\n`)
+      conn.write(`$${unixTime.toString().length + 2}\r\n${unixTime}-0\r\n`)
       return
     }
     
@@ -172,7 +172,7 @@ export const commandManager = ({conn,data}) => {
       fragments[0]=="0" ? id=1 : id=id
       console.log(milliSecondsTime, id)
       storage[inputArray[4]] = {"value":[[`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
-      conn.write(`$3\r\n${milliSecondsTime}-${id}\r\n`)
+      conn.write(`$${(milliSecondsTime.toString().length + id.toString().length)+1}\r\n${milliSecondsTime}-${id}\r\n`)
       return
     }
     
@@ -186,7 +186,7 @@ export const commandManager = ({conn,data}) => {
     xaddIds[xaddIds.length-1].split("-")[0]==fragments[0] ? id=(+xaddIds[xaddIds.length-1].split("-")[1]+1) : id=id
 
     storage[inputArray[4]].value.push([`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]])  
-    conn.write(`$3\r\n${milliSecondsTime}-${id}\r\n`)
+    conn.write(`$${(milliSecondsTime.toString().length + id.toString().length)+1}\r\n${milliSecondsTime}-${id}\r\n`)
     
   }
 
