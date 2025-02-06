@@ -162,6 +162,7 @@ export const commandManager = ({conn,data}) => {
     if(inputArray[6]==""){
       const unixTime = Math.floor(Date.now()/1000)
       storage[inputArray[4]] = {"value":[[`${unixTime}-0`,inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
+      conn.write(`$${inputArray[6].length}\r\n${unixTime}-0\r\n`)
       return
     }
     
