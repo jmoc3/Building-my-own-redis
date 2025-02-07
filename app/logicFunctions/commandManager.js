@@ -193,7 +193,7 @@ export const commandManager = ({conn,data}) => {
   const xrange = inputArray[2]=="xrange"
   if(xrange){
 
-    storage[inputArray[4]].forEach(object => {
+    storage[inputArray[4]].value.forEach(object => {
       console.log(object)
     })
   }
