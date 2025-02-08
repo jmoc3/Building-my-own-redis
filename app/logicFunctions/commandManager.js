@@ -194,7 +194,7 @@ export const commandManager = ({conn,data}) => {
   if(xrange){
 
     storage[inputArray[4]].value.forEach(object => {
-      console.log(object, object[0]<"0-2")
+      console.log(object, object[0]<"0-3")
     })
   }
 
