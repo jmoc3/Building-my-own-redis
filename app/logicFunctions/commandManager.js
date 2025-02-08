@@ -196,7 +196,7 @@ export const commandManager = ({conn,data}) => {
     let end = inputArray[8] == "+" ? storage[inputArray[4]].value.length : inputArray[6]
 
     const resObject = storage[inputArray[4]].value.filter(object => {
-      console.log(object[0]>=0)
+      console.log(object[0]>="0")
       if((object[0]>=start) && (object[0]<=end)){
         return object
       }
