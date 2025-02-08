@@ -199,8 +199,8 @@ export const commandManager = ({conn,data}) => {
         return object
       }
     })
-
-    console.log(resObject)
+    const resObjectParsed = resObject.map(element => element.join("\r\n"))
+    console.log(resObjectParsed)
   }
 
 }
