@@ -198,17 +198,14 @@ export const commandManager = ({conn,data}) => {
         return object
       }
     })
-    const resFormat = resObject.map(array => {
-      const format = [`$${array[0].length}\r\n${array[0]}\r\n`, `$${array.slice(1).length}\r\n${array.slice(1).map(element => `$${element.length}\r\n${element}\r\n`).join("")}`]
-      return format
-    })
+    const resFormat = resObject.map(array => 
+      [`$${array[0].length}\r\n${array[0]}\r\n`, `*${array.slice(1).length}\r\n${array.slice(1).map(element => `$${element.length}\r\n${element}\r\n`).join("")}`]
+    )
 
-    resFormat.forEach(array => { 
-      console.log(array)
-      // console.log(`$${array.length}\r\n${array}`)
-     })
-
-    const res = `$${resFormat.length}\r\nresFormat`
+    const resFormatProtocol = resFormat.map(array => `*${array.length}\r\n${array.join("")}` )
+    const res = `*${resFormat.length}\r\n${resFormatProtocol}`
+    
+    console.log(res)
 
   }
 
