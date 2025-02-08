@@ -192,16 +192,15 @@ export const commandManager = ({conn,data}) => {
 
   const xrange = inputArray[2]=="xrange"
   if(xrange){
-    let start = inputArray[6] == "-" ? "0-0" : inputArray[6]
-    let end = inputArray[8] == "+" ? `${storage[inputArray[4]].value.length}-0` : inputArray[8] 
+    const start = inputArray[6] == "-" ? "0-0" : inputArray[6]
+    const end = inputArray[8] == "+" ? `${storage[inputArray[4]].value.length}-0` : inputArray[8] 
 
     const resObject = storage[inputArray[4]].value.filter(object => {
-      console.log(object[0], start, object[0]>=start, end, object[0]<=end )
       if((object[0]>=start) && (object[0]<=end)){
         return object
       }
     })
-    console.log(resObject)
+
     const resFormat = resObject.map(array => 
       [`$${array[0].length}\r\n${array[0]}\r\n`, `*${array.slice(1).length}\r\n${array.slice(1).map(element => `$${element.length}\r\n${element}\r\n`).join("")}`]
     )
@@ -209,6 +208,26 @@ export const commandManager = ({conn,data}) => {
     const resFormatProtocol = resFormat.map(array => `*${array.length}\r\n${array.join("")}` )
     const res = `*${resFormat.length}\r\n${resFormatProtocol.join("")}`
     
+    conn.write(res)
+  }
+
+  const xread = inputArray[2]=="xread"
+  if(xread){
+    // const start = inputArray[6] == "-" ? "0-0" : inputArray[8]
+
+    const resObject = storage[inputArray[4]].value.filter(object => {
+      if((object[0]>=inputArray[8])){
+        return object
+      }
+    })
+
+    const resFormat = resObject.map(array => 
+      [`$${array[0].length}\r\n${array[0]}\r\n`, `*${array.slice(1).length}\r\n${array.slice(1).map(element => `$${element.length}\r\n${element}\r\n`).join("")}`]
+    )
+
+    const resFormatProtocol = resFormat.map(array => `*${array.length}\r\n${array.join("")}` )
+    const res = `*${resFormat.length}\r\n${resFormatProtocol.join("")}`
+    console.log(resFormat)
     conn.write(res)
 
   }
