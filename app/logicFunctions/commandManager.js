@@ -198,9 +198,12 @@ export const commandManager = ({conn,data}) => {
         return object
       }
     })
-    resObject.forEach(array => {
-      console.log(array)
+    const resFormat = resObject.map(array => {
+      const format = [array[0],array[1],array[2]]
+      return format
     })
+
+    console.log(resFormat)
   }
 
 }
