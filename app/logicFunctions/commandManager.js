@@ -194,6 +194,7 @@ export const commandManager = ({conn,data}) => {
   if(xrange){
 
     const resObject = storage[inputArray[4]].value.filter(object => {
+      console.log(object[0], inputArray)
       if(object[0]>inputArray[6] && object[0]<inputArray[8]){
         return object
       }
