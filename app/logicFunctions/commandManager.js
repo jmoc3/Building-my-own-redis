@@ -227,7 +227,7 @@ export const commandManager = ({conn,data}) => {
 
     const resFormatProtocol = resFormat.map(array => [`${inputArray[6]}`,`*${array.length}\r\n${array.join("")}`] )
     const res = `*${resFormat.length}\r\n${resFormatProtocol.join("")}`
-    console.log(resFormat)
+    console.log(resFormatProtocol)
     conn.write(res)
 
   }
