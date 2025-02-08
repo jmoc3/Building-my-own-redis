@@ -206,7 +206,7 @@ export const commandManager = ({conn,data}) => {
     resFormat.forEach(array => { 
       console.log(array)
      })
-    res = `$${resFormat.length}\r\nresFormat`
+    const res = `$${resFormat.length}\r\nresFormat`
   }
 
 }
