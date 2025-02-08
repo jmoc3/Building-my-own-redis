@@ -192,8 +192,8 @@ export const commandManager = ({conn,data}) => {
 
   const xrange = inputArray[2]=="xrange"
   if(xrange){
-    let start = inputArray[6] == "-" ? "0" : inputArray[6]
-    let end = inputArray[8] == "+" ? storage[inputArray[4]].value.length : inputArray[6]
+    let start = inputArray[6] == "-" ? "0-0" : inputArray[6]
+    let end = inputArray[8] == "+" ? `${storage[inputArray[4]].value.length}` : inputArray[6]
 
     const resObject = storage[inputArray[4]].value.filter(object => {
       console.log(object[0]>="0")
