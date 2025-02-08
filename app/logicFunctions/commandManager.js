@@ -199,7 +199,7 @@ export const commandManager = ({conn,data}) => {
       }
     })
     const resFormat = resObject.map(array => {
-      const format = [`$${array[0].length}\r\n${array[0]}`,[`$${array[1].length}\r\n${array[1]}`,`$${array[2].length}\r\n${array[2]}`]]
+      const format = [`$${array[0].length}\r\n${array[0]}`, array.slice(1)]
       return format
     })
 
@@ -208,7 +208,7 @@ export const commandManager = ({conn,data}) => {
      })
 
     const res = `$${resFormat.length}\r\nresFormat`
-    
+
   }
 
 }
