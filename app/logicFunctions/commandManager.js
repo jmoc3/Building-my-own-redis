@@ -193,9 +193,13 @@ export const commandManager = ({conn,data}) => {
   const xrange = inputArray[2]=="xrange"
   if(xrange){
 
-    storage[inputArray[4]].value.forEach(object => {
-      console.log(object, object[0]<"0-3")
+    const resObject = storage[inputArray[4]].value.filter(object => {
+      if(object[0]>inputArray[6] && object[0]<inputArray[8]){
+        return object
+      }
     })
+
+    console.log(resObject)
   }
 
 }
