@@ -170,16 +170,10 @@ export const commandManager = ({conn,data}) => {
     let id;
     if(storage[inputArray[4]]==undefined){
       autoId ? id=0 : id=inputArray[6].split("-")[1]
-      fragments[0]=="0" ? id=1 : id=id
+      (fragments[0]=="0" || inputArray.includes("*")) ? id=1 : id=id
       console.log(milliSecondsTime, id)
       storage[inputArray[4]] = {"value":[[`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
       conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
-      return
-    }
-    
-    if(!inputArray.includes("*")){  
-      storage[inputArray[4]].value.push([inputArray[6],inputArray[8],inputArray[10]])
-      conn.write(`$${inputArray[6].length }\r\n${inputArray[6]}\r\n`)
       return
     }
 
