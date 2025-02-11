@@ -234,7 +234,7 @@ export const commandManager = ({conn,data}) => {
         return element
       }
     })
-    
+    console.log(values)
     const resObject = storage[inputArray[6]].value.filter(object => {
       if((object[0]>=inputArray[8])){
         return object
