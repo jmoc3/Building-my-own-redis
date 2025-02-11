@@ -225,7 +225,7 @@ export const commandManager = ({conn,data}) => {
       return
     }
     const streamQuantity = (inputArray.length/2)-5
-    console.log(inputArray.slice(6,(-streamQuantity*2)))
+    console.log(inputArray.slice(5,(-streamQuantity*2)))
     // for(let i=0;i<streamQuantity;i++){
 
     // }
