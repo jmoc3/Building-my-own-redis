@@ -219,7 +219,7 @@ export const commandManager = ({conn,data}) => {
   const xread = inputArray[2]=="xread"
   if(xread){
     // const start = inputArray[6] == "-" ? "0-0" : inputArray[8]
-
+    console.log(storage[inputArray[6]])
     const resObject = storage[inputArray[6]].value.filter(object => {
       if((object[0]>=inputArray[8])){
         return object
