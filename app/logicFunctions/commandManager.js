@@ -250,9 +250,7 @@ export const commandManager = ({conn,data}) => {
     })
     
     const finalRes = `*${values.length}\r\n${res}`
-    console.log(finalRes)
-    // conn.write(finalRes)
-
+    conn.write(finalRes)
 
   }
 
