@@ -224,21 +224,21 @@ export const commandManager = ({conn,data}) => {
       conn.write("$-1\r\n")
       return
     }
-    const streamQuantity = (inputArray.length/2)-5
-    const keys = inputArray.slice(5)
-    // for(let i=0;i<streamQuantity;i++){
 
-    // }
-    const values = Object.keys(storage).filter(element => {
-      if(keys.includes(element)){
-        return element
+    const values = Object.keys(storage).filter((element,index) => {
+      if(inputArray.slice(5).includes(element)){
+        return [element,index]
       }
     })
     console.log(values)
-    const resObject = storage[inputArray[6]].value.filter(object => {
-      if((object[0]>=inputArray[8])){
-        return object
-      }
+    values.forEach(key => {
+
+      const resObject = storage[key[0]].value.filter(object => {
+        if((object[0]>=key[1])){
+          return object
+        }
+      })
+      console.log(resObject)
     })
 
     const resFormat = resObject.map(array => 
