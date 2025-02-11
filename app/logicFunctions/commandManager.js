@@ -225,15 +225,15 @@ export const commandManager = ({conn,data}) => {
       return
     }
     const streamQuantity = (inputArray.length/2)-5
-    console.log(inputArray.slice(5,(-streamQuantity*2)))
+    const keys = inputArray.slice(5,(-streamQuantity*2))
     // for(let i=0;i<streamQuantity;i++){
 
     // }
-    // Object.keys(storage).filter(element => {
-    //   if(element==inputArray[6]){
-    //     return element
-    //   }
-    // })
+    const values = Object.keys(storage).filter(element => {
+      if(keys.includes(element)){
+        return element
+      }
+    })
     
     const resObject = storage[inputArray[6]].value.filter(object => {
       if((object[0]>=inputArray[8])){
