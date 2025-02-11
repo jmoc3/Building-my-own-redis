@@ -167,7 +167,8 @@ export const commandManager = ({conn,data}) => {
     }
     
     if(!inputArray.includes("*")){
-      console.log("Got u")
+      conn.write(`$${inputArray[6].length }\r\n${inputArray[6]}\r\n`)
+      return
     }
 
     let id;
