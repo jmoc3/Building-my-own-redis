@@ -220,7 +220,15 @@ export const commandManager = ({conn,data}) => {
   const xread = inputArray[2]=="xread"
   if(xread){
     // const start = inputArray[6] == "-" ? "0-0" : inputArray[8]
-    console.log(inputArray)
+    if((inputArray.length%2)!=0){
+      conn.write("$-1\r\n")
+      return
+    }
+    const streamQuantity = (inputArray.length/2)-5
+    console.log(inputArray.slice(6,-streamQuantity))
+    // for(let i=0;i<streamQuantity;i++){
+
+    // }
     // Object.keys(storage).filter(element => {
     //   if(element==inputArray[6]){
     //     return element
