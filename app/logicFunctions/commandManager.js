@@ -227,7 +227,7 @@ export const commandManager = ({conn,data}) => {
 
     const values = Object.keys(storage).map((element,index) => {
       if(inputArray.includes(element)){
-        return [element,index]
+        return [element,inputArray.indexOf(element)]
       }
     })
     console.log(inputArray)
