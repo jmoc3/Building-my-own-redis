@@ -231,7 +231,7 @@ export const commandManager = ({conn,data}) => {
       }
     })
     console.log(inputArray)
-    let resFormatProtocol;
+    let res = ""
     values.forEach(key => {
       console.log(key[0],key[1])
       const resObject = storage[key[0]].value.filter(object => {
@@ -244,11 +244,12 @@ export const commandManager = ({conn,data}) => {
         [`$${array[0].length}\r\n${array[0]}\r\n`, `*${array.slice(1).length}\r\n${array.slice(1).map(element => `$${element.length}\r\n${element}\r\n`).join("")}`]
       )
 
-      resFormatProtocol = resFormat.map(array => `$${inputArray[6].length}\r\n${inputArray[6]}\r\n*1\r\n*${array.length}\r\n${array.join("")}` )
+      const resFormatProtocol = resFormat.map(array => `$${inputArray[key[1]+1].length}\r\n${inputArray[key[1]+1]}\r\n*1\r\n*${array.length}\r\n${array.join("")}` )
+      res += `*2\r\n${resFormatProtocol.join("")}`
       
     })
     
-    const res = `*${values.length}\r\n*2\r\n${resFormatProtocol.join("")}`
+    const finalRes = `*${values.length}\r\n${res}`
     console.log(res,resFormatProtocol)
     conn.write(res)
 
