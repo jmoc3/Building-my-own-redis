@@ -234,7 +234,7 @@ export const commandManager = ({conn,data}) => {
     values.forEach(key => {
       console.log(key[0],key[1])
       const resObject = storage[key[0]].value.filter(object => {
-        if((object[0]>=key[1])){
+        if((object[0]>=inputArray[key[1]+1])){
           return object
         }
       })
