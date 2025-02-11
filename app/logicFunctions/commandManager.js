@@ -166,6 +166,10 @@ export const commandManager = ({conn,data}) => {
       return
     }
     
+    if(!inputArray.includes("*")){
+      console.log("Got u")
+    }
+
     let id;
     if(storage[inputArray[4]]==undefined){
       autoId ? id=0 : id=inputArray[6].split("-")[1]
