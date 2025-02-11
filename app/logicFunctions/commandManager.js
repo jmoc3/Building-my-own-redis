@@ -226,7 +226,7 @@ export const commandManager = ({conn,data}) => {
     }
 
     const values = Object.keys(storage).map((element,index) => {
-      if(inputArray.slice(5).includes(element)){
+      if(inputArray.includes(element)){
         return [element,index]
       }
     })
