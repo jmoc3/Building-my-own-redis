@@ -200,8 +200,8 @@ export const commandManager = ({conn,data}) => {
   if(xrange){
     const start = inputArray[6] == "-" ? "0-0" : inputArray[6]
     const end = inputArray[8] == "+" ? `${storage[inputArray[4]].value.length}-${storage[inputArray[4]].value.length}` : inputArray[8] 
-    console.log(start, end)
     const resObject = storage[inputArray[4]].value.filter(object => {
+      console.log(start, end, object[0])
       if((object[0]>=start) && (object[0]<=end)){
         return object
       }
