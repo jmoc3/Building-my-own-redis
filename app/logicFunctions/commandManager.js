@@ -222,6 +222,10 @@ export const commandManager = ({conn,data}) => {
     if(inputArray[4]=="block"){
       const totalSpace = storage[inputArray[10]].value.length
       console.log(inputArray, inputArray[6], +inputArray[6])
+      let time = +inputArray[6]
+      if(inputArray[6]=="0"){
+        time = 1000
+      }
       setTimeout(()=>{
         if(storage[inputArray[10]].value.length!=totalSpace){
           const resObject = storage[inputArray[10]].value.slice(-1)[0]
