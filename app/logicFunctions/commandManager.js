@@ -220,7 +220,10 @@ export const commandManager = ({conn,data}) => {
   if(xread){
     // const start = inputArray[6] == "-" ? "0-0" : inputArray[8]
     if(inputArray[4]=="block"){
-      console.log("Blocking idk")
+      const totalSpace = storage[8].value.length
+      setTimeout(()=>{
+        console.log(storage[8].value.length==totalSpace)
+      },inputArray[6])
       return
     }
     if((inputArray.length%2)!=0){
