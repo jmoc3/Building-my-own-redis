@@ -224,15 +224,8 @@ export const commandManager = ({conn,data}) => {
       setTimeout(()=>{
         if(storage[inputArray[10]].value.length!=totalSpace){
           const resObject = storage[inputArray[10]].value.slice(-1)[0]
-          const resFormat = `*1\r\n*2\r\n${inputArray[10].length}\r\n${inputArray[10]}\r\n*1\r\n*2\r\n${resObject[0].length}\r\n${resObject[0]}\r\n*2\r\n${resObject[1].length}\r\n${resObject[1]}\r\n${resObject[2].length}\r\n${resObject[2]}\r\n`
-          
-          console.log(resFormat)
-          // const resFormat = resObject.map(array => 
-          //   [`$${array[0].length}\r\n${array[0]}\r\n`, `*${array.slice(1).length}\r\n${array.slice(1).map(element => `$${element.length}\r\n${element}\r\n`).join("")}`]
-          // )
-    
-          // const resFormatProtocol = resFormat.map(array => `$${inputArray[key[1]].length}\r\n${inputArray[key[1]]}\r\n*1\r\n*${array.length}\r\n${array.join("")}` )
-          // res += `*2\r\n${resFormatProtocol.join("")}`
+          const resFormat = `*1\r\n*2\r\n${inputArray[10].length}\r\n${inputArray[10]}\r\n*1\r\n*2\r\n$${resObject[0].length}\r\n${resObject[0]}\r\n*2\r\n$${resObject[1].length}\r\n${resObject[1]}\r\n$${resObject[2].length}\r\n${resObject[2]}\r\n`
+          conn.write(resFormat)
         }
       },inputArray[6])
       return
