@@ -170,7 +170,6 @@ export const commandManager = ({conn,data}) => {
     let id;
     if(storage[inputArray[4]]==undefined){
       autoId ? id=0 : id=inputArray[6].split("-")[1]
-      console.log(milliSecondsTime, id, inputArray,fragments)
       if(fragments[0]=="0" && inputArray[6].includes("*")){
         id=1
       }else{
@@ -220,6 +219,10 @@ export const commandManager = ({conn,data}) => {
   const xread = inputArray[2]=="xread"
   if(xread){
     // const start = inputArray[6] == "-" ? "0-0" : inputArray[8]
+    if(inputArray[4]=="block"){
+      console.log("Blocking idk")
+      return
+    }
     if((inputArray.length%2)!=0){
       conn.write("$-1\r\n")
       return
