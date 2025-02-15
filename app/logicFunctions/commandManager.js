@@ -159,7 +159,7 @@ export const commandManager = ({conn,data}) => {
     }
     const autoId = fragments[1]=="*"
 
-    if(inputArray[6]=="*"){
+    if(inputArray[6].slice(-1)=="*"){
       console.log("inside")
 
       const unixTime = Date.now()
