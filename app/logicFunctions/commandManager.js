@@ -175,7 +175,7 @@ export const commandManager = ({conn,data}) => {
       }else{
         id=id
       }
-      console.log(milliSecondsTime, id, "A")
+      console.log(milliSecondsTime, id, storage)
       storage[inputArray[4]] = {"value":[[`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
       conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
       return
