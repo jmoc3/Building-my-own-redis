@@ -171,7 +171,7 @@ export const commandManager = ({conn,data}) => {
     if(storage[inputArray[4]]==undefined){
       autoId ? id=0 : id=inputArray[6].split("-")[1]
       console.log(milliSecondsTime, id, inputArray,fragments)
-      if(fragments[0]=="0" && inputArray.includes("*")){
+      if(fragments[0]=="0" && inputArray[6].includes("*")){
         id=1
       }else{
         id=id
