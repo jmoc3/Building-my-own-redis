@@ -225,6 +225,7 @@ export const commandManager = ({conn,data}) => {
       if(inputArray[6]=="0"){
         time = 1000
       }
+      console.log(inputArray[6],time)
       setTimeout(()=>{
         if(storage[inputArray[10]].value.length!=totalSpace){
           const resObject = storage[inputArray[10]].value.slice(-1)[0]
