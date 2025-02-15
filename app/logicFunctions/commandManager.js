@@ -224,7 +224,7 @@ export const commandManager = ({conn,data}) => {
       setTimeout(()=>{
         if(storage[inputArray[10]].value.length!=totalSpace){
           const resObject = storage[inputArray[10]].value.slice(-1)
-          const resFormat = [`$${resObject[0].length}\r\n${resObject[0]}\r\n`, `*${resObject.slice(1).length}\r\n${resObject.slice(1).map(element => `$${element.length}\r\n${element}\r\n`).join("")}`]
+          const resFormat = `*1\r\n*2\r\n${inputArray[10].length}\r\n${inputArray[10]}\r\n*1\r\n*2\r\n${resObject[0].length}\r\n${resObject[0]}\r\n*2\r\n${resObject[1].length}\r\n${resObject[1]}\r\n${resObject[2].length}\r\n${resObject[2]}\r\n`
           
           console.log(resFormat)
           // const resFormat = resObject.map(array => 
