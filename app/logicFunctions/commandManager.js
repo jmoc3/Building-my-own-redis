@@ -159,8 +159,7 @@ export const commandManager = ({conn,data}) => {
     }
     const autoId = fragments[1]=="*"
 
-    if(inputArray[6].slice(-1)=="*"){
-      console.log("inside")
+    if(inputArray[6]=="*"){
 
       const unixTime = Date.now()
       storage[inputArray[4]] = {"value":[[`${unixTime}-0`,inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
@@ -171,12 +170,12 @@ export const commandManager = ({conn,data}) => {
     let id;
     if(storage[inputArray[4]]==undefined){
       autoId ? id=0 : id=inputArray[6].split("-")[1]
+      console.log(milliSecondsTime, id, inputArray,fragments)
       if(fragments[0]=="0" && inputArray.includes("*")){
         id=1
       }else{
         id=id
       }
-      console.log(milliSecondsTime, id, inputArray)
       storage[inputArray[4]] = {"value":[[`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
       conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
       return
