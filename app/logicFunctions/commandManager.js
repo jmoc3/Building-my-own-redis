@@ -158,7 +158,7 @@ export const commandManager = ({conn,data}) => {
       conn.write("-ERR The ID specified in XADD must be greater than 0-0\r\n")
     }
     const autoId = fragments[1]=="*"
-    
+
     if(inputArray[6]=="*"){
       console.log("inside")
 
@@ -168,7 +168,6 @@ export const commandManager = ({conn,data}) => {
       return
     }
     
-    
     let id;
     if(storage[inputArray[4]]==undefined){
       autoId ? id=0 : id=inputArray[6].split("-")[1]
@@ -177,7 +176,7 @@ export const commandManager = ({conn,data}) => {
       }else{
         id=id
       }
-      console.log(milliSecondsTime, id, storage)
+      console.log(milliSecondsTime, id, inputArray)
       storage[inputArray[4]] = {"value":[[`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
       conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
       return
