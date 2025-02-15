@@ -160,6 +160,8 @@ export const commandManager = ({conn,data}) => {
     const autoId = fragments[1]=="*"
     
     if(inputArray[6]=="*"){
+      console.log("inside")
+
       const unixTime = Date.now()
       storage[inputArray[4]] = {"value":[[`${unixTime}-0`,inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
       conn.write(`$${`${unixTime}-0`.length }\r\n${unixTime}-0\r\n`)
