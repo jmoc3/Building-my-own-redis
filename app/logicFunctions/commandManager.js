@@ -227,7 +227,7 @@ export const commandManager = ({conn,data}) => {
           const resFormat = `*1\r\n*2\r\n${inputArray[10].length}\r\n${inputArray[10]}\r\n*1\r\n*2\r\n$${resObject[0].length}\r\n${resObject[0]}\r\n*2\r\n$${resObject[1].length}\r\n${resObject[1]}\r\n$${resObject[2].length}\r\n${resObject[2]}\r\n`
           conn.write(resFormat)
         }
-      },inputArray[6])
+      },+inputArray[6])
       return
     }
     if((inputArray.length%2)!=0){
