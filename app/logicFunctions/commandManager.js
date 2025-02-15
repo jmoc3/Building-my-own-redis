@@ -234,7 +234,7 @@ export const commandManager = ({conn,data}) => {
         }else{
           conn.write("$-1\r\n")
         }
-      },+inputArray[6])
+      },time)
       return
     }
     if((inputArray.length%2)!=0){
