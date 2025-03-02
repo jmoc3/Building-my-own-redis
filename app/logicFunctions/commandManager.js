@@ -184,7 +184,6 @@ export const commandManager = ({conn,data}) => {
     xaddIds[xaddIds.length-1].split("-")[0]==fragments[0] ? id=(+xaddIds[xaddIds.length-1].split("-")[1]+1) : id=id
     
     storage[inputArray[4]].value.push([`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]])  
-    console.log(storage[inputArray[4]])
     conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
     
   }
@@ -222,7 +221,7 @@ export const commandManager = ({conn,data}) => {
 
       setTimeout(()=>{
         // Error de Tiempo, Hacer algo con la funcion xadd
-        console.log(storage[inputArray[10]])
+        console.log(storage[inputArray[10]].value)
         if(storage[inputArray[10]].value.length!=totalSpace){
           const resObject = storage[inputArray[10]].value.slice(-1)[0]
           const resFormat = `*1\r\n*2\r\n$${inputArray[10].length}\r\n${inputArray[10]}\r\n*1\r\n*2\r\n$${resObject[0].length}\r\n${resObject[0]}\r\n*2\r\n$${resObject[1].length}\r\n${resObject[1]}\r\n$${resObject[2].length}\r\n${resObject[2]}\r\n`
