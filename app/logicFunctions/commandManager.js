@@ -185,7 +185,7 @@ export const commandManager = ({conn,data}) => {
     
     storage[inputArray[4]].value.push([`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]])  
     conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
-    
+    return
   }
 
   const xrange = inputArray[2]=="xrange"
