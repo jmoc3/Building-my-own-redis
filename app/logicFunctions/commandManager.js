@@ -226,7 +226,7 @@ export const commandManager = ({conn,data}) => {
         time = 1000
       }
       setTimeout(()=>{
-        console.log("a")
+        // Error de Tiempo, Hacer algo con la funcion xadd
         if(storage[inputArray[10]].value.length!=totalSpace){
           const resObject = storage[inputArray[10]].value.slice(-1)[0]
           const resFormat = `*1\r\n*2\r\n$${inputArray[10].length}\r\n${inputArray[10]}\r\n*1\r\n*2\r\n$${resObject[0].length}\r\n${resObject[0]}\r\n*2\r\n$${resObject[1].length}\r\n${resObject[1]}\r\n$${resObject[2].length}\r\n${resObject[2]}\r\n`
@@ -237,7 +237,9 @@ export const commandManager = ({conn,data}) => {
       },time)
       return
     }
+
     if((inputArray.length%2)!=0){
+      console.log(inputArray, inputArray.length, inputArray.length%2)
       conn.write("$-1\r\n")
       return
     }
@@ -247,7 +249,7 @@ export const commandManager = ({conn,data}) => {
         return [element,inputArray.indexOf(element)]
       }
     })
-    console.log(inputArray)
+    
     let res = ""
     values.forEach(key => {
       console.log(key[0],key[1])
