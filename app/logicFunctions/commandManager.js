@@ -275,11 +275,13 @@ export const commandManager = ({conn,data}) => {
 
   const incr = inputArray[2]=="incr"
   if(incr){
+    if(!Object.keys(storage).includes(inputArray[4])){
+      storage[inputArray[4]].value = 1  
+      conn.write(":1\r\n")
+      return
+    }
     conn.write(`:${+storage[inputArray[4]].value + 1}\r\n`)
     return
   }
-
-
-
 
 }
