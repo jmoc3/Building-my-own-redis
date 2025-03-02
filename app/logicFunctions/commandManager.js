@@ -282,7 +282,10 @@ export const commandManager = ({conn,data}) => {
       return
     }
 
-    console.log(isNaN(storage[inputArray[4]]))
+    if(isNaN(storage[inputArray[4]].value)){
+      conn.write("-ERR value is not an integer or out of range\r\n")
+      return
+    }
 
     storage[inputArray[4]].value =  `${+storage[inputArray[4]].value + 1}`
     conn.write(`:${storage[inputArray[4]].value}\r\n`)
