@@ -227,7 +227,7 @@ export const commandManager = ({conn,data}) => {
       setTimeout(()=>{
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(storage[inputArray[10]]){
-          const resObject = storage[inputArray[10]].value
+          const resObject = storage[inputArray[10]]
           console.log(resObject)
           
           // const resObject = storage[inputArray[4]].value.filter(object => {
