@@ -169,13 +169,13 @@ export const commandManager = ({conn,data}) => {
     
     let id;
     if(storage[inputArray[4]]==undefined){
-      console.log(inputArray)
       autoId ? id=0 : id=inputArray[6].split("-")[1]
       if(fragments[0]=="0" && inputArray[6].includes("*")){
         id=1
       }else{
         id=id
       }
+      console.log(`${milliSecondsTime}-${id}`)
       storage[inputArray[4]] = {"value":[[`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
       conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
       return
