@@ -191,7 +191,7 @@ export const commandManager = ({conn,data}) => {
     
     storage[inputArray[4]].value.push([`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]])  
     conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
-    console.log(storage)
+    console.log("storage xadd",storage)
     return
   }
 
@@ -229,7 +229,7 @@ export const commandManager = ({conn,data}) => {
       setTimeout(()=>{
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(storage[inputArray[10]]){
-          console.log(storage)
+          console.log("Storage xread: ", storage)
           const resObject = storage[inputArray[10]].value
         
           const resFormat = resObject.map(array => 
@@ -237,7 +237,6 @@ export const commandManager = ({conn,data}) => {
           )
           const res = `*1\r\n*2\r\n$${inputArray[10].length}\r\n${inputArray[10]}\r\n${resFormat}`
 
-          console.log(res)
           conn.write(res)
         }else{
           conn.write("$-1\r\n")
