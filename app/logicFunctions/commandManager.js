@@ -150,6 +150,7 @@ export const commandManager = ({conn,data}) => {
 
   const xadd = inputArray[2]=="xadd"
   if(xadd){
+    console.log(storage)
 
     const fragments = inputArray[6].split("-")
     const milliSecondsTime = +fragments[0]
@@ -278,7 +279,6 @@ export const commandManager = ({conn,data}) => {
       conn.write(":1\r\n")
       return
     }
-    console.log(storage)
     if(isNaN(storage[inputArray[4]].value)){
       conn.write("-ERR value is not an integer or out of range\r\n")
       return
