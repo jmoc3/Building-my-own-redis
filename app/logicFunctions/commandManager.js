@@ -229,7 +229,7 @@ export const commandManager = ({conn,data}) => {
       setTimeout(()=>{
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(storage[inputArray[10]]){
-          console.log("Storage xread: ", storage)
+          console.log("Storage xread: ", storage[inputArray[10]].value)
           const resObject = storage[inputArray[10]].value
           console.log(storage[inputArray[10]].value)
           const resFormat = resObject.map(array => 
