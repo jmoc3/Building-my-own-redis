@@ -169,6 +169,7 @@ export const commandManager = ({conn,data}) => {
     
     let id;
     if(storage[inputArray[4]]==undefined){
+      console.log(inputArray)
       autoId ? id=0 : id=inputArray[6].split("-")[1]
       if(fragments[0]=="0" && inputArray[6].includes("*")){
         id=1
@@ -239,7 +240,6 @@ export const commandManager = ({conn,data}) => {
     }
 
     if((inputArray.length%2)!=0){
-      console.log(inputArray, inputArray.length, inputArray.length%2)
       conn.write("$-1\r\n")
       return
     }
@@ -249,7 +249,7 @@ export const commandManager = ({conn,data}) => {
         return [element,inputArray.indexOf(element)]
       }
     })
-    
+
     let res = ""
     values.forEach(key => {
       console.log(key[0],key[1])
