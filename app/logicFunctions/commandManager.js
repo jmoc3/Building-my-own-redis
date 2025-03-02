@@ -280,7 +280,7 @@ export const commandManager = ({conn,data}) => {
       conn.write(":1\r\n")
       return
     }
-    storage[inputArray[4]].value =  +storage[inputArray[4]].value + 1
+    storage[inputArray[4]].value =  `${+storage[inputArray[4]].value + 1}`
     conn.write(`:${storage[inputArray[4]].value}\r\n`)
     return
   }
