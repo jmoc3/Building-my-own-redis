@@ -226,6 +226,7 @@ export const commandManager = ({conn,data}) => {
       if(inputArray[6]=="0"){
         time = 1000
       }
+      console.log(time)
       setTimeout(()=>{
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(storage[inputArray[10]].value.length!=totalSpace){
