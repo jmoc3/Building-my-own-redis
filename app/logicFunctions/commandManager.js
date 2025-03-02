@@ -150,14 +150,15 @@ export const commandManager = ({conn,data}) => {
 
   const xadd = inputArray[2]=="xadd"
   if(xadd){
+
     const fragments = inputArray[6].split("-")
     const milliSecondsTime = +fragments[0]
 
     if(inputArray[6]=="0-0"){
       conn.write("-ERR The ID specified in XADD must be greater than 0-0\r\n")
     }
-    const autoId = fragments[1]=="*"
 
+    const autoId = fragments[1]=="*"
     if(inputArray[6]=="*"){
 
       const unixTime = Date.now()
@@ -169,11 +170,8 @@ export const commandManager = ({conn,data}) => {
     let id;
     if(storage[inputArray[4]]==undefined){
       autoId ? id=0 : id=inputArray[6].split("-")[1]
-      if(fragments[0]=="0" && inputArray[6].includes("*")){
-        id=1
-      }else{
-        id=id
-      }
+      if(fragments[0]=="0" && inputArray[6].includes("*")){ id=1 }else{ id=id }
+      
       storage[inputArray[4]] = {"value":[[`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
       conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
       return
