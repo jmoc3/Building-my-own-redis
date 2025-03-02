@@ -227,26 +227,14 @@ export const commandManager = ({conn,data}) => {
       setTimeout(()=>{
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(storage[inputArray[10]]){
+          console.log(storage)
+          console.log(storage[inputArray[10]])
           const resObject = storage[inputArray[10]].value
-          console.log(resObject)
-          
-          // const resObject = storage[inputArray[4]].value.filter(object => {
-          //   if((object[0]>=start) && (object[0]<=end)){
-          //     return object
-          //   }
-          // })
-      
+        
           const resFormat = resObject.map(array => 
             `*1\r\n*2\r\n$${array[0].length}\r\n${array[0]}\r\n*2\r\n${array[1]}\r\n$${array[1].length}\r\n$${array[2].length}\r\n${array[2]}\r\n`
           )
           const res = `*1\r\n*${resObject.length}\r\n$${inputArray[10].length}\r\n${inputArray[10]}\r\n${resFormat}`
-
-      
-          // const resFormatProtocol = resFormat.map(array => `*${array.length}\r\n${array.join("")}` )
-          // console.log(resFormatProtocol)
-          // const res = `*${resFormat.length}\r\n${resFormatProtocol.join("")}`
-          console.log(res)
-          // const resFormat = `*1\r\n*2\r\n$${inputArray[10].length}\r\n${inputArray[10]}\r\n*1\r\n*2\r\n$${resObject[0].length}\r\n${resObject[0]}\r\n*2\r\n$${resObject[1].length}\r\n${resObject[1]}\r\n$${resObject[2].length}\r\n${resObject[2]}\r\n`
           conn.write(res)
         }else{
           conn.write("$-1\r\n")
