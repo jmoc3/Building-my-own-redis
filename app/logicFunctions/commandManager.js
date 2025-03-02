@@ -241,7 +241,7 @@ export const commandManager = ({conn,data}) => {
         }else{
           conn.write("$-1\r\n")
         }
-      },1000)
+      },2000)
       return
     }
 
