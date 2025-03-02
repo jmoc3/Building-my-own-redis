@@ -185,7 +185,6 @@ export const commandManager = ({conn,data}) => {
       return
     }
     
-    
     autoId ? id=0 : id=inputArray[6].split("-")[1]
     xaddIds[xaddIds.length-1].split("-")[0]==fragments[0] ? id=(+xaddIds[xaddIds.length-1].split("-")[1]+1) : id=id
     
@@ -279,7 +278,7 @@ export const commandManager = ({conn,data}) => {
       conn.write(":1\r\n")
       return
     }
-
+    console.log(storage)
     if(isNaN(storage[inputArray[4]].value)){
       conn.write("-ERR value is not an integer or out of range\r\n")
       return
