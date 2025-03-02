@@ -190,8 +190,8 @@ export const commandManager = ({conn,data}) => {
     
     storage[inputArray[4]].value.push([`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]])  
     if(storage["waiting"]==true){
-      const resObject = storage[inputArray[10]].value.slice(-1)[0]
-      const resFormat = `*1\r\n*2\r\n$${inputArray[10].length}\r\n${inputArray[10]}\r\n*1\r\n*2\r\n$${resObject[0].length}\r\n${resObject[0]}\r\n*2\r\n$${resObject[1].length}\r\n${resObject[1]}\r\n$${resObject[2].length}\r\n${resObject[2]}\r\n`
+      const resObject = storage[inputArray[4]].value.slice(-1)[0]
+      const resFormat = `*1\r\n*2\r\n$${inputArray[4].length}\r\n${inputArray[4]}\r\n*1\r\n*2\r\n$${resObject[0].length}\r\n${resObject[0]}\r\n*2\r\n$${resObject[1].length}\r\n${resObject[1]}\r\n$${resObject[2].length}\r\n${resObject[2]}\r\n`
       conn.write(resFormat)
     }else{
       conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
