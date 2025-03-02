@@ -226,13 +226,13 @@ export const commandManager = ({conn,data}) => {
 
       setTimeout(()=>{
         // Error de Tiempo, Hacer algo con la funcion xadd
-        if(storage[inputArray[10]].value.length!=totalSpace){
+        // if(storage[inputArray[10]].value.length!=totalSpace){
           const resObject = storage[inputArray[10]].value.slice(-1)[0]
           const resFormat = `*1\r\n*2\r\n$${inputArray[10].length}\r\n${inputArray[10]}\r\n*1\r\n*2\r\n$${resObject[0].length}\r\n${resObject[0]}\r\n*2\r\n$${resObject[1].length}\r\n${resObject[1]}\r\n$${resObject[2].length}\r\n${resObject[2]}\r\n`
           conn.write(resFormat)
-        }else{
-          conn.write("$-1\r\n")
-        }
+        // }else{
+        //   conn.write("$-1\r\n")
+        // }
       },time)
       return
     }
