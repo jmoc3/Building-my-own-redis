@@ -274,4 +274,13 @@ export const commandManager = ({conn,data}) => {
 
   }
 
+  const incr = inputArray[2]=="incr"
+  if(incr){
+    console.log(inputArray,storage[inputArray[4]].value,+storage[inputArray[4]].value + 1)
+    
+  }
+
+
+
+
 }
