@@ -175,23 +175,23 @@ export const commandManager = ({conn,data}) => {
       }else{
         id=id
       }
-      console.log(`${milliSecondsTime}-${id}`)
       storage[inputArray[4]] = {"value":[[`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
       conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
       return
     }
-
+    console.log(storage)
     const xaddIds = storage[inputArray[4]].value.map(info => info[0])   
     if((xaddIds[xaddIds.length-1] == inputArray[6]) || (+xaddIds[xaddIds.length-1].split("-")[0] > milliSecondsTime)){ 
       conn.write("-ERR The ID specified in XADD is equal or smaller than the target stream top item\r\n")
       return
     }
 
+
     autoId ? id=0 : id=inputArray[6].split("-")[1]
     xaddIds[xaddIds.length-1].split("-")[0]==fragments[0] ? id=(+xaddIds[xaddIds.length-1].split("-")[1]+1) : id=id
 
     storage[inputArray[4]].value.push([`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]])  
-      conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
+    conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
     
   }
 
@@ -199,9 +199,8 @@ export const commandManager = ({conn,data}) => {
   if(xrange){
     const start = inputArray[6] == "-" ? "0-0" : inputArray[6]
     const end = inputArray[8] == "+" ? `${storage[inputArray[4]].value.length}-${storage[inputArray[4]].value.length}` : inputArray[8] 
-    console.log(storage[inputArray[4]].value)
+
     const resObject = storage[inputArray[4]].value.filter(object => {
-      console.log(start, end, object[0])
       if((object[0]>=start) && (object[0]<=end)){
         return object
       }
@@ -226,7 +225,7 @@ export const commandManager = ({conn,data}) => {
       if(inputArray[6]=="0"){
         time = 1000
       }
-      console.log(time)
+
       setTimeout(()=>{
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(storage[inputArray[10]].value.length!=totalSpace){
