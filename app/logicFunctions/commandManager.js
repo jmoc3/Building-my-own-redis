@@ -179,12 +179,14 @@ export const commandManager = ({conn,data}) => {
       conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
       return
     }
+
     const xaddIds = storage[inputArray[4]].value.map(info => info[0])   
+    
     if((xaddIds[xaddIds.length-1] == inputArray[6]) || (+xaddIds[xaddIds.length-1].split("-")[0] > milliSecondsTime)){ 
       conn.write("-ERR The ID specified in XADD is equal or smaller than the target stream top item\r\n")
       return
     }
-    
+    console.log("at the end of the day")
     autoId ? id=0 : id=inputArray[6].split("-")[1]
     xaddIds[xaddIds.length-1].split("-")[0]==fragments[0] ? id=(+xaddIds[xaddIds.length-1].split("-")[1]+1) : id=id
     
@@ -235,6 +237,8 @@ export const commandManager = ({conn,data}) => {
             `*1\r\n*2\r\n$${array[0].length}\r\n${array[0]}\r\n*2\r\n${array[1]}\r\n$${array[1].length}\r\n$${array[2].length}\r\n${array[2]}\r\n`
           )
           const res = `*1\r\n*${resObject.length}\r\n$${inputArray[10].length}\r\n${inputArray[10]}\r\n${resFormat}`
+
+          console.log(res)
           conn.write(res)
         }else{
           conn.write("$-1\r\n")
