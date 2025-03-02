@@ -150,6 +150,9 @@ export const commandManager = ({conn,data}) => {
 
   const xadd = inputArray[2]=="xadd"
   if(xadd){
+
+    console.log(inputArray)
+
     const fragments = inputArray[6].split("-")
     const milliSecondsTime = +fragments[0]
 
