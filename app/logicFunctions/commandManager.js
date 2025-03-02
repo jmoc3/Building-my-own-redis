@@ -150,15 +150,17 @@ export const commandManager = ({conn,data}) => {
 
   const xadd = inputArray[2]=="xadd"
   if(xadd){
+
     const fragments = inputArray[6].split("-")
     const milliSecondsTime = +fragments[0]
 
     if(inputArray[6]=="0-0"){
       conn.write("-ERR The ID specified in XADD must be greater than 0-0\r\n")
     }
-
     const autoId = fragments[1]=="*"
+
     if(inputArray[6]=="*"){
+
       const unixTime = Date.now()
       storage[inputArray[4]] = {"value":[[`${unixTime}-0`,inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
       conn.write(`$${`${unixTime}-0`.length }\r\n${unixTime}-0\r\n`)
@@ -168,8 +170,11 @@ export const commandManager = ({conn,data}) => {
     let id;
     if(storage[inputArray[4]]==undefined){
       autoId ? id=0 : id=inputArray[6].split("-")[1]
-      if(fragments[0]=="0" && inputArray[6].includes("*")){ id=1 }else{ id=id }
-
+      if(fragments[0]=="0" && inputArray[6].includes("*")){
+        id=1
+      }else{
+        id=id
+      }
       storage[inputArray[4]] = {"value":[[`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]]],"expirity":"","type":"stream"}
       conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
       return
@@ -184,8 +189,8 @@ export const commandManager = ({conn,data}) => {
     xaddIds[xaddIds.length-1].split("-")[0]==fragments[0] ? id=(+xaddIds[xaddIds.length-1].split("-")[1]+1) : id=id
     
     storage[inputArray[4]].value.push([`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]])  
-    storage["changed"]=true
     conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
+    
   }
 
   const xrange = inputArray[2]=="xrange"
@@ -219,10 +224,8 @@ export const commandManager = ({conn,data}) => {
         time = 1000
       }
 
-      console.log(storage)
       setTimeout(()=>{
         // Error de Tiempo, Hacer algo con la funcion xadd
-        console.log(storage)
         if(storage[inputArray[10]].value.length!=totalSpace){
           const resObject = storage[inputArray[10]].value.slice(-1)[0]
           const resFormat = `*1\r\n*2\r\n$${inputArray[10].length}\r\n${inputArray[10]}\r\n*1\r\n*2\r\n$${resObject[0].length}\r\n${resObject[0]}\r\n*2\r\n$${resObject[1].length}\r\n${resObject[1]}\r\n$${resObject[2].length}\r\n${resObject[2]}\r\n`
@@ -275,6 +278,7 @@ export const commandManager = ({conn,data}) => {
       conn.write(":1\r\n")
       return
     }
+    
     if(isNaN(storage[inputArray[4]].value)){
       conn.write("-ERR value is not an integer or out of range\r\n")
       return

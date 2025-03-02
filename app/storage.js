@@ -1,1 +1,1 @@
-export const storage = {"changed":false}
+export const storage = {}
