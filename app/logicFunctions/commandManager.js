@@ -244,7 +244,7 @@ export const commandManager = ({conn,data}) => {
           const res = `*${resFormat.length}\r\n${resFormatProtocol.join("")}`
           console.log(res)
           // const resFormat = `*1\r\n*2\r\n$${inputArray[10].length}\r\n${inputArray[10]}\r\n*1\r\n*2\r\n$${resObject[0].length}\r\n${resObject[0]}\r\n*2\r\n$${resObject[1].length}\r\n${resObject[1]}\r\n$${resObject[2].length}\r\n${resObject[2]}\r\n`
-          conn.write(resFormat)
+          conn.write(res)
         }else{
           conn.write("$-1\r\n")
         }
