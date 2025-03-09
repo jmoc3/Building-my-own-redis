@@ -192,7 +192,7 @@ export const commandManager = ({conn,data}) => {
     
     storage[inputArray[4]].value.push([`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]])  
     console.log(storage["history"])
-    console.log("xadd block: ",storage["history"][storage["history"].length-2])
+    console.log("xadd block: ",storage["history"][storage["history"].length-2].slice(-1) == "block")
     conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
     return
   }
