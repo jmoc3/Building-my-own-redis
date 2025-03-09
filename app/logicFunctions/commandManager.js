@@ -228,6 +228,8 @@ export const commandManager = ({conn,data}) => {
         time = 2000
       }
 
+
+
       if(storage["history"][storage["history"].length-1].slice(-1) == "block"){
         conn.write("$-1\r\n")
       }
@@ -248,7 +250,7 @@ export const commandManager = ({conn,data}) => {
         }else{
           conn.write("$-1\r\n")
         }
-      },1100)
+      },time)
       return
     }
 
