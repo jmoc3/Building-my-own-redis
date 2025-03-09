@@ -72,6 +72,8 @@ export const commandManager = ({conn,data}) => {
     replicas.push(conn)
     return conn.write(Buffer.concat([bufferHeader,buffer]))
   }
+  storage["history"].push(inputArray[2])
+  console.log(storage)
 
   // ECHO configuration
   const echo = inputArray[2] == "echo"
@@ -192,7 +194,6 @@ export const commandManager = ({conn,data}) => {
     storage[inputArray[4]].value.push([`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]])  
     conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
     storage["isActive"]=true
-    console.log("storage xadd",storage)
     return
   }
 
