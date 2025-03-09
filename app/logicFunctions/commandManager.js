@@ -73,7 +73,6 @@ export const commandManager = ({conn,data}) => {
     return conn.write(Buffer.concat([bufferHeader,buffer]))
   }
   storage["history"].push([inputArray[2], inputArray[4]])
-  console.log(storage)
 
   // ECHO configuration
   const echo = inputArray[2] == "echo"
@@ -192,7 +191,8 @@ export const commandManager = ({conn,data}) => {
     xaddIds[xaddIds.length-1].split("-")[0]==fragments[0] ? id=(+xaddIds[xaddIds.length-1].split("-")[1]+1) : id=id
     
     storage[inputArray[4]].value.push([`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]])  
-    console.log("xadd block: ",storage["history"].slice(-2))
+    console.log(storage["history"])
+    console.log("xadd block: ",storage["history"][storage["history"].length-2])
     conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
     return
   }
