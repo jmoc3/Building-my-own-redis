@@ -241,7 +241,7 @@ export const commandManager = ({conn,data}) => {
           const resFormat = resObject.map(array => 
             `*2\r\n$${array[0].length}\r\n${array[0]}\r\n*2\r\n$${array[1].length}\r\n${array[1]}\r\n$${array[2].length}\r\n${array[2]}\r\n`
           )
-          console.log(storage)
+          console.log("block command: ",storage)
           const res = `*1\r\n*2\r\n$${inputArray[10].length}\r\n${inputArray[10]}\r\n*${resFormat.length}\r\n${resFormat.join("")}`
 
           conn.write(res)
