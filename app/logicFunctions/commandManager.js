@@ -225,7 +225,7 @@ export const commandManager = ({conn,data}) => {
       const totalSpace = storage[inputArray[10]].value.length
       let time = +inputArray[6]
       if(inputArray[6]=="0"){
-        time = 1000
+        time = 2000
       }
 
       setTimeout(()=>{
@@ -245,7 +245,7 @@ export const commandManager = ({conn,data}) => {
         }else{
           conn.write("$-1\r\n")
         }
-      },2000)
+      },time)
       return
     }
 
