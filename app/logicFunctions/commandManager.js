@@ -218,10 +218,6 @@ export const commandManager = ({conn,data}) => {
     conn.write(res)
   }
 
-  const resBlock = (storage) => {
-
-  }
-
   const xread = inputArray[2]=="xread"
   if(xread){
     // const start = inputArray[6] == "-" ? "0-0" : inputArray[8]
@@ -232,12 +228,12 @@ export const commandManager = ({conn,data}) => {
         time = 1000
       }
 
-      setTimeout((e)=>{
+      setTimeout(()=>{
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(storage[inputArray[10]]){
 
           const resObject = storage[inputArray[10]].value.slice(-1)
-          console.log(storage)
+          
           
           const resFormat = resObject.map(array => 
             `*2\r\n$${array[0].length}\r\n${array[0]}\r\n*2\r\n$${array[1].length}\r\n${array[1]}\r\n$${array[2].length}\r\n${array[2]}\r\n`
@@ -249,7 +245,7 @@ export const commandManager = ({conn,data}) => {
         }else{
           conn.write("$-1\r\n")
         }
-      },time)
+      },2000)
       return
     }
 
