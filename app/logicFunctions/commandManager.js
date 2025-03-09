@@ -192,7 +192,6 @@ export const commandManager = ({conn,data}) => {
     
     storage[inputArray[4]].value.push([`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]])  
     console.log(storage["history"])
-    console.log("xadd block: ",storage["history"][storage["history"].length-2].slice(-1) == "block")
     conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
     return
   }
@@ -224,20 +223,22 @@ export const commandManager = ({conn,data}) => {
     if(inputArray[4]=="block"){
       const totalSpace = storage[inputArray[10]].value.length
       let time = +inputArray[6]
+
       if(inputArray[6]=="0"){
-        time = 1100
+        time = 2000
       }
+
+      console.log(storage["history"][storage["history"].length-2].slice(-1) == "block")
 
       setTimeout(()=>{
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(storage[inputArray[10]]){
 
           const resObject = storage[inputArray[10]].value.slice(-1)
-          
-          
           const resFormat = resObject.map(array => 
             `*2\r\n$${array[0].length}\r\n${array[0]}\r\n*2\r\n$${array[1].length}\r\n${array[1]}\r\n$${array[2].length}\r\n${array[2]}\r\n`
           )
+
           console.log("block command: ",storage)
           const res = `*1\r\n*2\r\n$${inputArray[10].length}\r\n${inputArray[10]}\r\n*${resFormat.length}\r\n${resFormat.join("")}`
 
