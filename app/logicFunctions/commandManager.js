@@ -72,7 +72,7 @@ export const commandManager = ({conn,data}) => {
     replicas.push(conn)
     return conn.write(Buffer.concat([bufferHeader,buffer]))
   }
-  storage["history"].push(inputArray[2])
+  storage["history"].push([inputArray[2], inputArray[4]])
   console.log(storage)
 
   // ECHO configuration
@@ -235,8 +235,7 @@ export const commandManager = ({conn,data}) => {
       setTimeout((e)=>{
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(storage[inputArray[10]]){
-          console.log(e)
-          console.log("Storage xread: ", storage[inputArray[10]].value, storage)
+          
           const resObject = storage[inputArray[10]].value.slice(-1)
           
           const resFormat = resObject.map(array => 
