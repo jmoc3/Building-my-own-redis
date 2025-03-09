@@ -192,8 +192,8 @@ export const commandManager = ({conn,data}) => {
     xaddIds[xaddIds.length-1].split("-")[0]==fragments[0] ? id=(+xaddIds[xaddIds.length-1].split("-")[1]+1) : id=id
     
     storage[inputArray[4]].value.push([`${milliSecondsTime}-${id}`,inputArray[8],inputArray[10]])  
+    console.log(history.slice(-2))
     conn.write(`$${`${milliSecondsTime}-${id}`.length}\r\n${milliSecondsTime}-${id}\r\n`)
-    storage["isActive"]=true
     return
   }
 
@@ -235,7 +235,7 @@ export const commandManager = ({conn,data}) => {
       setTimeout((e)=>{
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(storage[inputArray[10]]){
-          
+
           const resObject = storage[inputArray[10]].value.slice(-1)
           
           const resFormat = resObject.map(array => 
