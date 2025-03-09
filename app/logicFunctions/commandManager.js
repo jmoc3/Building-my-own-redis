@@ -228,7 +228,7 @@ export const commandManager = ({conn,data}) => {
         time = 2000
       }
 
-      console.log(storage["history"].slice(-1).slice(-1) == "block",storage["history"].slice(-1))
+      console.log(storage["history"][storage["history"].length-1].slice(-1) == "block", storage["history"][storage["history"].length-1].slice(-1))
 
       setTimeout(()=>{
         // Error de Tiempo, Hacer algo con la funcion xadd
