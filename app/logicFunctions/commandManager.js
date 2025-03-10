@@ -227,19 +227,11 @@ export const commandManager = ({conn,data}) => {
         time = 2000
       }
 
-      // if(storage["history"][storage["history"].length-1].slice(-1) == "block"){
-      //   return conn.write("$-1\r\n")
-      // }
-      // console.log("Storage before setTimeout:", JSON.stringify(storage, null, 2));
       const lastLength = storage[inputArray[10]].value.length
       setTimeout(()=>{
-        // console.log("Storage after setTimeout:", JSON.stringify(storage, null, 2));
+
         console.log(storage[inputArray[10]].value.slice(-1))
-        // storage[inputArray[10]].value.forEach(array=>{
-          //   if(array.includes(inputArray[12])){
-            
-          //   }
-          // })
+
           // Error de Tiempo, Hacer algo con la funcion xadd
         if(inputArray[12]=="$"){
           const currentLength = storage[inputArray[10]].value.length
@@ -250,7 +242,7 @@ export const commandManager = ({conn,data}) => {
         }
 
         if(storage[inputArray[10]]){
-
+          console.log(lastLength==currentLength)
           const resObject = storage[inputArray[10]].value.slice(-1)
           const resFormat = resObject.map(array => 
             `*2\r\n$${array[0].length}\r\n${array[0]}\r\n*2\r\n$${array[1].length}\r\n${array[1]}\r\n$${array[2].length}\r\n${array[2]}\r\n`
