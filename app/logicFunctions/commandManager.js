@@ -224,15 +224,16 @@ export const commandManager = ({conn,data}) => {
       let time = +inputArray[6]
 
       if(inputArray[6]=="0"){
-        time = 999
+        time = 1000
       }
 
       // if(storage["history"][storage["history"].length-1].slice(-1) == "block"){
       //   return conn.write("$-1\r\n")
       // }
+      console.log("Storage before setTimeout:", JSON.stringify(storage, null, 2));
 
       setTimeout(()=>{
-        console.log(storage[inputArray[10]].value)
+        console.log("Storage after setTimeout:", JSON.stringify(storage, null, 2));
         storage[inputArray[10]].value.forEach(array=>{
           if(array.includes(inputArray[12])){
             console.log("finded")
