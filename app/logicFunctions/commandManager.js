@@ -259,7 +259,7 @@ export const commandManager = ({conn,data}) => {
       conn.write("$-1\r\n")
       return
     }
-    console.log(Object.keys(storage))
+    console.log(Object.keys(storage), inputArray)
     const values = Object.keys(storage).map((element,index) => {
       if(inputArray.includes(element)){
         return [element,inputArray.indexOf(element)]
