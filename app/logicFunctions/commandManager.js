@@ -259,7 +259,7 @@ export const commandManager = ({conn,data}) => {
       conn.write("$-1\r\n")
       return
     }
-
+    console.log(storage)
     const values = Object.keys(storage).map((element,index) => {
       if(inputArray.includes(element)){
         return [element,inputArray.indexOf(element)]
@@ -268,7 +268,6 @@ export const commandManager = ({conn,data}) => {
 
     let res = ""
     values.forEach(key => {
-      console.log(key)
       const resObject = storage[key[0]].value.filter(object => {
         if((object[0]>=inputArray[key[1]+1])){
           return object
