@@ -260,7 +260,7 @@ export const commandManager = ({conn,data}) => {
       return
     }
     console.log(Object.keys(storage), inputArray)
-    const values = Object.keys(storage).map((element,index) => {
+    const values = Object.keys(storage).filter((element,index) => {
       if(inputArray.includes(element)){
         return [element,inputArray.indexOf(element)]
       }
