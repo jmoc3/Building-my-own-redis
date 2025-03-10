@@ -264,7 +264,7 @@ export const commandManager = ({conn,data}) => {
       if(inputArray.includes(element)){
         return [element,inputArray.indexOf(element)]
       }
-    })
+    }).filter(element => element!=undefined)
     console.log(values)
     let res = ""
     values.forEach(key => {
