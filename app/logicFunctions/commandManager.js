@@ -237,7 +237,7 @@ export const commandManager = ({conn,data}) => {
         console.log(inputArray, inputArray[12], storage)
         storage[inputArray[10]].value.forEach(array=>{
           if(array.includes(inputArray[12])){
-            console.log("founded")
+            return conn.write("$-1\r\n")
           }
         })
         // Error de Tiempo, Hacer algo con la funcion xadd
