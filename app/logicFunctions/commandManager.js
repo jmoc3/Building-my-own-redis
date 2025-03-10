@@ -233,7 +233,7 @@ export const commandManager = ({conn,data}) => {
       }
 
       setTimeout(()=>{
-        console.log(storage)
+        console.log(storage, time)
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(storage[inputArray[10]]){
 
