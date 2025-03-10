@@ -233,11 +233,11 @@ export const commandManager = ({conn,data}) => {
 
         console.log(storage[inputArray[10]].value.slice(-1))
 
-          // Error de Tiempo, Hacer algo con la funcion xadd
-         if(lastLength==currentLength){
-            conn.write("$-1\r\n")
-            return 
-          }
+        // Error de Tiempo, Hacer algo con la funcion xadd
+        if(lastLength==currentLength){
+          conn.write("$-1\r\n")
+          return 
+        }
         
 
         if(storage[inputArray[10]]){
@@ -268,6 +268,7 @@ export const commandManager = ({conn,data}) => {
 
     let res = ""
     values.forEach(key => {
+      console.log(key)
       const resObject = storage[key[0]].value.filter(object => {
         if((object[0]>=inputArray[key[1]+1])){
           return object
