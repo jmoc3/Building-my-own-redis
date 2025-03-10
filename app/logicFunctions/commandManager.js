@@ -228,9 +228,9 @@ export const commandManager = ({conn,data}) => {
         time = 1000
       }
 
-      if(storage["history"][storage["history"].length-1].slice(-1) == "block"){
-        return conn.write("$-1\r\n")
-      }
+      // if(storage["history"][storage["history"].length-1].slice(-1) == "block"){
+      //   return conn.write("$-1\r\n")
+      // }
 
       setTimeout(()=>{
         console.log(storage[inputArray[10]], time)
