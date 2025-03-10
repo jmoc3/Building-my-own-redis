@@ -224,7 +224,7 @@ export const commandManager = ({conn,data}) => {
       let time = +inputArray[6]
 
       if(inputArray[6]=="0"){
-        time = 1000
+        time = 2000
       }
 
       // if(storage["history"][storage["history"].length-1].slice(-1) == "block"){
@@ -244,6 +244,7 @@ export const commandManager = ({conn,data}) => {
         if(inputArray[12]=="$"){
           const currentLength = storage[inputArray[10]].value.length
           console.log(lastLength,currentLength)
+          return 
         }
 
         if(storage[inputArray[10]]){
