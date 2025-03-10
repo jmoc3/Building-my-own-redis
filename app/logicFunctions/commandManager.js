@@ -229,7 +229,7 @@ export const commandManager = ({conn,data}) => {
       }
 
       if(storage["history"][storage["history"].length-1].slice(-1) == "block"){
-        conn.write("$-1\r\n")
+        return conn.write("$-1\r\n")
       }
 
       setTimeout(()=>{
