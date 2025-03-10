@@ -221,7 +221,6 @@ export const commandManager = ({conn,data}) => {
   if(xread){
     // const start = inputArray[6] == "-" ? "0-0" : inputArray[8]
     if(inputArray[4]=="block"){
-      const totalSpace = storage[inputArray[10]].value.length
       let time = +inputArray[6]
 
       if(inputArray[6]=="0"){
@@ -233,7 +232,7 @@ export const commandManager = ({conn,data}) => {
       // }
 
       setTimeout(()=>{
-        console.log(storage[inputArray[10]], time)
+        console.log(storage)
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(storage[inputArray[10]]){
 
