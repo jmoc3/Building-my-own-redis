@@ -265,7 +265,7 @@ export const commandManager = ({conn,data}) => {
         return [element,inputArray.indexOf(element)]
       }
     })
-
+    console.log(values)
     let res = ""
     values.forEach(key => {
       const resObject = storage[key[0]].value.filter(object => {
