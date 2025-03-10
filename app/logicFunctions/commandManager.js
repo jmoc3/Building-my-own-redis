@@ -243,8 +243,10 @@ export const commandManager = ({conn,data}) => {
           // Error de Tiempo, Hacer algo con la funcion xadd
         if(inputArray[12]=="$"){
           const currentLength = storage[inputArray[10]].value.length
-          console.log(lastLength,currentLength)
-          return 
+          if(lastLength==currentLength){
+            conn.write("$-1\r\n")
+            return 
+          }
         }
 
         if(storage[inputArray[10]]){
