@@ -234,7 +234,7 @@ export const commandManager = ({conn,data}) => {
 
       setTimeout(()=>{
         // console.log("Storage after setTimeout:", JSON.stringify(storage, null, 2));
-        console.log(inputArray)
+        console.log(inputArray, storage)
         storage[inputArray[10]].value.forEach(array=>{
           if(array.includes(inputArray[12])){
             console.log("founded")
