@@ -224,7 +224,7 @@ export const commandManager = ({conn,data}) => {
       let time = +inputArray[6]
 
       if(inputArray[6]=="0"){
-        time = 1100
+        time = 1000
       }
 
       // if(storage["history"][storage["history"].length-1].slice(-1) == "block"){
@@ -235,11 +235,11 @@ export const commandManager = ({conn,data}) => {
       setTimeout(()=>{
         // console.log("Storage after setTimeout:", JSON.stringify(storage, null, 2));
         console.log(inputArray, inputArray[12], storage)
-        storage[inputArray[10]].value.forEach(array=>{
-          if(array.includes(inputArray[12])){
-            return conn.write("$-1\r\n")
-          }
-        })
+        // storage[inputArray[10]].value.forEach(array=>{
+        //   if(array.includes(inputArray[12])){
+
+        //   }
+        // })
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(storage[inputArray[10]]){
 
