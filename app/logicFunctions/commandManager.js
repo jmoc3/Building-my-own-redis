@@ -233,6 +233,11 @@ export const commandManager = ({conn,data}) => {
 
       setTimeout(()=>{
         console.log(storage[inputArray[10]].value)
+        storage[inputArray[10]].value.forEach(array=>{
+          if(array.includes(inputArray[12])){
+            console.log("finded")
+          }
+        })
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(storage[inputArray[10]]){
 
