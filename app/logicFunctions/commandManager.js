@@ -232,7 +232,7 @@ export const commandManager = ({conn,data}) => {
       // }
 
       setTimeout(()=>{
-        console.log(storage)
+        console.log(storage[inputArray[10]].value)
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(storage[inputArray[10]]){
 
@@ -242,7 +242,6 @@ export const commandManager = ({conn,data}) => {
           )
 
           const res = `*1\r\n*2\r\n$${inputArray[10].length}\r\n${inputArray[10]}\r\n*${resFormat.length}\r\n${resFormat.join("")}`
-          // console.log("block command: ",storage, time, res)
 
           conn.write(res)
         }
