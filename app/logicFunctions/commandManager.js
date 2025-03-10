@@ -231,16 +231,21 @@ export const commandManager = ({conn,data}) => {
       //   return conn.write("$-1\r\n")
       // }
       // console.log("Storage before setTimeout:", JSON.stringify(storage, null, 2));
-
+      const lastLength = storage[inputArray[10]].value.length
       setTimeout(()=>{
         // console.log("Storage after setTimeout:", JSON.stringify(storage, null, 2));
         console.log(storage[inputArray[10]].value.slice(-1))
         // storage[inputArray[10]].value.forEach(array=>{
-        //   if(array.includes(inputArray[12])){
+          //   if(array.includes(inputArray[12])){
+            
+          //   }
+          // })
+          // Error de Tiempo, Hacer algo con la funcion xadd
+        if(inputArray[12]=="$"){
+          const currentLength = storage[inputArray[10]].value.length
+          console.log(lastLength,currentLength)
+        }
 
-        //   }
-        // })
-        // Error de Tiempo, Hacer algo con la funcion xadd
         if(storage[inputArray[10]]){
 
           const resObject = storage[inputArray[10]].value.slice(-1)
