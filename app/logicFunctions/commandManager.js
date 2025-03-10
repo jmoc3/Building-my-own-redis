@@ -224,7 +224,7 @@ export const commandManager = ({conn,data}) => {
       let time = +inputArray[6]
 
       if(inputArray[6]=="0"){
-        time = 1200
+        time = 999
       }
 
       // if(storage["history"][storage["history"].length-1].slice(-1) == "block"){
