@@ -246,8 +246,6 @@ export const commandManager = ({conn,data}) => {
           // console.log("block command: ",storage, time, res)
 
           conn.write(res)
-        }else{
-          conn.write("$-1\r\n")
         }
       },time)
       return
