@@ -31,7 +31,7 @@ export const commandManager = ({conn,data}) => {
   // KEYS configuration
   const keys = inputArray[2] == "keys"
   if(keys){
-    const keyWords = Object.keys(storage).filter(element =>  element!="history") 
+    const keyWords = Object.keys(storage)
     const lenKeyWords = keyWords.map(e => e.length) 
     let res = ""
     for(let i=0;i<keyWords.length;i++){
@@ -72,7 +72,6 @@ export const commandManager = ({conn,data}) => {
     replicas.push(conn)
     return conn.write(Buffer.concat([bufferHeader,buffer]))
   }
-  storage["history"].push([inputArray[2], inputArray[4]])
 
   // ECHO configuration
   const echo = inputArray[2] == "echo"
