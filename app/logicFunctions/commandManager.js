@@ -31,7 +31,7 @@ export const commandManager = ({conn,data}) => {
   // KEYS configuration
   const keys = inputArray[2] == "keys"
   if(keys){
-    const keyWords = Object.keys(storage) 
+    const keyWords = Object.keys(storage).filter(element =>  element!="history") 
     const lenKeyWords = keyWords.map(e => e.length) 
     let res = ""
     for(let i=0;i<keyWords.length;i++){
@@ -239,7 +239,6 @@ export const commandManager = ({conn,data}) => {
           return 
         }
         
-
         if(storage[inputArray[10]]){
           console.log(lastLength==currentLength)
           const resObject = storage[inputArray[10]].value.slice(-1)
