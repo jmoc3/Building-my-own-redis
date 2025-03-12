@@ -17,8 +17,8 @@ export const commandManager = ({conn,data}) => {
 
   storage['history'].push(inputArray)
   
-  if(storage['multi']){
-    storage['queue'].push(inputArray)
+  if(storage['multi'] && inputArray[2]!="exec"){
+    storage['queue'].push(inputArray[2])
   }
 
   // PING configuration
@@ -320,13 +320,16 @@ export const commandManager = ({conn,data}) => {
 
   const exec = inputArray[2]=="exec"
   if(exec){
-    storage['multi']=false
     console.log(storage['queue'])
     console.log(storage['history'])
-    if(storage['queue']==undefined){
+    if(storage['multi']==false){
       conn.write("-ERR EXEC without MULTI\r\n")
       return
     }
+
+    // if(storage['history'].slice(-2)[0])
+
     storage['queue'] = undefined
+    storage['multi']=false
   }
 }
