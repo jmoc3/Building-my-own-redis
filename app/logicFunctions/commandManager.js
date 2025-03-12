@@ -15,6 +15,10 @@ export const commandManager = ({conn,data}) => {
   const input = data.toString().toLowerCase()
   const inputArray =  input.split("\r\n")   
   
+  if(storage['multi']){
+    storage['queue'].push(inputArray)
+  }
+
   // PING configuration
   if (input=="*1\r\n$4\r\nping\r\n") return conn.write("$4\r\nPONG\r\n")
   
@@ -302,6 +306,13 @@ export const commandManager = ({conn,data}) => {
 
     storage[inputArray[4]].value =  `${+storage[inputArray[4]].value + 1}`
     conn.write(`:${storage[inputArray[4]].value}\r\n`)
+    return
+  }
+
+  const multi = inputArray[2]=="multi"
+  if(multi){
+    storage['multi']=true
+    conn.write("+OK\r\n")
     return
   }
 
