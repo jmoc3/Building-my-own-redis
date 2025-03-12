@@ -15,10 +15,10 @@ export const commandManager = ({conn,data}) => {
   const input = data.toString().toLowerCase()
   const inputArray =  input.split("\r\n")   
 
-  storage['history'].push(inputArray)
+  storage['history'].push(inputArray[2])
   
   if(storage['multi'] && inputArray[2]!="exec"){
-    storage['queue'].push(inputArray[2])
+    storage['queue'].push(inputArray)
   }
 
   // PING configuration
