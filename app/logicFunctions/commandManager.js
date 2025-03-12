@@ -14,6 +14,8 @@ export const commandManager = ({conn,data}) => {
   // const input = respConverter(clientInput)
   const input = data.toString().toLowerCase()
   const inputArray =  input.split("\r\n")   
+
+  storage['history'].push(inputArray)
   
   if(storage['multi']){
     storage['queue'].push(inputArray)
@@ -320,6 +322,7 @@ export const commandManager = ({conn,data}) => {
   if(exec){
     storage['multi']=false
     console.log(storage['queue'])
+    console.log(storage['history'])
     if(storage['queue']==undefined){
       conn.write("-ERR EXEC without MULTI\r\n")
       return
