@@ -327,7 +327,10 @@ export const commandManager = ({conn,data}) => {
       return
     }
 
-    // if(storage['history'].slice(-2)[0])
+    if(storage['history'].slice(-2)[0]=="multi"){
+      conn.write("*0\r\n")
+      return
+    }
 
     storage['queue'] = undefined
     storage['multi']=false
