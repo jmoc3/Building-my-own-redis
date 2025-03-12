@@ -19,6 +19,8 @@ export const commandManager = ({conn,data}) => {
   
   if(storage['multi'] && inputArray[2]!="exec"){
     storage['queue'].push(inputArray)
+    conn.write("+QUEUED\r\n")
+    return
   }
 
   // PING configuration
@@ -37,7 +39,8 @@ export const commandManager = ({conn,data}) => {
   // KEYS configuration
   const keys = inputArray[2] == "keys"
   if(keys){
-    const keyWords = Object.keys(storage)
+    const {history,queue, multi, ...restStorage} = storage
+    const keyWords = Object.keys(restStorage)
     const lenKeyWords = keyWords.map(e => e.length) 
     let res = ""
     for(let i=0;i<keyWords.length;i++){
@@ -323,7 +326,7 @@ export const commandManager = ({conn,data}) => {
     console.log(storage['queue'])
     console.log(storage['history'])
     console.log(storage['multi'])
-    if(storage['multi']==false || storage['multi']==undefined){
+    if(storage['multi']==false){
       conn.write("-ERR EXEC without MULTI\r\n")
       return
     }

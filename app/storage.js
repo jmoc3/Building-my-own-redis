@@ -1,1 +1,1 @@
-export const storage = {"queue":[],"history":[]}
+export const storage = {"queue":[],"history":[],'multi':false}
