@@ -316,4 +316,10 @@ export const commandManager = ({conn,data}) => {
     return
   }
 
+  const exec = inputArray[2]=="exec"
+  if(exec){
+    storage['multi']=false
+    console.log(storage['queue'])
+    
+  }
 }
