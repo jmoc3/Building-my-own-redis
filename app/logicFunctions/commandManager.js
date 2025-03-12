@@ -323,7 +323,7 @@ export const commandManager = ({conn,data}) => {
     console.log(storage['queue'])
     console.log(storage['history'])
     console.log(storage['multi'])
-    if(storage['multi']==false){
+    if(storage['multi']==false || storage['multi']==undefined){
       conn.write("-ERR EXEC without MULTI\r\n")
       return
     }
