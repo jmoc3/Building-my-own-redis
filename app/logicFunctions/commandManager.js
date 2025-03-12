@@ -320,6 +320,10 @@ export const commandManager = ({conn,data}) => {
   if(exec){
     storage['multi']=false
     console.log(storage['queue'])
-    
+    if(storage['queue']==undefined){
+      conn.write("-ERR EXEC without MULTI\r\n")
+      return
+    }
+    storage['queue'] = undefined
   }
 }
