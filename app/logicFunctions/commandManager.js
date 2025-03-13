@@ -17,9 +17,10 @@ export const commandManager = ({conn,data}) => {
 
   storage['history'].push(inputArray[2])
   
-  if(storage['multi'] && inputArray[2]!="exec"){
-    console.log(storage['multi'], inputArray[2])
+  if(storage['multi'][0]==true && inputArray[2]!="exec"){
+    console.log(storage['multi'][1]==conn)
     storage['queue'].push(inputArray)
+    console.log(conn)
     conn.write("+QUEUED\r\n")
     return
   }
@@ -318,7 +319,7 @@ export const commandManager = ({conn,data}) => {
 
   const multi = inputArray[2]=="multi"
   if(multi){
-    storage['multi']=true
+    storage['multi']=[true,conn]
     conn.write("+OK\r\n")
     return
   }
@@ -328,19 +329,19 @@ export const commandManager = ({conn,data}) => {
     console.log(storage['queue'])
     console.log(storage['history'])
     console.log(storage['multi'])
-    if(storage['multi']==false){
+    if(storage['multi'][0]==false){
       conn.write("-ERR EXEC without MULTI\r\n")
       return
     }
 
     if(storage['history'].slice(-2)[0]=="multi"){
       conn.write("*0\r\n")
-      storage['multi']=false
+      storage['multi'][0]=false
       return
     }
     
     
-    storage['multi']=false
+    storage['multi'][0]=false
     storage['queue'] = undefined
   }
 }
