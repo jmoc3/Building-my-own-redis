@@ -18,7 +18,7 @@ export const commandManager = ({conn,data}) => {
   storage['history'].push(inputArray[2])
   
   if((storage['multi'][0]==true) && (inputArray[2]!="exec") && (storage['multi'][1]==conn)){
-    storage['queue'].push(inputArray)
+    storage['queue'].push(input)
     conn.write("+QUEUED\r\n")
     return
   }
@@ -334,7 +334,7 @@ export const commandManager = ({conn,data}) => {
       return
     }
     
-    storage['queue'].map(command=>console.log(`*${command.length}\r\n${command.join('\r\n')}`))
+    storage['queue'].map(command=>console.log(command))
     // conn.write(storage['queue'])
     
     storage['multi'][0]=false
