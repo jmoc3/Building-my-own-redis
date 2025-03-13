@@ -334,9 +334,10 @@ export const commandManager = ({conn,data}) => {
       return
     }
     
-    console.log(storage['queue'])
+    conn.write(storage['queue'])
     
     storage['multi'][0]=false
     storage['queue'] = undefined
+    return 
   }
 }
