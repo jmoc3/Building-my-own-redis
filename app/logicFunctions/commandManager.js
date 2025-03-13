@@ -7,18 +7,18 @@ const respConverter = (buffer) => {
     inputConverted = stringArray.map(e => `$${e.length}\r\n${e.toLowerCase()}\r\n`)
     return `*${stringArray.length}\r\n${inputConverted.join("")}`
   }
-
+const multiState = false
 const replicas = replicasStorage["list"]
 
 export const commandManager = ({conn,data}) => {
   // const input = respConverter(clientInput)
   const input = data.toString().toLowerCase()
   const inputArray =  input.split("\r\n")   
-
+  
   storage['history'].push(inputArray[2])
   
-  if(storage['multi'] && inputArray[2]!="exec"){
-    console.log(storage['multi'], inputArray[2])
+  if(multiState && inputArray[2]!="exec"){
+    console.log(multiState, inputArray[2])
     storage['queue'].push(inputArray)
     conn.write("+QUEUED\r\n")
     return
@@ -318,7 +318,7 @@ export const commandManager = ({conn,data}) => {
 
   const multi = inputArray[2]=="multi"
   if(multi){
-    storage['multi']=true
+    multiState=true
     conn.write("+OK\r\n")
     return
   }
@@ -328,19 +328,19 @@ export const commandManager = ({conn,data}) => {
     console.log(storage['queue'])
     console.log(storage['history'])
     console.log(storage['multi'])
-    if(storage['multi']==false){
+    if(multiState==false){
       conn.write("-ERR EXEC without MULTI\r\n")
       return
     }
 
     if(storage['history'].slice(-2)[0]=="multi"){
       conn.write("*0\r\n")
-      storage['multi']=false
+      multiState=false
       return
     }
     
     
-    storage['multi']=false
+    multiState=false
     storage['queue'] = undefined
   }
 }
