@@ -334,7 +334,7 @@ export const commandManager = ({conn,data}) => {
       return
     }
     
-    storage['queue'].map(command=>console.log(command))
+    console.log(`*${storage['queue'].length}\r\n${storage['queue'].join('\r\n')}`)
     // conn.write(storage['queue'])
     
     storage['multi'][0]=false
