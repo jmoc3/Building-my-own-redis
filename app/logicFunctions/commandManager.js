@@ -7,17 +7,18 @@ const respConverter = (buffer) => {
     inputConverted = stringArray.map(e => `$${e.length}\r\n${e.toLowerCase()}\r\n`)
     return `*${stringArray.length}\r\n${inputConverted.join("")}`
   }
+
 const replicas = replicasStorage["list"]
 
-export const commandManager = ({conn,data,multiState}) => {
+export const commandManager = ({conn,data}) => {
   // const input = respConverter(clientInput)
   const input = data.toString().toLowerCase()
   const inputArray =  input.split("\r\n")   
-  
+
   storage['history'].push(inputArray[2])
-  console.log(multiState)
-  if(multiState && inputArray[2]!="exec"){
-    console.log(multiState, inputArray[2])
+  
+  if(storage['multi'] && inputArray[2]!="exec"){
+    console.log(storage['multi'], inputArray[2])
     storage['queue'].push(inputArray)
     conn.write("+QUEUED\r\n")
     return
@@ -39,7 +40,7 @@ export const commandManager = ({conn,data,multiState}) => {
   // KEYS configuration
   const keys = inputArray[2] == "keys"
   if(keys){
-    const {history,queue, ...restStorage} = storage
+    const {history,queue, multi, ...restStorage} = storage
     const keyWords = Object.keys(restStorage)
     const lenKeyWords = keyWords.map(e => e.length) 
     let res = ""
@@ -317,8 +318,7 @@ export const commandManager = ({conn,data,multiState}) => {
 
   const multi = inputArray[2]=="multi"
   if(multi){
-    multiState=true
-    console.log("multi command: ", multi)
+    storage['multi']=true
     conn.write("+OK\r\n")
     return
   }
@@ -327,20 +327,20 @@ export const commandManager = ({conn,data,multiState}) => {
   if(exec){
     console.log(storage['queue'])
     console.log(storage['history'])
-    console.log(multi)
-    if(multiState==false){
+    console.log(storage['multi'])
+    if(storage['multi']==false){
       conn.write("-ERR EXEC without MULTI\r\n")
       return
     }
 
     if(storage['history'].slice(-2)[0]=="multi"){
       conn.write("*0\r\n")
-      multiState=false
+      storage['multi']=false
       return
     }
     
     
-    multiState=false
+    storage['multi']=false
     storage['queue'] = undefined
   }
 }
