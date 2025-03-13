@@ -30,12 +30,12 @@ const path = `${config["dir"]}/${config["dbfilename"]}`
 
 const server = net.createServer((connection) => {
 
+  let multiState = false
   connection.on("data", (data)=>{
     const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
       fileReader(path)
     }
-    let multiState = false
     
     commandManager({conn: connection, data, multiState})
   })
