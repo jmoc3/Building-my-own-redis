@@ -15,7 +15,7 @@ export const commandManager = ({conn,data,multiState}) => {
   const inputArray =  input.split("\r\n")   
   
   storage['history'].push(inputArray[2])
-  
+  console.log(multiState)
   if(multiState && inputArray[2]!="exec"){
     console.log(multiState, inputArray[2])
     storage['queue'].push(inputArray)
