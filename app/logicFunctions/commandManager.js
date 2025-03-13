@@ -323,19 +323,18 @@ export const commandManager = ({conn,data}) => {
 
   const exec = inputArray[2]=="exec"
   if(exec){
-    console.log(storage['queue'])
-    console.log(storage['history'])
     if(storage['multi'][0]==false){
       conn.write("-ERR EXEC without MULTI\r\n")
       return
     }
-
+    
     if(storage['history'].slice(-2)[0]=="multi"){
       conn.write("*0\r\n")
       storage['multi'][0]=false
       return
     }
     
+    console.log(storage['queue'])
     
     storage['multi'][0]=false
     storage['queue'] = undefined
