@@ -28,9 +28,9 @@ config["dir"] = dirId == -1 ? null : process.argv[dirId + 1]
 config["dbfilename"] = dbfilenameId == -1 ? null : process.argv[dbfilenameId + 1]
 const path = `${config["dir"]}/${config["dbfilename"]}`
 
+let multiState = false
 const server = net.createServer((connection) => {
 
-  let multiState = false
   console.log("connection log: ", multiState)
   connection.on("data", (data)=>{
     const existFile = fs.existsSync(path)
