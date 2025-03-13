@@ -20,7 +20,6 @@ export const commandManager = ({conn,data}) => {
   if(storage['multi'][0]==true && inputArray[2]!="exec"){
     console.log(storage['multi'][1]==conn)
     storage['queue'].push(inputArray)
-    console.log(conn)
     conn.write("+QUEUED\r\n")
     return
   }
