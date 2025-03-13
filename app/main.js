@@ -28,17 +28,16 @@ config["dir"] = dirId == -1 ? null : process.argv[dirId + 1]
 config["dbfilename"] = dbfilenameId == -1 ? null : process.argv[dbfilenameId + 1]
 const path = `${config["dir"]}/${config["dbfilename"]}`
 
-let multiState = false
 const server = net.createServer((connection) => {
 
-  console.log("connection log: ", multiState)
+  console.log("New terminal openned")
   connection.on("data", (data)=>{
     const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
       fileReader(path)
     }
     
-    commandManager({conn: connection, data, multiState})
+    commandManager({conn: connection, data})
   })
 
 });
