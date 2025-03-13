@@ -334,7 +334,7 @@ export const commandManager = ({conn,data}) => {
       return
     }
     
-    conn.write(`*${storage['queue'].length}\r\n${storage['queue'].join('\r\n')}`)
+    conn.write(`*${storage['queue'].length}\r\n${storage['queue'].join('')}`)
     
     storage['multi'][0]=false
     storage['queue'] = undefined
