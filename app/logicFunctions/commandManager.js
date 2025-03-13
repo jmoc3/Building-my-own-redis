@@ -318,6 +318,7 @@ export const commandManager = ({conn,data,multiState}) => {
   const multi = inputArray[2]=="multi"
   if(multi){
     multiState=true
+    console.log("multi command: ", multi)
     conn.write("+OK\r\n")
     return
   }
@@ -326,7 +327,7 @@ export const commandManager = ({conn,data,multiState}) => {
   if(exec){
     console.log(storage['queue'])
     console.log(storage['history'])
-    console.log(storage['multi'])
+    console.log(multi)
     if(multiState==false){
       conn.write("-ERR EXEC without MULTI\r\n")
       return
