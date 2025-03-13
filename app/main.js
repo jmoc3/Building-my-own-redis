@@ -35,7 +35,9 @@ const server = net.createServer((connection) => {
     if(config["dir"]!=null && existFile){
       fileReader(path)
     }
-    commandManager({conn: connection, data})
+    let multiState = false
+    
+    commandManager({conn: connection, data, multiState})
   })
 
 });
