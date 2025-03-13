@@ -7,7 +7,7 @@ const respConverter = (buffer) => {
     inputConverted = stringArray.map(e => `$${e.length}\r\n${e.toLowerCase()}\r\n`)
     return `*${stringArray.length}\r\n${inputConverted.join("")}`
   }
-const multiState = false
+let multiState = false
 const replicas = replicasStorage["list"]
 
 export const commandManager = ({conn,data}) => {
