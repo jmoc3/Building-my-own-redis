@@ -39,7 +39,7 @@ export const commandManager = ({conn,data,multiState}) => {
   // KEYS configuration
   const keys = inputArray[2] == "keys"
   if(keys){
-    const {history,queue, multi, ...restStorage} = storage
+    const {history,queue, ...restStorage} = storage
     const keyWords = Object.keys(restStorage)
     const lenKeyWords = keyWords.map(e => e.length) 
     let res = ""

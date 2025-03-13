@@ -31,6 +31,7 @@ const path = `${config["dir"]}/${config["dbfilename"]}`
 const server = net.createServer((connection) => {
 
   let multiState = false
+  console.log("connection log: ", multiState)
   connection.on("data", (data)=>{
     const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
