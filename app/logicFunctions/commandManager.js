@@ -22,7 +22,7 @@ export const commandManager = ({conn,data}) => {
     conn.write("+QUEUED\r\n")
     return
   }
-
+  
   // PING configuration
   if (input=="*1\r\n$4\r\nping\r\n") return conn.write("$4\r\nPONG\r\n")
   
@@ -333,7 +333,9 @@ export const commandManager = ({conn,data}) => {
       storage['multi'][0]=false
       return
     }
-    console.log(storage['queue'])
+    storage['queue'].forEach(command =>{
+      console.log(command)
+    })
     conn.write(`*${storage['queue'].length}\r\n${storage['queue'].join('')}`)
     
     storage['multi'][0]=false
