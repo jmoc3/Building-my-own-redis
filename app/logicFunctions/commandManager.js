@@ -8,8 +8,8 @@ const respConverter = (buffer) => {
     return `*${stringArray.length}\r\n${inputConverted.join("")}`
   }
 
+  // Refactorizar el codigo!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 const replicas = replicasStorage["list"]
-
 export const commandManager = ({conn,data}) => {
   // const input = respConverter(clientInput)
   const input = data.toString().toLowerCase()
