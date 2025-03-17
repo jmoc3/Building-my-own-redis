@@ -16,8 +16,8 @@ export const commandManager = ({conn,data}) => {
   const inputArray =  input.split("\r\n")   
 
   storage['history'].push(inputArray[2])
-  
-  if((storage['multi'][0]==true) && (inputArray[2]!="exec") && (storage['multi'][1]==conn)){
+  console.log(inputArray)
+  if(((storage['multi'][0]==true) && (inputArray[2]!="exec")) && (storage['multi'][1]==conn)){
     storage['queue'].push(input)
     conn.write("+QUEUED\r\n")
     return
