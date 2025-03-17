@@ -16,7 +16,6 @@ export const commandManager = ({conn,data}) => {
   const inputArray =  input.split("\r\n")   
 
   storage['history'].push(inputArray[2])
-  console.log(inputArray)
   if(((storage['multi'][0]==true) && (inputArray[2]!="exec")) && (storage['multi'][1]==conn)){
     storage['queue'].push(input)
     return "+QUEUED\r\n"
@@ -230,7 +229,7 @@ export const commandManager = ({conn,data}) => {
       const lastLength = storage[inputArray[10]].value.length
       setTimeout(()=>{
         const currentLength = storage[inputArray[10]].value.length
-
+        console.log('aqui no')
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(lastLength==currentLength){ return "$-1\r\n" }
         
