@@ -333,6 +333,7 @@ export const commandManager = ({conn,data}) => {
       storage['multi'][0]=false
       return
     }
+    console.log('a')
     storage['multi']=[false,conn]
     storage['queue'].forEach(command =>{
       commandManager({conn,data:command})
