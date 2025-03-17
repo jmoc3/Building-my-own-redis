@@ -37,7 +37,8 @@ const server = net.createServer((connection) => {
       fileReader(path)
     }
     
-    commandManager({conn: connection, data})
+    const res = commandManager({conn: connection, data})
+    connection.write(res)
   })
 
 });
