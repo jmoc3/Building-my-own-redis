@@ -334,7 +334,7 @@ export const commandManager = ({conn,data}) => {
       return
     }
     storage['queue'].forEach(command =>{
-      console.log(command)
+      commandManager({data:command})
     })
     conn.write(`*${storage['queue'].length}\r\n${storage['queue'].join('')}`)
     
