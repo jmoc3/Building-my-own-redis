@@ -318,7 +318,7 @@ export const commandManager = ({conn,data}) => {
       queue.push(commandManager({conn,data:command}))
     })
     console.log(queue)
-    const res = `*${storage['queue'].length}\r\n${storage['queue'].join('')}`
+    const res = `*${queue.length}\r\n${queue.join("")}`
     
     storage['queue'] = undefined
     return res
