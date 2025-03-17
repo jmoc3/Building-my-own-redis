@@ -316,7 +316,7 @@ export const commandManager = ({conn,data}) => {
     storage['queue'].forEach(command =>{
       commandManager({conn,data:command})
     })
-    res = `*${storage['queue'].length}\r\n${storage['queue'].join('')}`
+    const res = `*${storage['queue'].length}\r\n${storage['queue'].join('')}`
     
     storage['queue'] = undefined
     return res
