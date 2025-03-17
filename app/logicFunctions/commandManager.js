@@ -333,12 +333,12 @@ export const commandManager = ({conn,data}) => {
       storage['multi'][0]=false
       return
     }
+    storage['multi']=[false,conn]
     storage['queue'].forEach(command =>{
       commandManager({conn,data:command})
     })
     conn.write(`*${storage['queue'].length}\r\n${storage['queue'].join('')}`)
     
-    storage['multi'][0]=false
     storage['queue'] = undefined
     return 
   }
