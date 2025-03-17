@@ -215,9 +215,10 @@ export const commandManager = ({conn,data}) => {
     
     return res
   }
-
+  
   const xread = inputArray[2]=="xread"
   if(xread){
+    console.log('aqui no')
     // const start = inputArray[6] == "-" ? "0-0" : inputArray[8]
     if(inputArray[4]=="block"){
       let time = +inputArray[6]
@@ -229,7 +230,6 @@ export const commandManager = ({conn,data}) => {
       const lastLength = storage[inputArray[10]].value.length
       setTimeout(()=>{
         const currentLength = storage[inputArray[10]].value.length
-        console.log('aqui no')
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(lastLength==currentLength){ return "$-1\r\n" }
         
