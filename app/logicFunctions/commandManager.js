@@ -218,7 +218,6 @@ export const commandManager = ({conn,data}) => {
   
   const xread = inputArray[2]=="xread"
   if(xread){
-    console.log('aqui no')
     // const start = inputArray[6] == "-" ? "0-0" : inputArray[8]
     if(inputArray[4]=="block"){
       let time = +inputArray[6]
