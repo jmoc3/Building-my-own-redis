@@ -218,17 +218,17 @@ export const commandManager = ({conn,data}) => {
   
   const xread = inputArray[2]=="xread"
   if(xread){
-    console.log("Founded")
     // const start = inputArray[6] == "-" ? "0-0" : inputArray[8]
     if(inputArray[4]=="block"){
       let time = +inputArray[6]
-
+      
       if(inputArray[6]=="0"){
         time = 2000
       }
-
+      
       const lastLength = storage[inputArray[10]].value.length
       setTimeout(()=>{
+        console.log("Founded")
         const currentLength = storage[inputArray[10]].value.length
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(lastLength==currentLength){ return "$-1\r\n" }
