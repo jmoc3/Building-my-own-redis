@@ -226,11 +226,12 @@ export const commandManager = ({conn,data}) => {
         time = 2000
       }
       
-      console.log("Founded", storage, inputArray[10])
       if(!storage[inputArray[10]]) {
         return "$-1\r\n"
       }
       const lastLength = storage[inputArray[10]].value.length
+      // console.log("Founded", inputArray[10])
+
       setTimeout(()=>{
         const currentLength = storage[inputArray[10]].value.length
         // Error de Tiempo, Hacer algo con la funcion xadd
@@ -246,7 +247,7 @@ export const commandManager = ({conn,data}) => {
           )
 
           const res = `*1\r\n*2\r\n$${inputArray[10].length}\r\n${inputArray[10]}\r\n*${resFormat.length}\r\n${resFormat.join("")}`
-
+          console.log(res)
           conn.write(res)
         }
       },time)
