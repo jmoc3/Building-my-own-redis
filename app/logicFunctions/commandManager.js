@@ -223,7 +223,7 @@ export const commandManager = ({conn,data}) => {
       let time = +inputArray[6]
       
       if(inputArray[6]=="0"){
-        time = 3000
+        time = 5000
       }
       
       // if(!storage[inputArray[10]]) {
