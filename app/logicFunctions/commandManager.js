@@ -131,7 +131,7 @@ export const commandManager = ({conn,data}) => {
     })
     setTimeout(()=>{
       if(replicasStorage["replWithAck"]["quantity"]==0){
-        return `:${replicas.length}\r\n`
+        conn.write(`:${replicas.length}\r\n`)
       }
 
       if((replicasStorage["replWithAck"]["quantity"]==(+inputArray[4]))){
