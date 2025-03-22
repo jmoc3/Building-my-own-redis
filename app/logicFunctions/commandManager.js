@@ -232,10 +232,10 @@ export const commandManager = ({conn,data}) => {
       const lastLength = storage[inputArray[10]].value.length
       // console.log("Founded", inputArray[10])
 
+      console.log(storage)
       setTimeout(()=>{
         const currentLength = storage[inputArray[10]].value.length
         // Error de Tiempo, Hacer algo con la funcion xadd
-        console.log(storage)
         if(lastLength==currentLength){ 
           conn.write("$-1\r\n") 
           return
