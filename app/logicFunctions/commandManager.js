@@ -241,7 +241,7 @@ export const commandManager = ({conn,data}) => {
 
           const res = `*1\r\n*2\r\n$${inputArray[10].length}\r\n${inputArray[10]}\r\n*${resFormat.length}\r\n${resFormat.join("")}`
 
-          return res
+          conn.write(res)
         }
       },time)
       return
