@@ -226,9 +226,9 @@ export const commandManager = ({conn,data}) => {
         time = 2000
       }
       
+      console.log("Founded", storage)
       const lastLength = storage[inputArray[10]].value.length
       setTimeout(()=>{
-        console.log("Founded", storage)
         const currentLength = storage[inputArray[10]].value.length
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(lastLength==currentLength){ return "$-1\r\n" }
