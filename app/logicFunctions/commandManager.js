@@ -226,9 +226,9 @@ export const commandManager = ({conn,data}) => {
         time = 2000
       }
       
-      if(!storage[inputArray[10]]) {
-        return "$-1\r\n"
-      }
+      // if(!storage[inputArray[10]]) {
+      //   return "$-1\r\n"
+      // }
       const lastLength = storage[inputArray[10]].value.length
       // console.log("Founded", inputArray[10])
 
