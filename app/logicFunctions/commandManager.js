@@ -235,12 +235,11 @@ export const commandManager = ({conn,data}) => {
       setTimeout(()=>{
         const currentLength = storage[inputArray[10]].value.length
         // Error de Tiempo, Hacer algo con la funcion xadd
+        console.log(storage)
         if(lastLength==currentLength){ 
           conn.write("$-1\r\n") 
           return
         }
-        
-        console.log(storage)
         if(storage[inputArray[10]]){
           const resObject = storage[inputArray[10]].value.slice(-1)
           const resFormat = resObject.map(array => 
