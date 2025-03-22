@@ -226,7 +226,7 @@ export const commandManager = ({conn,data}) => {
         time = 2000
       }
       
-      console.log("Founded", storage)
+      console.log("Founded", storage, inputArray[10])
       const lastLength = storage[inputArray[10]].value.length
       setTimeout(()=>{
         const currentLength = storage[inputArray[10]].value.length
