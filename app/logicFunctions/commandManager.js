@@ -240,6 +240,7 @@ export const commandManager = ({conn,data}) => {
           return
         }
         
+        console.log(storage)
         if(storage[inputArray[10]]){
           const resObject = storage[inputArray[10]].value.slice(-1)
           const resFormat = resObject.map(array => 
@@ -247,7 +248,6 @@ export const commandManager = ({conn,data}) => {
           )
 
           const res = `*1\r\n*2\r\n$${inputArray[10].length}\r\n${inputArray[10]}\r\n*${resFormat.length}\r\n${resFormat.join("")}`
-          console.log(res)
           conn.write(res)
         }
       },time)
