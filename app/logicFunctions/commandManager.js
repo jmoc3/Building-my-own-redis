@@ -149,6 +149,7 @@ export const commandManager = ({conn,data}) => {
         }, (+inputArray[6]-1000))
       }
     },1000)
+    return undefined
   }
 
   const type = inputArray[2]=="type"
