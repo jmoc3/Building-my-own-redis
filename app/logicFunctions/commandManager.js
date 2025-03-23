@@ -123,34 +123,34 @@ export const commandManager = ({conn,data}) => {
   }
   
   // WAIT configuration
-  const wait = inputArray[2] == "wait"
+    const wait = inputArray[2] == "wait"
 
-  if(wait){
+    if(wait){
 
-    replicas.forEach(replica => {
-      replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
-    })
+      replicas.forEach(replica => {
+        replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
+      })
 
 
-    setTimeout(()=>{
-      if(replicasStorage["replWithAck"]["quantity"]==0){
-        conn.write(`:${replicas.length}\r\n`)
-      }
+      setTimeout(()=>{
+        if(replicasStorage["replWithAck"]["quantity"]==0){
+          conn.write(`:${replicas.length}\r\n`)
+        }
 
-      if((replicasStorage["replWithAck"]["quantity"]==(+inputArray[4]))){
-        const res = `:${(replicasStorage["replWithAck"]["quantity"])}\r\n`
-        replicasStorage["replWithAck"]["quantity"] = 0
-        conn.write(res)
-      }else{ 
-        setInterval(()=>{
+        if((replicasStorage["replWithAck"]["quantity"]==(+inputArray[4]))){
           const res = `:${(replicasStorage["replWithAck"]["quantity"])}\r\n`
           replicasStorage["replWithAck"]["quantity"] = 0
           conn.write(res)
-        }, (+inputArray[6]-1000))
-      }
-    },1000)
-    return undefined
-  }
+        }else{ 
+          setTimeout(()=>{
+            const res = `:${(replicasStorage["replWithAck"]["quantity"])}\r\n`
+            replicasStorage["replWithAck"]["quantity"] = 0
+            conn.write(res)
+          }, (+inputArray[6]-1000))
+        }
+      },1000)
+      return undefined
+    }
 
   const type = inputArray[2]=="type"
 
