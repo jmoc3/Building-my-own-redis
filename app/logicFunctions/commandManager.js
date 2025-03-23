@@ -232,8 +232,8 @@ export const commandManager = ({conn,data}) => {
       const lastLength = storage[inputArray[10]].value.length
       // console.log("Founded", inputArray[10])
 
-      const blockLogic = (storage) => ()=>{
-        console.log(storage, time)
+      const blockLogic = ()=>{
+        console.log("Ejecutando blockLogic después de", time, "ms")
         const currentLength = storage[inputArray[10]].value.length
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(lastLength==currentLength){ 
@@ -248,12 +248,11 @@ export const commandManager = ({conn,data}) => {
 
           const res = `*1\r\n*2\r\n$${inputArray[10].length}\r\n${inputArray[10]}\r\n*${resFormat.length}\r\n${resFormat.join("")}`
           conn.write(res)
-          return
         }
-        return undefined
       }
-
-      setTimeout(blockLogic(storage),time)
+      
+      setTimeout(blockLogic,time)
+      return null
     }
 
     if((inputArray.length%2)!=0){
