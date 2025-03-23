@@ -318,9 +318,9 @@ export const commandManager = ({conn,data,extra}) => {
 
   const multi = inputArray[2]=="multi"
   if(multi){
-    console.log("before: ",extra)
+    console.log("before: ",extra[0])
     extra.multi=[true,conn]
-    console.log("after",extra)
+    console.log("after",extra[0])
     return "+OK\r\n"
   }
 
