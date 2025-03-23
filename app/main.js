@@ -33,11 +33,11 @@ const clientExtras = new Map();
 const server = net.createServer((connection) => {
 
   
-      const extra = {
-        history: [],
-        multi: [false],
-        queue: []
-      }
+  const extra = {
+    history: [],
+    multi: [false],
+    queue: []
+  }
   console.log("New terminal openned")
   connection.on("data", (data)=>{
     const existFile = fs.existsSync(path)
