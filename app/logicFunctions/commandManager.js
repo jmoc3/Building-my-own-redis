@@ -130,6 +130,8 @@ export const commandManager = ({conn,data}) => {
     replicas.forEach(replica => {
       replica.write("*3\r\n$8\r\nREPLCONF\r\n$6\r\nGETACK\r\n$1\r\n*\r\n")
     })
+
+
     setTimeout(()=>{
       if(replicasStorage["replWithAck"]["quantity"]==0){
         conn.write(`:${replicas.length}\r\n`)
@@ -138,12 +140,12 @@ export const commandManager = ({conn,data}) => {
       if((replicasStorage["replWithAck"]["quantity"]==(+inputArray[4]))){
         const res = `:${(replicasStorage["replWithAck"]["quantity"])}\r\n`
         replicasStorage["replWithAck"]["quantity"] = 0
-        return res
+        conn.write(res)
       }else{ 
         setInterval(()=>{
           const res = `:${(replicasStorage["replWithAck"]["quantity"])}\r\n`
           replicasStorage["replWithAck"]["quantity"] = 0
-          return res
+          conn.write(res)
         }, (+inputArray[6]-1000))
       }
     },1000)
