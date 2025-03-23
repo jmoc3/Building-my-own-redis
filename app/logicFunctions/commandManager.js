@@ -8,7 +8,6 @@ const respConverter = (buffer) => {
     return `*${stringArray.length}\r\n${inputConverted.join("")}`
   }
 
-  // Refactorizar el codigo!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 const replicas = replicasStorage["list"]
 export const commandManager = ({conn,data}) => {
   // const input = respConverter(clientInput)
@@ -19,7 +18,7 @@ export const commandManager = ({conn,data}) => {
     if(storage['multi'][0]==false){
       return "-ERR DISCARD without MULTI\r\n"
     }
-    
+
     storage['queue'] = []
     storage['multi'][0]=false
     return "+OK\r\n"
