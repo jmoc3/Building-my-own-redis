@@ -13,7 +13,6 @@ export const commandManager = ({conn,data,extra}) => {
   // const input = respConverter(clientInput)
   const input = data.toString().toLowerCase()
   const inputArray =  input.split("\r\n")   
-  console.log(extra)
   if(inputArray[2]=="discard"){
     if(extra.multi[0]==false){
       return "-ERR DISCARD without MULTI\r\n"
