@@ -233,7 +233,7 @@ export const commandManager = ({conn,data}) => {
       // console.log("Founded", inputArray[10])
 
       const blockLogic = (storage) => ()=>{
-        console.log(res)
+        console.log(storage)
         const currentLength = storage[inputArray[10]].value.length
         // Error de Tiempo, Hacer algo con la funcion xadd
         if(lastLength==currentLength){ 
