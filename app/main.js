@@ -32,6 +32,12 @@ const clientExtras = new Map();
 
 const server = net.createServer((connection) => {
 
+  
+  const extra = {
+    history: [],
+    multi: [false],
+    queue: []
+  }
   console.log("New terminal openned")
   connection.on("data", (data)=>{
     const existFile = fs.existsSync(path)
@@ -39,16 +45,8 @@ const server = net.createServer((connection) => {
       fileReader(path)
     }
 
-    if (!clientExtras.has(connection)) {
-      clientExtras.set(connection, {
-        history: [],
-        multi: [false],
-        queue: []
-      });
-    }
-
-    const extra = clientExtras.get(connection);
     
+    console.log("out function: ", extra) 
     const res = commandManager({conn: connection, data, extra})
     if (typeof res === 'string') {
       connection.write(res)

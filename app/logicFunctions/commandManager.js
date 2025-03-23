@@ -333,7 +333,7 @@ export const commandManager = ({conn,data,extra}) => {
     extra.multi=[false,conn]
     const queue = []
     extra.queue.forEach(command =>{
-      queue.push(commandManager({conn,data:command}))
+      queue.push(commandManager({conn,data:command, extra}))
     })
     console.log(queue)
     const res = `*${queue.length}\r\n${queue.join("")}`
