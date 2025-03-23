@@ -37,11 +37,12 @@ const server = net.createServer((connection) => {
       fileReader(path)
     }
 
-    let history = []
-    let multi = [false]
-    let queue = []
-    
-    const res = commandManager({conn: connection, data, extra:{history,multi,queue}})
+    const extra = {
+      history: [],
+      multi: [false],
+      queue: []
+    }
+    const res = commandManager({conn: connection, data, extra})
     if (typeof res === 'string') {
       connection.write(res)
     }
