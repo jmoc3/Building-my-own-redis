@@ -38,7 +38,9 @@ const server = net.createServer((connection) => {
     }
     
     const res = commandManager({conn: connection, data})
-    connection.write(res)
+    if (typeof res === 'string') {
+      connection.write(res)
+    }
   })
 
 });
