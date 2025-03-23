@@ -14,6 +14,7 @@ export const commandManager = ({conn,data,extra}) => {
   const input = data.toString().toLowerCase()
   const inputArray =  input.split("\r\n")   
 
+  console.log(extra)
   if(inputArray[2]=="discard"){
     if(extra.multi[0]==false){
       return "-ERR DISCARD without MULTI\r\n"
@@ -23,7 +24,6 @@ export const commandManager = ({conn,data,extra}) => {
     extra.multi[0]=false
     return "+OK\r\n"
   }
-
   extra.history.push(inputArray[2])
   if(((extra.multi[0]==true) && (inputArray[2]!="exec")) && (extra.multi[1]==conn)){
     extra.queue.push(input)
