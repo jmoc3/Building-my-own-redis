@@ -16,8 +16,13 @@ export const commandManager = ({conn,data}) => {
   const inputArray =  input.split("\r\n")   
 
   if(inputArray[2]=="discard"){
-    console.log(inputArray)
-    return
+    if(storage['multi'][0]==false){
+      return "-ERR DISCARD without MULTI\r\n"
+    }
+    
+    storage['queue'] = []
+    storage['multi'][0]=false
+    return "+OK\r\n"
   }
 
   storage['history'].push(inputArray[2])
