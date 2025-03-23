@@ -71,13 +71,14 @@ export const commandManager = ({conn,data}) => {
   const psync = inputArray[2] == "psync"
   if(psync){
 
-    return `+FULLRESYNC ${config["info"]["replication"]["master_replid"]} ${config["info"]["replication"]["master_repl_offset"]}\r\n`
+    conn.write(`+FULLRESYNC ${config["info"]["replication"]["master_replid"]} ${config["info"]["replication"]["master_repl_offset"]}\r\n`)
     const base = "UkVESVMwMDEx+glyZWRpcy12ZXIFNy4yLjD6CnJlZGlzLWJpdHPAQPoFY3RpbWXCbQi8ZfoIdXNlZC1tZW3CsMQQAPoIYW9mLWJhc2XAAP/wbjv+wP9aog=="
     const buffer = Buffer.from(base,"base64")
     const bufferHeader = Buffer.from(`$${buffer.length}\r\n`)  
       
     replicas.push(conn)
-    return conn.write(Buffer.concat([bufferHeader,buffer]))
+    conn.write(Buffer.concat([bufferHeader,buffer]))
+    return
   }
 
   // ECHO configuration
