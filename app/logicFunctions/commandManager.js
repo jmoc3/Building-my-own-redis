@@ -9,24 +9,24 @@ const respConverter = (buffer) => {
   }
 
 const replicas = replicasStorage["list"]
-export const commandManager = ({conn,data}) => {
+export const commandManager = ({conn,data,extra}) => {
   // const input = respConverter(clientInput)
   const input = data.toString().toLowerCase()
   const inputArray =  input.split("\r\n")   
 
   if(inputArray[2]=="discard"){
-    if(storage['multi'][0]==false){
+    if(extra.multi[0]==false){
       return "-ERR DISCARD without MULTI\r\n"
     }
 
-    storage['queue'] = []
-    storage['multi'][0]=false
+    extra.queue = []
+    extra.multi[0]=false
     return "+OK\r\n"
   }
 
-  storage['history'].push(inputArray[2])
-  if(((storage['multi'][0]==true) && (inputArray[2]!="exec")) && (storage['multi'][1]==conn)){
-    storage['queue'].push(input)
+  extra.history.push(inputArray[2])
+  if(((extra.multi[0]==true) && (inputArray[2]!="exec")) && (extra.multi[1]==conn)){
+    extra.queue.push(input)
     return "+QUEUED\r\n"
   }
   
@@ -46,8 +46,8 @@ export const commandManager = ({conn,data}) => {
   // KEYS configuration
   const keys = inputArray[2] == "keys"
   if(keys){
-    const {history,queue, multi, ...restStorage} = storage
-    const keyWords = Object.keys(restStorage)
+
+    const keyWords = Object.keys(storage)
     const lenKeyWords = keyWords.map(e => e.length) 
     let res = ""
     for(let i=0;i<keyWords.length;i++){
@@ -318,30 +318,30 @@ export const commandManager = ({conn,data}) => {
 
   const multi = inputArray[2]=="multi"
   if(multi){
-    storage['multi']=[true,conn]
+    extra.multi=[true,conn]
     return "+OK\r\n"
   }
 
   const exec = inputArray[2]=="exec"
   if(exec){
-    if(storage['multi'][0]==false){
+    if(extra.multi[0]==false){
       return "-ERR EXEC without MULTI\r\n"
     }
     
-    if(storage['history'].slice(-2)[0]=="multi"){
-      storage['multi'][0]=false
+    if(extra.history.slice(-2)[0]=="multi"){
+      extra.multi[0]=false
       return "*0\r\n"
     }
 
-    storage['multi']=[false,conn]
+    extra.multi=[false,conn]
     const queue = []
-    storage['queue'].forEach(command =>{
+    extra.queue.forEach(command =>{
       queue.push(commandManager({conn,data:command}))
     })
     console.log(queue)
     const res = `*${queue.length}\r\n${queue.join("")}`
     
-    storage['queue'] = undefined
+    extra.queue = undefined
     return res
   }
 }
