@@ -44,6 +44,7 @@ const server = net.createServer((connection) => {
     if(config["dir"]!=null && existFile){
       fileReader(path)
     }
+    console.log("out function: ", extra) 
     const res = commandManager({conn: connection, data, extra})
     if (typeof res === 'string') {
       connection.write(res)
