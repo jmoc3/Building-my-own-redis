@@ -15,6 +15,11 @@ export const commandManager = ({conn,data}) => {
   const input = data.toString().toLowerCase()
   const inputArray =  input.split("\r\n")   
 
+  if(inputArray[2]=="discard"){
+    console.log(inputArray)
+    return
+  }
+
   storage['history'].push(inputArray[2])
   if(((storage['multi'][0]==true) && (inputArray[2]!="exec")) && (storage['multi'][1]==conn)){
     storage['queue'].push(input)
