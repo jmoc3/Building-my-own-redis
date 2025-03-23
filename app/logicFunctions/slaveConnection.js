@@ -5,7 +5,7 @@ import { storage } from "../storage.js"
 
 export const slaveConnect = ({host, port}) => {
   const slave = net.createConnection({ host, port }, ()=>{
-    console.log("Slave up")
+    console.log("Slave Up")
     slave.write("*1\r\n$4\r\nPING\r\n")
   })
         
