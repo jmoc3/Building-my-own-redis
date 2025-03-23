@@ -148,8 +148,8 @@ export const commandManager = ({conn,data}) => {
           conn.write(res)
         }, (+inputArray[6]-1000))
       }
+      return undefined
     },1000)
-    return undefined
   }
 
   const type = inputArray[2]=="type"
