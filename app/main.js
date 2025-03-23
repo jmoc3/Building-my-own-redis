@@ -28,19 +28,21 @@ config["dir"] = dirId == -1 ? null : process.argv[dirId + 1]
 config["dbfilename"] = dbfilenameId == -1 ? null : process.argv[dbfilenameId + 1]
 const path = `${config["dir"]}/${config["dbfilename"]}`
 
+const clientExtras = new Map();
+
 const server = net.createServer((connection) => {
 
+  
+      const extra = {
+        history: [],
+        multi: [false],
+        queue: []
+      }
   console.log("New terminal openned")
   connection.on("data", (data)=>{
     const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
       fileReader(path)
-    }
-
-    const extra = {
-      history: [],
-      multi: [false],
-      queue: []
     }
     const res = commandManager({conn: connection, data, extra})
     if (typeof res === 'string') {
