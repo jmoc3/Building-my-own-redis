@@ -22,7 +22,7 @@ export const commandManager = ({conn,data,extra}) => {
     extra.multi[0]=false
     return "+OK\r\n"
   }
-  console.log(extra==undefined)
+
   extra.history.push(inputArray[2])
   if(((extra.multi[0]==true) && (inputArray[2]!="exec")) && (extra.multi[1]==conn)){
     extra.queue.push(input)
@@ -335,7 +335,7 @@ export const commandManager = ({conn,data,extra}) => {
     extra.queue.forEach(command =>{
       queue.push(commandManager({conn,data:command, extra}))
     })
-    console.log(queue)
+
     const res = `*${queue.length}\r\n${queue.join("")}`
     
     extra.queue = undefined

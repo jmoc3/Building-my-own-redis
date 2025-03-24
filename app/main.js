@@ -32,21 +32,19 @@ const clientExtras = new Map();
 
 const server = net.createServer((connection) => {
 
-  
   const extra = {
     history: [],
     multi: [false],
     queue: []
   }
+
   console.log("New terminal openned")
   connection.on("data", (data)=>{
     const existFile = fs.existsSync(path)
     if(config["dir"]!=null && existFile){
       fileReader(path)
     }
-
-    
-    console.log("out function: ", extra) 
+     
     const res = commandManager({conn: connection, data, extra})
     if (typeof res === 'string') {
       connection.write(res)
